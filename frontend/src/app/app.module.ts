@@ -23,6 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { UserListComponent } from './components/user/user-list/user-list.component';
+import { PlanningListComponent } from './components/plannig/planning-list/planning-list.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { MatSortModule } from '@angular/material/sort';
     FooterComponent,
     HomeComponent,
     ItemsCrudComponent,
+    UserListComponent,
+    PlanningListComponent,
   ],
   imports: [
     BrowserModule,

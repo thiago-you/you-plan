@@ -9,7 +9,7 @@ export class FooterComponent implements OnInit {
 
   constructor() { }
 
-  public developer = 'Lucca Feijó';
+  public developer = 'Thiago You';
 
   ngOnInit(): void {
   }
