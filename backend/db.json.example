@@ -1,0 +1,32 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "name": "Lucca Feijó"
+        },
+        {
+            "id": 2,
+            "name": "Rogério do Ingá"
+        },
+        {
+            "id": 3,
+            "name": "Maurilio dos Anjos"
+        },
+        {
+            "id": 4,
+            "name": "Thiago You"
+        },
+        {
+            "id": 5,
+            "name": "Paulo Pereira"
+        },
+        {
+            "id": 6,
+            "name": "Rafael Valoto"
+        },
+        {
+            "id": 7,
+            "name": "Jonathan Vidal Braz"
+        }
+    ]
+}

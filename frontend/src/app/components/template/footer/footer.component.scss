@@ -1,0 +1,19 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    background-color: #393939;
+    color: #fff;
+ 
+    div.content {
+        display: flex;
+        align-items: center;
+
+        span, i {
+            font-size: 0.9rem;
+        }
+
+        i {
+            padding: 0 0.3rem;
+        }
+    }
+}

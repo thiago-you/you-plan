@@ -1,0 +1,14 @@
+div.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+    margin-bottom: 64px;
+
+    div.container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 1080px;
+    }
+}
