@@ -1,0 +1,37 @@
+.mat-card {
+    padding: 0;
+    width: 300px;
+
+    .card-header {
+        background-color: #f5f5f5;
+        color: #333;
+        border-color: #ddd;
+        padding: 10px 15px;
+        border-bottom: 1px solid #ddd;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    .card-body {
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+
+        div.empty-list {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+
+            i {
+                margin-left: 0.4rem;
+                margin-right: 0.4rem;
+            }
+        }
+    }
+}

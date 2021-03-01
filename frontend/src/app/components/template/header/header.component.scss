@@ -1,12 +1,13 @@
 .header {
-    background-color: #393939;
-    color: #fff;
-    
+    background-color: #fff;
+    color: #333;
+    height: 45px;
+
     span {
         display: flex;
         width: 100%;
         justify-content: center;
         align-items: center;
-        background-color: #393939;
+        background-color: #fff;
     }
 }
