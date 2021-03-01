@@ -1,32 +1,50 @@
 {
-    "items": [
+    "plannings": [
         {
-            "id": 1,
-            "name": "Lucca Feijó"
+            "id": "da3ab2",
+            "name": "Planning 1",
+            "items": [
+                {
+                    "id": 1,
+                    "name": "Tarefa 1",
+                    "description": "Descrição da tarefa 1",
+                    "score": "",
+                },
+                {
+                    "id": 2,
+                    "name": "Tarefa 1",
+                    "description": "Descrição da tarefa 1",
+                    "score": "",
+                },
+                {
+                    "id": 3,
+                    "name": "Tarefa 1",
+                    "description": "Descrição da tarefa 1",
+                    "score": "",
+                }
+            ]
+        }
+    ],
+    "users": [
+        {
+            "id": "5692c6d245c013d4f923a20be1f963ab",
+            "name": "Thiago",
+            "vote": ""
         },
         {
-            "id": 2,
-            "name": "Rogério do Ingá"
+            "id": "2434dcc516c08aa3c7a400ebda3bcf34",
+            "name": "Jonathan",
+            "vote": ""
         },
         {
-            "id": 3,
-            "name": "Maurilio dos Anjos"
+            "id": "b47f9bfc9451b6137bb02031b9ff9ff7",
+            "name": "Paulo",
+            "vote": ""
         },
         {
-            "id": 4,
-            "name": "Thiago You"
-        },
-        {
-            "id": 5,
-            "name": "Paulo Pereira"
-        },
-        {
-            "id": 6,
-            "name": "Rafael Valoto"
-        },
-        {
-            "id": 7,
-            "name": "Jonathan Vidal Braz"
+            "id": "09f5ad0f7940a9ada27c4478f4074f56",
+            "name": "Valoto",
+            "vote": ""
         }
     ]
 }
