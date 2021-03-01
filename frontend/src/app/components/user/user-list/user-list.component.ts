@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from './../user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -9,9 +11,21 @@ export class UserListComponent implements OnInit {
 
   users = [];
 
-  constructor() { }
+  constructor(private userService: UserService, private snackBar: MatSnackBar) { 
 
-  ngOnInit(): void {
   }
 
+  ngOnInit(): void {
+    this.getUsers();
+  }
+
+  getUsers() {
+    this.userService.getAll().subscribe(users => {
+      this.users = users;
+
+      setTimeout(() => {
+        this.getUsers();  
+      }, 2000);
+    });
+  }
 }

@@ -6,7 +6,17 @@
     </div>
     <div class="card-body">
         <ng-container *ngIf="users && users.length > 0; else emptyList">
-            
+            <div class="list">
+                <ul>
+                    <li *ngFor="let user of users" [className]="user.vote.length > 0 ? 'voted' : ''">
+                        {{user.name}}
+
+                        <ng-container *ngIf="user.admin">
+                            <span class="admin"></span>
+                        </ng-container>
+                    </li>
+                </ul>
+            </div>
         </ng-container>
         <ng-template #emptyList>
             <div class="empty-list">
