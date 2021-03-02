@@ -22,33 +22,55 @@
                     "description": "Descrição da tarefa 1",
                     "score": ""
                 }
+            ],
+            "users": [
+                {
+                    "id": 1,
+                    "name": "Thiago",
+                    "admin": true,
+                    "vote": ""
+                },
+                {
+                    "id": 2,
+                    "name": "Jonathan",
+                    "admin": true,
+                    "vote": ""
+                },
+                {
+                    "id": 3,
+                    "name": "Paulo",
+                    "admin": false,
+                    "vote": ""
+                },
+                {
+                    "id": 4,
+                    "name": "Valoto",
+                    "admin": false,
+                    "vote": ""
+                }
             ]
         }
     ],
     "users": [
         {
-            "id": "5692c6d245c013d4f923a20be1f963ab",
+            "id": 1,
             "name": "Thiago",
-            "admin": true,
-            "vote": ""
+            "admin": true
         },
         {
-            "id": "2434dcc516c08aa3c7a400ebda3bcf34",
+            "id": 2,
             "name": "Jonathan",
-            "admin": true,
-            "vote": ""
+            "admin": true
         },
         {
-            "id": "b47f9bfc9451b6137bb02031b9ff9ff7",
+            "id": 3,
             "name": "Paulo",
-            "admin": false,
-            "vote": ""
+            "admin": false
         },
         {
-            "id": "09f5ad0f7940a9ada27c4478f4074f56",
+            "id": 4,
             "name": "Valoto",
-            "admin": false,
-            "vote": ""
+            "admin": false
         }
     ]
 }
