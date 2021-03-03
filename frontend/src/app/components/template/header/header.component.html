@@ -2,4 +2,26 @@
     <div class="title">
         You<span class="text-blue">Plan</span>
     </div>
+    <div class="user">
+        <ng-container *ngIf="user.id && user.id > 0; else loginForm">
+            <div>
+                <span class="username">
+                    {{user.name}}
+                </span>
+            </div>
+            <div>
+                <button mat-raised-button (click)="logout()">Logout</button>
+            </div>
+        </ng-container>
+        <ng-template #loginForm>
+            <div>
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="Seu nome..." name="name" [(ngModel)]="user.name">
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" (click)="login()">Login</button>
+            </div>
+        </ng-template>
+    </div>
 </mat-toolbar>

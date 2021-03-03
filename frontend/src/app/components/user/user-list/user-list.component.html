@@ -9,8 +9,9 @@
             <div class="list">
                 <ul>
                     <li *ngFor="let user of users" [className]="user.vote?.length > 0 ? 'voted' : ''">
-                        {{user.name}}
-
+                        <span class="username">
+                            {{user.name}}
+                        </span>
                         <ng-container *ngIf="user.admin">
                             <span class="admin"></span>
                         </ng-container>

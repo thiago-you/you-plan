@@ -31,6 +31,16 @@
                 li {
                     padding: 8px 5px;
 
+                    span.username {
+                        text-transform: capitalize;
+                    }
+
+                    span.username::before {
+                        content: "👤";
+                        font-size: 14px;
+                        padding-right: 0.2rem;
+                    }
+
                     span.admin::after {
                         padding-left: 10px;
                         content: "👑";

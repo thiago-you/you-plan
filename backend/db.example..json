@@ -26,25 +26,25 @@
             "users": [
                 {
                     "id": 1,
-                    "name": "Thiago",
+                    "name": "thiago",
                     "admin": true,
                     "vote": ""
                 },
                 {
                     "id": 2,
-                    "name": "Jonathan",
+                    "name": "jonathan",
                     "admin": true,
                     "vote": ""
                 },
                 {
                     "id": 3,
-                    "name": "Paulo",
+                    "name": "paulo",
                     "admin": false,
                     "vote": ""
                 },
                 {
                     "id": 4,
-                    "name": "Valoto",
+                    "name": "valoto",
                     "admin": false,
                     "vote": ""
                 }
@@ -54,22 +54,22 @@
     "users": [
         {
             "id": 1,
-            "name": "Thiago",
+            "name": "thiago",
             "admin": true
         },
         {
             "id": 2,
-            "name": "Jonathan",
+            "name": "jonathan",
             "admin": true
         },
         {
             "id": 3,
-            "name": "Paulo",
+            "name": "paulo",
             "admin": false
         },
         {
             "id": 4,
-            "name": "Valoto",
+            "name": "valoto",
             "admin": false
         }
     ]

@@ -31,4 +31,8 @@ export class UserService {
   delete(id: Number): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
   }
+
+  find(name: String): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.baseUrl}?name=${name}`);
+  }
 }
