@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../user/user';
 import { Planning } from './planning';
 
 @Injectable({
@@ -21,7 +22,7 @@ export class PlanningService {
   }
 
   get(id: string): Observable<Planning> {
-    return this.httpClient.get<Planning>(`${this.baseUrl}/${id}`);
+    return this.httpClient.get<Planning>(`${this.baseUrl}/${id}?embed`);
   }
   
   update(planning: Planning): Observable<Planning> {
@@ -30,5 +31,9 @@ export class PlanningService {
   
   delete(id: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  insertUser(id: String, user: User): Observable<void> {
+    return this.httpClient.post<void>(`${this.baseUrl}/${id}?_embed=users`, user);
   }
 }

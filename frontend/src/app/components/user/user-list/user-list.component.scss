@@ -66,5 +66,12 @@
                 margin-right: 0.4rem;
             }
         }
+
+        div.add-user {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 1rem;
+        }
     }
 }

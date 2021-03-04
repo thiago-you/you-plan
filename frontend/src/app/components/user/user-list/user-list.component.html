@@ -27,5 +27,19 @@
                 Nenhum usuário
             </div>
         </ng-template>
+        <div class="add-user">
+            <ng-container *ngIf="user.id > 0">
+                <ng-container *ngIf="!hasUser(); else exit">
+                    <button mat-raised-button color="primary" (click)="insertUser()">
+                        Participar
+                    </button>
+                </ng-container>
+                <ng-template #exit>
+                    <button mat-raised-button color="danger" (click)="exitUser()">
+                        Sair
+                    </button>
+                </ng-template>
+            </ng-container>
+        </div>
     </div>
 </mat-card>
