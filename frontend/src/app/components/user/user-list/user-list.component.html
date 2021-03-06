@@ -8,12 +8,18 @@
         <ng-container *ngIf="users && users.length > 0; else emptyList">
             <div class="list">
                 <ul>
-                    <li *ngFor="let user of users" [className]="user.vote?.length > 0 ? 'voted' : ''">
+                    <li *ngFor="let _user of users" [className]="_user.vote?.length > 0 ? 'voted' : ''">
                         <span class="username">
-                            {{user.name}}
+                            {{_user.name}}
+                            
+                            <ng-container *ngIf="_user.admin">
+                                <span class="admin"></span>
+                            </ng-container>
                         </span>
-                        <ng-container *ngIf="user.admin">
-                            <span class="admin"></span>
+                        <ng-container *ngIf="user.id > 0 && user.admin && user.id != _user.id">
+                            <i class="material-icons red-light" (click)="removeUser(_user)">
+                                delete
+                            </i>
                         </ng-container>
                     </li>
                 </ul>
@@ -35,7 +41,7 @@
                     </button>
                 </ng-container>
                 <ng-template #exit>
-                    <button mat-raised-button color="danger" (click)="exitUser()">
+                    <button mat-raised-button color="danger" (click)="removeUser(user)">
                         Sair
                     </button>
                 </ng-template>

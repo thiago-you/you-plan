@@ -29,6 +29,8 @@
                 padding-right: 15px;
 
                 li {
+                    display: flex;
+                    justify-content: space-between;
                     padding: 8px 5px;
 
                     span.username {
@@ -44,6 +46,10 @@
                     span.admin::after {
                         padding-left: 10px;
                         content: "👑";
+                    }
+
+                    i {
+                        cursor: pointer;
                     }
                 }
 

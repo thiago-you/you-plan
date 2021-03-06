@@ -63,17 +63,30 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  exitUser() {
+  removeUser(user: User) {
     this.users = this.users.filter(user => user.id != this.user.id);
     this.planning.users = this.users;
 
-    this.planningService.update(this.planning);
+    this.planningService.update(this.planning).subscribe(planning => {
+      this.planning = planning;
+      this.users = planning.users || [];
+
+      if (this.user.id == user.id) {
+        this.user.admin = false;
+      }
+    });
   }
 
   private getPlanning() {
     this.planningService.get(this.plannigId).subscribe(planning => {
       this.planning = planning;
       this.users = planning.users || [];
+
+      this.users.forEach(user => {
+        if (this.user.id == user.id) {
+          this.user.admin = user.admin;
+        }
+      });
 
       setTimeout(() => {
         this.getPlanning();  
