@@ -37,7 +37,7 @@ export class UserListComponent implements OnInit {
       this.plannigId = params['id'];
       
       if (this.plannigId && this.plannigId.trim().length > 0) {
-        this.getPlanning();
+        this.getUsers();
       }
     });
   }
@@ -56,31 +56,42 @@ export class UserListComponent implements OnInit {
     this.validateAdmin();
 
     this.users.push(this.user);
-    this.planning.users = this.users;
-
-    this.planningService.update(this.planning).subscribe(() => {
+  
+    this.planningService.createUser(this.plannigId, this.user).subscribe(() => {
       this.showMessage("Você esta participando da planning!");
     });
   }
 
   removeUser(user: User) {
     this.users = this.users.filter(user => user.id != this.user.id);
-    this.planning.users = this.users;
-
-    this.planningService.update(this.planning).subscribe(planning => {
-      this.planning = planning;
-      this.users = planning.users || [];
-
+    
+    this.planningService.deleteUser(user.id).subscribe(() => {
       if (this.user.id == user.id) {
         this.user.admin = false;
       }
     });
   }
 
-  private getPlanning() {
-    this.planningService.get(this.plannigId).subscribe(planning => {
-      this.planning = planning;
-      this.users = planning.users || [];
+  // private getPlanning() {
+  //   this.planningService.get(this.plannigId).subscribe(planning => {
+  //     this.planning = planning;
+  //     this.users = planning.users || [];
+
+  //     this.users.forEach(user => {
+  //       if (this.user.id == user.id) {
+  //         this.user.admin = user.admin;
+  //       }
+  //     });
+
+  //     setTimeout(() => {
+  //       this.getPlanning();  
+  //     }, 2000);
+  //   });
+  // }
+
+  private getUsers() {
+    this.planningService.getUsers(this.plannigId).subscribe(users => {
+      this.users = users || [];
 
       this.users.forEach(user => {
         if (this.user.id == user.id) {
@@ -89,7 +100,7 @@ export class UserListComponent implements OnInit {
       });
 
       setTimeout(() => {
-        this.getPlanning();  
+        this.getUsers();  
       }, 2000);
     });
   }

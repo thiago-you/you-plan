@@ -51,26 +51,52 @@
             ]
         }
     ],
-    "users": [
+    "plannings_users": [
         {
             "id": 1,
+            "planning": "da3ab2",
             "name": "thiago",
-            "admin": true
+            "admin": true,
+            "vote": ""
         },
         {
             "id": 2,
+            "planning": "da3ab2",
             "name": "jonathan",
-            "admin": true
+            "admin": true,
+            "vote": ""
         },
         {
             "id": 3,
+            "planning": "da3ab2",
             "name": "paulo",
-            "admin": false
+            "admin": false,
+            "vote": ""
         },
         {
             "id": 4,
+            "planning": "da3ab2",
             "name": "valoto",
-            "admin": false
+            "admin": false,
+            "vote": ""
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "name": "thiago"
+        },
+        {
+            "id": 2,
+            "name": "jonathan"
+        },
+        {
+            "id": 3,
+            "name": "paulo"
+        },
+        {
+            "id": 4,
+            "name": "valoto"
         }
     ]
 }

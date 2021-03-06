@@ -33,7 +33,17 @@ export class PlanningService {
     return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
   }
 
-  insertUser(id: String, user: User): Observable<void> {
-    return this.httpClient.post<void>(`${this.baseUrl}/${id}?_embed=users`, user);
+  getUsers(id: string): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.baseUrl}-users?planning=${id}`);
+  }
+
+  createUser(id: string, user: User): Observable<void> {
+    user.planning = id;
+
+    return this.httpClient.post<void>(`${this.baseUrl}-users`, user);
+  }
+
+  deleteUser(id: Number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}-users/${id}`);
   }
 }
