@@ -29,6 +29,14 @@ export class UserListComponent implements OnInit {
 
     this.userStorage.value.subscribe(user => {
       this.user = user;  
+      
+      if (this.plannigId == this.user.planning && this.users.length > 0) {
+        this.users.forEach(user => {
+          if (this.user.id == user.id) {
+            user.vote = this.user.vote;
+          }
+        })
+      }
     });
   }
 
@@ -65,6 +73,11 @@ export class UserListComponent implements OnInit {
   removeUser(user: User) {
     this.users = this.users.filter(_user => _user.id != user.id);
     
+    if (user.id == this.user.id) {
+      this.user.planning = '';
+      this.userStorage.user = this.user;
+    }
+
     this.planningService.deleteUser(user.id).subscribe(() => {
       if (this.user.id == user.id) {
         this.user.admin = false;
@@ -96,8 +109,14 @@ export class UserListComponent implements OnInit {
       this.users.forEach(user => {
         if (this.user.id == user.id) {
           this.user.admin = user.admin;
+          this.userStorage.user = this.user;
         }
       });
+
+      if (this.users.filter(user => user.id == this.user.id).length == 0) {
+        this.user.planning = '';
+        this.userStorage.user = this.user;
+      }
 
       setTimeout(() => {
         this.getUsers();  

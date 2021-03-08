@@ -43,6 +43,10 @@ export class PlanningService {
     return this.httpClient.post<void>(`${this.baseUrl}-users`, user);
   }
 
+  updateUser(user: User): Observable<User> {
+    return this.httpClient.put<User>(`${this.baseUrl}-users/${user.id}`, user);
+  }
+
   deleteUser(id: Number): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}-users/${id}`);
   }

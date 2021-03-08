@@ -6,20 +6,20 @@
     </div>
     <div class="card-body votes">
         <div class="row">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="0" value="0">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="1" value="1">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="2" value="2">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="3" value="3">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="5" value="5">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="8" value="8">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '0'" data-point="0" value="0" (click)="setVote('0')">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '1'" data-point="1" value="1" (click)="setVote('1')">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '2'" data-point="2" value="2" (click)="setVote('2')">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '3'" data-point="3" value="3" (click)="setVote('3')">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '5'" data-point="5" value="5" (click)="setVote('5')">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '8'" data-point="8" value="8" (click)="setVote('8')">
         </div>
         <div class="row">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="13" value="13">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="21" value="21">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="40" value="40">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="100" value="100">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="?" value="?">
-            <input type="button" class="btn btn-default btn-lg  false" data-point="coffee" value="☕">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '13'" data-point="13" value="13" (click)="setVote('13')">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '21'" data-point="21" value="21" (click)="setVote('21')">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '40'" data-point="40" value="40" (click)="setVote('40')">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '100'" data-point="100" value="100" (click)="setVote('100')">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == '?'" data-point="?" value="?" (click)="setVote('?')">
+            <input type="button" class="btn btn-default btn-lg" [class.active]="vote == 'coffee'" data-point="coffee" value="☕" (click)="setVote('coffee')">
         </div>
     </div>
 </mat-card>
