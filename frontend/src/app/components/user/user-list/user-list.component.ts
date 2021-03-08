@@ -63,7 +63,7 @@ export class UserListComponent implements OnInit {
   }
 
   removeUser(user: User) {
-    this.users = this.users.filter(user => user.id != this.user.id);
+    this.users = this.users.filter(_user => _user.id != user.id);
     
     this.planningService.deleteUser(user.id).subscribe(() => {
       if (this.user.id == user.id) {
