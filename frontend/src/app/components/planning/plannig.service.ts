@@ -50,4 +50,12 @@ export class PlanningService {
   deleteUser(id: Number): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}-users/${id}`);
   }
+
+  getAction(id: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}-actions?planning=${id}`);
+  }
+
+  setAction(action: any): Observable<void> {
+    return this.httpClient.put<void>(`${this.baseUrl}-actions/${action.id}`, action);
+  }
 }

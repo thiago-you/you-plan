@@ -51,7 +51,14 @@
             ]
         }
     ],
-    "plannings_users": [
+    "plannings-actions": [
+        {
+            "id": 1,
+            "planning": "da3ab2",
+            "value": ""
+        }
+    ],
+    "plannings-users": [
         {
             "id": 1,
             "planning": "da3ab2",

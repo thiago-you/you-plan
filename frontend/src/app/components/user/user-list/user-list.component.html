@@ -49,3 +49,41 @@
         </div>
     </div>
 </mat-card>
+
+<mat-card class="card mat-elevation-z4">
+    <div class="card-header">
+        <p>
+            Action
+        </p>    
+    </div>
+    <div class="card-body">
+        <ng-container *ngIf="!action.value || action.value == ''; else flipList">
+            <div class="action-button">
+                <button mat-raised-button color="primary" (click)="setAction('flip')">
+                    FLIP
+                </button>
+            </div>
+        </ng-container>
+        <ng-template #flipList>
+            <div class="votes-list">
+                <div class="votes">
+                    <ul>
+                        <ng-container *ngFor="let item of votes;">
+                            <li class="selectv-vote" (click)="selectVote(item.vote)">
+                                {{item.name}} => {{item.count}}
+                            </li>
+                        </ng-container>
+                    </ul>
+                </div>
+                <div class="action">
+                    <span>
+                        Skip
+                    </span>
+                    <span (click)="setAction('')">
+                        Invert Flip
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</mat-card>

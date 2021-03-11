@@ -1,6 +1,7 @@
 .mat-card {
     padding: 0;
     width: 300px;
+    margin-bottom: 3rem;
 
     .card-header {
         background-color: #f5f5f5;
@@ -18,7 +19,7 @@
     }
 
     .card-body {
-        min-height: 200px;
+        min-height: 50px;
         display: flex;
         flex-direction: column;
 
@@ -64,6 +65,8 @@
         div.empty-list {
             display: flex;
             flex: 1;
+            padding: 3rem 1rem;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
 
@@ -73,11 +76,47 @@
             }
         }
 
+        div.action-button {
+            display: flex;
+            padding: 1rem;
+
+            button {
+                flex: 1;
+                min-height: 60px;
+            }
+        }
+
+        div.votes-list {
+            div.votes {
+                ul {
+                    list-style: none;
+                }
+            }
+
+            div.action {
+                display: flex;
+                justify-content: space-around;
+                padding: 1rem;
+
+                span {
+                    cursor: pointer;
+                }
+
+                span:hover {
+                    color: #1a33c2;
+                }
+            }
+        }
+
         div.add-user {
             display: flex;
             justify-content: space-around;
             align-items: center;
             margin: 1rem;
+        }
+
+        button.mat-primary:hover {
+            background-color: #4e69ff;
         }
     }
 }
