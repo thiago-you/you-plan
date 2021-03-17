@@ -30,45 +30,50 @@
             Estories
         </p>    
     </div>
-    <!-- <ng-container *ngIf="items && items.length > 0; else emptyList">
-        <div class="table-container">
-            <table mat-table [dataSource]="items">
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>ID</th>
-                <td mat-cell *matCellDef="let row">{{row.id}}</td>
-              </ng-container>
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef>Nome</th>
-                <td mat-cell *matCellDef="let row">{{row.name}}</td>
-              </ng-container>    
-              <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef class="text-center">Ações</th>
-                <td mat-cell *matCellDef="let row" class="text-center">
-                    <a (click)="setItemToUpdate(row.id)" title="Alterar">
-                        <i class="material-icons yellow">
-                            edit
-                        </i>
-                    </a>
-                    <a (click)="deleteItem(row.id)" title="Deletar">
-                        <i class="material-icons red-light">
-                            delete
-                        </i>
-                    </a>
-                </td>
-              </ng-container>    
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-        </div>
-    </ng-container>
-    <ng-template #emptyList>
-        <div class="empty-list">
-            <p>
-                <i class="material-icons">
-                    warning
-                </i>
-                Nenhum registro adicionado
-            </p>
-        </div>
-    </ng-template> -->
+    <div class="card-body">
+        <ng-container *ngIf="items && items.length > 0; else emptyList">
+            <div class="estories">
+                <mat-tab-group>
+                    <mat-tab label="Pendentes"> 
+                        <ul *ngIf="items && items.length > 0">
+                            <ng-container *ngFor="let item of items;">
+                                <li class="estorie-item" *ngIf="item.score == ''">
+                                    <span class="name">
+                                        {{item.name}}
+                                    </span>
+                                    <p class="desc">
+                                        {{item.description}}
+                                    </p>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </mat-tab>
+                    <mat-tab label="Concluídas">
+                        <ul *ngIf="items && items.length > 0">
+                            <ng-container *ngFor="let item of items;">
+                                <li class="estorie-item" *ngIf="item.score != ''">
+                                    <span class="name">
+                                        {{item.name}}
+                                    </span>
+                                    <p class="desc">
+                                        {{item.description}}
+                                    </p>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </mat-tab>
+                </mat-tab-group>                 
+            </div>
+        </ng-container>
+        <ng-template #emptyList>
+            <div class="empty-list">
+                <p>
+                    <i class="material-icons">
+                        warning
+                    </i>
+                    Nenhum item adicionado
+                </p>
+            </div>
+        </ng-template>
+    </div>
 </mat-card>

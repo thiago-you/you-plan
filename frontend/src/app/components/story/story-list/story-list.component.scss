@@ -51,44 +51,58 @@
         }
     }
 
-    // .card-body {
-    //     min-height: 100px;
-    //     display: flex;
-    //     flex-direction: column;
+    .card-body {
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
 
-    //     div.list {
-    //         ul {
-    //             list-style-type: none;
-    //             padding-left: 15px;
-    //             padding-right: 15px;
+        div.estories {
+            ul {
+                list-style-type: none;
+                height: 300px;
+                color: #333;
+                text-indent: 0.5rem;
+                padding-left: 15px;
+                padding-right: 15px;
 
-    //             li {
-    //                 padding: 8px 5px;
+                li {
+                    padding: 8px 5px;
 
-    //                 span.admin::after {
-    //                     padding-left: 10px;
-    //                     content: "👑";
-    //                 }
-    //             }
+                    p.desc {
+                        font-size: 0.8rem;
+                        color: #666;
+                        padding-right: 10px;    
+                    }
+                }
 
-    //             li.voted {
-    //                 transition: all 0s linear;
-    //                 opacity: 1;
-    //                 border-left: 4px solid #5bc0de;
-    //             }
-    //         }
-    //     }
+                li:first-child::before {
+                    content: "\25BA";
+                    font-weight: bolder;
+                    font-size: 12px;
+                    margin-right: 10px;
+                    line-height: 0em;
+                }
+                
+                li:not(:first-child)::before {
+                    content: "•";
+                    font-weight: bold;
+                    font-size: 20px;
+                    line-height: 0em;
+                    margin-right: 10px;
+                }
+            }
+        }
 
-    //     div.empty-list {
-    //         display: flex;
-    //         flex: 1;
-    //         justify-content: center;
-    //         align-items: center;
+        div.empty-list {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
 
-    //         i {
-    //             margin-left: 0.4rem;
-    //             margin-right: 0.4rem;
-    //         }
-    //     }
-    // }
+            i {
+                margin-left: 0.4rem;
+                margin-right: 0.4rem;
+            }
+        }
+    }
 }

@@ -14,6 +14,8 @@ export class StoryListComponent implements OnInit {
   vote: string = ""
   user: User;
 
+  items: any = [];
+
   private plannigId: string;
 
   constructor(
@@ -32,6 +34,10 @@ export class StoryListComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.plannigId = params['id'];
+
+      if (this.plannigId && this.plannigId.trim().length > 0) {
+        this.getItems();
+      }
     });
   }
 
@@ -44,5 +50,15 @@ export class StoryListComponent implements OnInit {
   
       this.planningService.updateUser(this.user).subscribe();
     }
+  }
+
+  private getItems() {
+    this.planningService.getItems(this.plannigId).subscribe(items => {
+      this.items = items || [];
+
+      setTimeout(() => {
+        this.getItems();  
+      }, 10000);
+    });
   }
 }

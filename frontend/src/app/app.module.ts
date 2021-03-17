@@ -17,12 +17,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
-
-import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTabsModule } from '@angular/material/tabs'; 
+import { FormsModule } from '@angular/forms';
+
+import { HttpClientModule } from '@angular/common/http';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { StoryListComponent } from './components/story/story-list/story-list.component';
 
@@ -47,11 +48,12 @@ import { StoryListComponent } from './components/story/story-list/story-list.com
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule,
-    HttpClientModule,
+    MatTabsModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
