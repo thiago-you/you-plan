@@ -15,6 +15,7 @@ export class StoryListComponent implements OnInit {
   user: User;
 
   items: any = [];
+  estorie: any = [];
 
   private plannigId: string;
 

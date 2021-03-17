@@ -5,7 +5,6 @@
     .card-header {
         background-color: #f5f5f5;
         color: #333;
-        border-color: #ddd;
         padding: 10px 15px;
         border-bottom: 1px solid #ddd;
         border-top-left-radius: 3px;
@@ -64,6 +63,7 @@
                 text-indent: 0.5rem;
                 padding-left: 15px;
                 padding-right: 15px;
+                overflow-y: auto;
 
                 li {
                     padding: 8px 5px;
@@ -102,6 +102,43 @@
             i {
                 margin-left: 0.4rem;
                 margin-right: 0.4rem;
+            }
+        }
+    }
+
+    div.card-footer {
+        padding: 1rem;
+        background-color: #f5f5f5;
+        color: #333;
+        padding: 10px 15px;
+        border-top: 1px solid #ddd;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+
+        form {
+            display: flex;
+            flex-direction: column;
+
+            form {
+                .mat-form-field {
+                    margin: 0 2rem;
+                }
+            }
+        }
+        div {
+            display: flex;
+            align-items: end;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+
+            button {
+                width: 150px;
+                font-size: 0.9rem;
+                line-height: 30px;
+            }
+            
+            button:first-child {
+                margin-right: 3rem;
             }
         }
     }
