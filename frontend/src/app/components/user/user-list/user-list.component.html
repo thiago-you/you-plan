@@ -69,8 +69,16 @@
                 <div class="votes">
                     <ul>
                         <ng-container *ngFor="let item of votes;">
-                            <li class="selectv-vote" (click)="selectVote(item.vote)">
-                                {{item.name}} => {{item.count}}
+                            <li class="select-vote" (click)="selectVote(item.vote)">
+                                <span class="label">
+                                    {{item.name}}
+                                </span>
+                                <progress id="file" value="{{item.count}}" max="{{votesCount}}">
+                                    50% 
+                                </progress>
+                                <span class="result">
+                                    {{ ((item.count / votesCount) * 100) | number : '1.1' }}% ({{item.count}})
+                                </span>
                             </li>
                         </ng-container>
                     </ul>

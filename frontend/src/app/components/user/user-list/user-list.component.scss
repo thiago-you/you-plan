@@ -90,6 +90,38 @@
             div.votes {
                 ul {
                     list-style: none;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+
+                    li.select-vote {
+                        display: flex;
+                        padding-top: 0.4rem;
+                        padding-bottom: 0.4rem;
+                        cursor: pointer;
+
+                        span.label {
+                            display: inline-block;
+                            min-width: 1.5rem;
+                            text-align: center;
+                        }
+
+                        span.result {
+                            font-size: 0.8rem;
+                            display: inline-block;
+                            padding-left: 0.75rem;
+                            text-align: center;
+                        }
+
+                        progress {
+                            flex: 1;
+                        }
+                    }
+
+                    li.select-vote:hover {
+                        progress {
+                            opacity: 0.6;
+                        }
+                    }
                 }
             }
 

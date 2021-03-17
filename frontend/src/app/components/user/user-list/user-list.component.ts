@@ -18,6 +18,7 @@ export class UserListComponent implements OnInit {
 
   action: any = {};
   votes: any = [];
+  votesCount = 0;
 
   private planning: Planning;
   private plannigId: string;
@@ -150,7 +151,7 @@ export class UserListComponent implements OnInit {
     this.votes = [];
 
     if (this.action.value == 'flip') {
-      let count = 0;
+      this.votesCount = 0;
 
       this.votes = [
         {
@@ -217,15 +218,17 @@ export class UserListComponent implements OnInit {
 
       this.users.forEach(user => {
         if (user.vote && user.vote != '') {
-          this.votes.forEach(item => {
+
+          this.votes.forEach((item: any) => {
             if (item.vote == user.vote) {
               item.count += 1;
+              this.votesCount += 1;
             }
           });
         }
       });
 
-      this.votes = this.votes.filter(item => item.count > 0);
+      this.votes = this.votes.filter((item: any) => item.count > 0);
     }
   }
 
