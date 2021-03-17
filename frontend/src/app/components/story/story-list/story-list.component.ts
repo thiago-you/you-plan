@@ -53,6 +53,14 @@ export class StoryListComponent implements OnInit {
     }
   }
 
+  saveItem() {
+    
+  }
+
+  resetItem() {
+    
+  }
+
   private getItems() {
     this.planningService.getItems(this.plannigId).subscribe(items => {
       this.items = items || [];
