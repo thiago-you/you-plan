@@ -88,6 +88,29 @@
             "vote": ""
         }
     ],
+    "plannings-items": [
+        {
+            "id": 1,
+            "planning": "da3ab2",
+            "name": "Tarefa 1",
+            "description": "Descrição da tarefa 1",
+            "score": ""
+        },
+        {
+            "id": 2,
+            "planning": "da3ab2",
+            "name": "Tarefa 2",
+            "description": "Descrição da tarefa 2",
+            "score": ""
+        },
+        {
+            "id": 3,
+            "planning": "da3ab2",
+            "name": "Tarefa 3",
+            "description": "Descrição da tarefa 3",
+            "score": ""
+        }
+    ],
     "users": [
         {
             "id": 1,
