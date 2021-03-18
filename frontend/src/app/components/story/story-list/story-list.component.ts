@@ -1,3 +1,4 @@
+import { PlanningItem } from './../../planning/planningItem';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from './../../planning/plannig.service';
@@ -17,7 +18,7 @@ export class StoryListComponent implements OnInit {
 
   items: any = [];
 
-  estorie: any = {
+  estorie: PlanningItem = {
     id: null,
     planning: "",
     name: "",

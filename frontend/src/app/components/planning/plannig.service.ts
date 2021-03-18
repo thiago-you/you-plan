@@ -1,3 +1,4 @@
+import { PlanningItem } from './planningItem';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -59,17 +60,17 @@ export class PlanningService {
     return this.httpClient.put<void>(`${this.baseUrl}-actions/${action.id}`, action);
   }
 
-  getItems(id: string): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrl}-items?planning=${id}`);
+  getItems(id: string): Observable<PlanningItem> {
+    return this.httpClient.get<PlanningItem>(`${this.baseUrl}-items?planning=${id}`);
   }
 
-  createItem(id: string, item: any): Observable<void> {
+  createItem(id: string, item: PlanningItem): Observable<void> {
     item.planning = id;
 
     return this.httpClient.post<void>(`${this.baseUrl}-items`, item);
   }
 
-  updateItem(item: any): Observable<void> {
+  updateItem(item: PlanningItem): Observable<void> {
     return this.httpClient.put<void>(`${this.baseUrl}-items/${item.id}`, item);
   }
 }
