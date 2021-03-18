@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from './../../planning/plannig.service';
 import { UserStorage } from './../../user/user.storage';
@@ -15,7 +16,14 @@ export class StoryListComponent implements OnInit {
   user: User;
 
   items: any = [];
-  estorie: any = [];
+
+  estorie: any = {
+    id: null,
+    planning: "",
+    name: "",
+    description: "",
+    score: "",
+  };
 
   private plannigId: string;
 
@@ -23,6 +31,7 @@ export class StoryListComponent implements OnInit {
     private userStorage: UserStorage, 
     private planningService: PlanningService, 
     private route: ActivatedRoute, 
+    private snackBar: MatSnackBar,
   ) {
     this.user = this.userStorage.user;
 
@@ -54,11 +63,37 @@ export class StoryListComponent implements OnInit {
   }
 
   saveItem() {
-    
+    if (this.plannigId && this.plannigId.trim().length > 0) {
+      if (this.estorie.name == null || this.estorie.name.trim().length == 0) {
+        this.showMessage('O nome do estorie é obrigatório!', 'danger');
+      } else {
+        if (this.estorie.id != null && this.estorie.id > 0) {
+          this.planningService.updateItem(this.estorie).subscribe(() => {
+            this.resetItem();
+            this.getItems();
+
+            this.showMessage('Estorie alterado com sucesso!');
+          });
+        } else {
+          this.planningService.createItem(this.plannigId, this.estorie).subscribe(() => {
+            this.resetItem();
+            this.getItems();
+
+            this.showMessage('Estorie cadastrada com sucesso!');
+          });
+        }
+      }
+    }
   }
 
   resetItem() {
-    
+    this.estorie = {
+      id: null,
+      planning: "",
+      name: "",
+      description: "",
+      score: "",
+    };
   }
 
   private getItems() {
@@ -68,6 +103,21 @@ export class StoryListComponent implements OnInit {
       setTimeout(() => {
         this.getItems();  
       }, 10000);
+    });
+  }
+
+  private showMessage(msg: string, type: string = 'success'): void {
+    let panelClass = 'blue-snackbar';
+    
+    if (type == 'danger' || type == 'red') {
+      panelClass = 'red-snackbar';
+    }
+
+    this.snackBar.open(msg, '', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: [ panelClass ]
     });
   }
 }

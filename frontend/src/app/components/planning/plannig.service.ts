@@ -62,4 +62,14 @@ export class PlanningService {
   getItems(id: string): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}-items?planning=${id}`);
   }
+
+  createItem(id: string, item: any): Observable<void> {
+    item.planning = id;
+
+    return this.httpClient.post<void>(`${this.baseUrl}-items`, item);
+  }
+
+  updateItem(item: any): Observable<void> {
+    return this.httpClient.put<void>(`${this.baseUrl}-items/${item.id}`, item);
+  }
 }
