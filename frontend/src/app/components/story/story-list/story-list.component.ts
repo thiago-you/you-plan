@@ -87,6 +87,23 @@ export class StoryListComponent implements OnInit {
     }
   }
 
+  editItem(item: PlanningItem) {
+    this.estorie = {
+      id: item.id,
+      planning: item.planning,
+      name: item.name,
+      description: item.description,
+      score: item.score,
+    };
+  }
+
+  removeItem(item: PlanningItem) {
+    this.items = this.items.filter((_item: PlanningItem) => _item.id != item.id);
+    this.planningService.deleteItem(item.id).subscribe(() => {
+      this.showMessage('Estorie deletado com sucesso!');
+    });
+  }
+
   resetItem() {
     this.estorie = {
       id: null,

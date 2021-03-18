@@ -38,12 +38,24 @@
                         <ul *ngIf="items && items.length > 0">
                             <ng-container *ngFor="let item of items;">
                                 <li class="estorie-item" *ngIf="item.score == ''">
-                                    <span class="name">
-                                        {{item.name}}
-                                    </span>
-                                    <p class="desc">
-                                        {{item.description}}
-                                    </p>
+                                    <div>
+                                        <span class="name">
+                                            {{item.name}}
+                                        </span>
+                                        <p class="desc">
+                                            {{item.description}}
+                                        </p>
+                                    </div>
+                                    <ng-container *ngIf="user.id > 0 && user.admin">
+                                        <div>
+                                            <i class="material-icons yellow" (click)="editItem(item)">
+                                                edit
+                                            </i>
+                                            <i class="material-icons red-light" (click)="removeItem(item)">
+                                                delete
+                                            </i>
+                                        </div>
+                                    </ng-container>
                                 </li>
                             </ng-container>
                         </ul>

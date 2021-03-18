@@ -73,4 +73,8 @@ export class PlanningService {
   updateItem(item: PlanningItem): Observable<void> {
     return this.httpClient.put<void>(`${this.baseUrl}-items/${item.id}`, item);
   }
+
+  deleteItem(itemId: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}-items/${itemId}`);
+  }
 }

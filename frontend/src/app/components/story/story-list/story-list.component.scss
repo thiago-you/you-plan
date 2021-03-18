@@ -66,13 +66,26 @@
                 overflow-y: auto;
 
                 li {
+                    display: flex;
+                    justify-content: space-between;
                     padding: 8px 5px;
 
-                    p.desc {
-                        font-size: 0.8rem;
-                        color: #666;
-                        padding-right: 10px;
-                        margin-bottom: 0;
+                    div:first-child {
+                        flex: 1;
+                        
+                        p.desc {
+                            font-size: 0.8rem;
+                            color: #666;
+                            padding-right: 10px;
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    div:last-child {
+                        i {
+                            margin: 0 0.1rem;
+                            cursor: pointer;
+                        }
                     }
                 }
 
