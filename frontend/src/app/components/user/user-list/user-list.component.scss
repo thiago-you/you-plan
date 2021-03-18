@@ -97,7 +97,6 @@
                         display: flex;
                         padding-top: 0.4rem;
                         padding-bottom: 0.4rem;
-                        cursor: pointer;
 
                         span.label {
                             display: inline-block;
@@ -117,7 +116,9 @@
                         }
                     }
 
-                    li.select-vote:hover {
+                    li.select-vote:hover:not([disabled]) {
+                        cursor: pointer;
+                        
                         progress {
                             opacity: 0.6;
                         }
@@ -147,7 +148,7 @@
             margin: 1rem;
         }
 
-        button.mat-primary:hover {
+        button.mat-primary:hover:not([disabled]) {
             background-color: #4e69ff;
         }
     }

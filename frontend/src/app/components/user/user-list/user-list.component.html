@@ -53,44 +53,70 @@
 <mat-card class="card mat-elevation-z4">
     <div class="card-header">
         <p>
-            Action
+            Ação
         </p>    
     </div>
     <div class="card-body">
         <ng-container *ngIf="!action.value || action.value == ''; else flipList">
-            <div class="action-button">
-                <button mat-raised-button color="primary" (click)="setAction('flip')">
-                    FLIP
-                </button>
-            </div>
+            <ng-container *ngIf="user.id > 0 && user.admin; else disabledAction">
+                <div class="action-button">
+                    <button mat-raised-button color="primary" (click)="setAction('flip')">
+                        FLIP
+                    </button>
+                </div>
+            </ng-container>
+            <ng-template #disabledAction>
+                <div class="action-button">
+                    <button mat-raised-button color="primary" disabled>
+                        VOTOS
+                    </button>
+                </div>
+            </ng-template>
         </ng-container>
         <ng-template #flipList>
             <div class="votes-list">
                 <div class="votes">
                     <ul>
                         <ng-container *ngFor="let item of votes;">
-                            <li class="select-vote" (click)="selectVote(item.vote)">
-                                <span class="label">
-                                    {{item.name}}
-                                </span>
-                                <progress id="file" value="{{item.count}}" max="{{votesCount}}">
-                                    50% 
-                                </progress>
-                                <span class="result">
-                                    {{ ((item.count / votesCount) * 100) | number : '1.1' }}% ({{item.count}})
-                                </span>
-                            </li>
+                            <ng-container *ngIf="user.id > 0 && user.admin; else disabledVotes">
+                                <li class="select-vote" (click)="selectVote(item.vote)">
+                                    <span class="label">
+                                        {{item.name}}
+                                    </span>
+                                    <progress id="file" value="{{item.count}}" max="{{votesCount}}">
+                                        50% 
+                                    </progress>
+                                    <span class="result">
+                                        {{ ((item.count / votesCount) * 100) | number : '1.1' }}% ({{item.count}})
+                                    </span>
+                                </li>
+                            </ng-container>
+                            <ng-template #disabledVotes>
+                                <li class="select-vote" disabled>
+                                    <span class="label">
+                                        {{item.name}}
+                                    </span>
+                                    <progress id="file" value="{{item.count}}" max="{{votesCount}}">
+                                        50% 
+                                    </progress>
+                                    <span class="result">
+                                        {{ ((item.count / votesCount) * 100) | number : '1.1' }}% ({{item.count}})
+                                    </span>
+                                </li>
+                            </ng-template>
                         </ng-container>
                     </ul>
                 </div>
-                <div class="action">
-                    <span>
-                        Skip
-                    </span>
-                    <span (click)="setAction('')">
-                        Invert Flip
-                    </span>
-                </div>
+                <ng-container *ngIf="user.id > 0 && user.admin">
+                    <div class="action">
+                        <span>
+                            Skip
+                        </span>
+                        <span (click)="setAction('')">
+                            Invert Flip
+                        </span>
+                    </div>
+                </ng-container>
             </div>
         </ng-template>
     </div>
