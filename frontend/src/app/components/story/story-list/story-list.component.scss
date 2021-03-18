@@ -110,7 +110,7 @@
         padding: 1rem;
         background-color: #f5f5f5;
         color: #333;
-        padding: 10px 15px;
+        padding: 0;
         border-top: 1px solid #ddd;
         border-bottom-left-radius: 3px;
         border-bottom-right-radius: 3px;
@@ -125,6 +125,7 @@
                 }
             }
         }
+
         div {
             display: flex;
             margin-top: 1rem;
@@ -139,6 +140,10 @@
             button:first-child {
                 margin-right: 3rem;
             }
+        }
+
+        .mat-expansion-panel {
+            background-color: #f5f5f5;
         }
     }
 }

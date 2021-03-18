@@ -77,24 +77,30 @@
         </ng-template>
     </div>
     <div class="card-footer">
-        <p>
-            Adicionar/Editar
-        </p>    
-        <form>
-            <mat-form-field>
-                <input matInput placeholder="Nome" name="name" [(ngModel)]="estorie.name">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput placeholder="Descrição" name="description" [(ngModel)]="estorie.description">
-            </mat-form-field>
-        </form>
-        <div>
-            <button mat-raised-button color="primary" (click)="saveItem()">
-                Salvar                            
-            </button>
-            <button mat-raised-button color="danger" (click)="resetItem()">
-                Cancelar
-            </button>
-        </div>
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Adicionar/Editar
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <form>
+                    <mat-form-field>
+                        <input matInput placeholder="Nome" name="name" [(ngModel)]="estorie.name">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Descrição" name="description" [(ngModel)]="estorie.description">
+                    </mat-form-field>
+                </form>
+                <div>
+                    <button mat-raised-button color="primary" (click)="saveItem()">
+                        Salvar                            
+                    </button>
+                    <button mat-raised-button color="danger" (click)="resetItem()">
+                        Cancelar
+                    </button>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>          
     </div>
 </mat-card>

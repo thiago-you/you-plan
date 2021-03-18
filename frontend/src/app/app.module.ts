@@ -20,7 +20,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatTabsModule } from '@angular/material/tabs'; 
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion'; 
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -49,6 +50,7 @@ import { StoryListComponent } from './components/story/story-list/story-list.com
     MatFormFieldModule,
     MatInputModule,
     MatTabsModule,
+    MatExpansionModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
