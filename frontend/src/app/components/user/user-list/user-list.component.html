@@ -118,7 +118,7 @@
                 </div>
                 <ng-container *ngIf="user.id > 0 && user.admin">
                     <div class="action">
-                        <span>
+                        <span (click)="selectVote('skip')">
                             Skip
                         </span>
                         <span (click)="setAction('')">
