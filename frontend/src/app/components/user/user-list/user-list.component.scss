@@ -146,6 +146,10 @@
             justify-content: space-around;
             align-items: center;
             margin: 1rem;
+
+            button {
+                flex: 1;
+            }
         }
 
         button.mat-primary:hover:not([disabled]) {

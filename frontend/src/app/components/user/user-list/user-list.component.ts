@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlanningService } from '../../planning/plannig.service';
 import { User } from '../user';
 import { Planning } from '../../planning/planning';
+import { PlanningItem } from '../../planning/planningItem';
 
 @Component({
   selector: 'app-user-list',
@@ -94,6 +95,19 @@ export class UserListComponent implements OnInit {
     this.action.value = value;
     this.planningService.setAction(this.action).subscribe();
     this.calculateVotes();
+  }
+
+  selectVote(vote: string) {
+    this.planningService.getItems(this.plannigId).subscribe((items: PlanningItem[]) => {
+      const item: PlanningItem = items.find((item: PlanningItem) => item.score?.length == 0)
+
+      item.score = vote;
+
+      this.planningService.updateItem(item).subscribe(() => {
+        this.showMessage('O estorie foi votado com sucesso!');
+        this.setAction('');
+      });
+    });
   }
 
   // private getPlanning() {
