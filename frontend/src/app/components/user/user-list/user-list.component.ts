@@ -171,7 +171,7 @@ export class UserListComponent implements OnInit {
 
       setTimeout(() => {
         this.getUsers();  
-      }, 2000);
+      }, 5000);
     });
   }
 

@@ -139,7 +139,7 @@ export class StoryListComponent implements OnInit {
 
       setTimeout(() => {
         this.getItems();  
-      }, 10000);
+      }, 5000);
     });
   }
 
