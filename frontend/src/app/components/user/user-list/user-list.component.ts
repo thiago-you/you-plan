@@ -95,6 +95,10 @@ export class UserListComponent implements OnInit {
     this.action.value = value;
     this.planningService.setAction(this.action).subscribe();
     this.calculateVotes();
+
+    if (value == '') {
+      this.clearUsersVote();
+    }
   }
 
   selectVote(vote: string) {
@@ -106,6 +110,7 @@ export class UserListComponent implements OnInit {
       this.planningService.updateItem(item).subscribe(() => {
         this.showMessage('O estorie foi votado com sucesso!');
         this.setAction('');
+        this.clearUsersVote();
       });
     });
   }
@@ -126,6 +131,25 @@ export class UserListComponent implements OnInit {
   //     }, 2000);
   //   });
   // }
+
+  private clearUsersVote() {
+    if (this.users && this.users.length > 0) {
+      this.users.forEach((user: any) => {
+        user.vote = '';
+
+        if (user.id == this.user.id) {
+          this.user.vote = '';
+          this.userStorage.user = this.user;
+        }
+      });
+
+      const users = JSON.parse(JSON.stringify(this.users))
+
+      users.forEach((user: any) => {
+        this.planningService.updateUser(user).subscribe();
+      });
+    }
+  }
 
   private getUsers() {
     this.planningService.getUsers(this.plannigId).subscribe(users => {

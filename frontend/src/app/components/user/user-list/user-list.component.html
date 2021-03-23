@@ -76,36 +76,45 @@
         <ng-template #flipList>
             <div class="votes-list">
                 <div class="votes">
-                    <ul>
-                        <ng-container *ngFor="let item of votes;">
-                            <ng-container *ngIf="user.id > 0 && user.admin; else disabledVotes">
-                                <li class="select-vote" (click)="selectVote(item.vote)">
-                                    <span class="label">
-                                        {{item.name}}
-                                    </span>
-                                    <progress id="file" value="{{item.count}}" max="{{votesCount}}">
-                                        50% 
-                                    </progress>
-                                    <span class="result">
-                                        {{ ((item.count / votesCount) * 100) | number : '1.1' }}% ({{item.count}})
-                                    </span>
-                                </li>
+                    <ng-container *ngIf="votes && votes.length > 0; else emptyVotes">
+                        <ul>
+                            <ng-container *ngFor="let item of votes;">
+                                <ng-container *ngIf="user.id > 0 && user.admin; else disabledVotes">
+                                    <li class="select-vote" (click)="selectVote(item.vote)">
+                                        <span class="label">
+                                            {{item.name}}
+                                        </span>
+                                        <progress id="file" value="{{item.count}}" max="{{votesCount}}">
+                                            50% 
+                                        </progress>
+                                        <span class="result">
+                                            {{ ((item.count / votesCount) * 100) | number : '1.1' }}% ({{item.count}})
+                                        </span>
+                                    </li>
+                                </ng-container>
+                                <ng-template #disabledVotes>
+                                    <li class="select-vote" disabled>
+                                        <span class="label">
+                                            {{item.name}}
+                                        </span>
+                                        <progress id="file" value="{{item.count}}" max="{{votesCount}}">
+                                            50% 
+                                        </progress>
+                                        <span class="result">
+                                            {{ ((item.count / votesCount) * 100) | number : '1.1' }}% ({{item.count}})
+                                        </span>
+                                    </li>
+                                </ng-template>
                             </ng-container>
-                            <ng-template #disabledVotes>
-                                <li class="select-vote" disabled>
-                                    <span class="label">
-                                        {{item.name}}
-                                    </span>
-                                    <progress id="file" value="{{item.count}}" max="{{votesCount}}">
-                                        50% 
-                                    </progress>
-                                    <span class="result">
-                                        {{ ((item.count / votesCount) * 100) | number : '1.1' }}% ({{item.count}})
-                                    </span>
-                                </li>
-                            </ng-template>
-                        </ng-container>
-                    </ul>
+                        </ul>
+                    </ng-container>
+                    <ng-template #emptyVotes>
+                        <div>
+                            <i class="material-icons">
+                                filter_list
+                            </i>
+                        </div>
+                    </ng-template>
                 </div>
                 <ng-container *ngIf="user.id > 0 && user.admin">
                     <div class="action">
