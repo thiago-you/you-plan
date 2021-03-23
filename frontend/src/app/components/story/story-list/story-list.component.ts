@@ -104,6 +104,15 @@ export class StoryListComponent implements OnInit {
     });
   }
 
+  clearItem(item: PlanningItem) {
+    item.score = '';
+    
+    this.planningService.updateItem(item).subscribe(() => {
+      this.getItems();
+      this.showMessage('O voto da estorie foi removido com sucesso!');
+    });
+  }
+
   resetItem() {
     this.estorie = {
       id: null,
@@ -112,6 +121,16 @@ export class StoryListComponent implements OnInit {
       description: "",
       score: "",
     };
+  }
+
+  getScore(value: string = ''): string {
+    let score = value || '';
+
+    if (value == 'coffee') {
+      score = '☕';
+    }
+
+    return score;    
   }
 
   private getItems() {
