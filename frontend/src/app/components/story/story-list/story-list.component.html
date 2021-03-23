@@ -67,9 +67,16 @@
                                     <div>
                                         <span class="name">
                                             {{item.name}}
-                                            <span class="vote-badge">
-                                                {{getScore(item.score)}}
-                                            </span>
+                                            <ng-container *ngIf="item.score != 'coffee'; else coffeeVote">
+                                                <span class="vote vote-badge">
+                                                    {{getScore(item.score)}}
+                                                </span>
+                                            </ng-container>
+                                            <ng-template #coffeeVote>
+                                                <span class="vote">
+                                                    {{getScore(item.score)}}
+                                                </span>
+                                            </ng-template>
                                         </span>
                                         <p class="desc">
                                             {{item.description}}
