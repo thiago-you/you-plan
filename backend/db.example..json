@@ -3,52 +3,7 @@
         {
             "id": "da3ab2",
             "name": "Planning 1",
-            "items": [
-                {
-                    "id": 1,
-                    "name": "Tarefa 1",
-                    "description": "Descrição da tarefa 1",
-                    "score": ""
-                },
-                {
-                    "id": 2,
-                    "name": "Tarefa 1",
-                    "description": "Descrição da tarefa 1",
-                    "score": ""
-                },
-                {
-                    "id": 3,
-                    "name": "Tarefa 1",
-                    "description": "Descrição da tarefa 1",
-                    "score": ""
-                }
-            ],
-            "users": [
-                {
-                    "id": 1,
-                    "name": "thiago",
-                    "admin": true,
-                    "vote": ""
-                },
-                {
-                    "id": 2,
-                    "name": "jonathan",
-                    "admin": true,
-                    "vote": ""
-                },
-                {
-                    "id": 3,
-                    "name": "paulo",
-                    "admin": false,
-                    "vote": ""
-                },
-                {
-                    "id": 4,
-                    "name": "valoto",
-                    "admin": false,
-                    "vote": ""
-                }
-            ]
+            "concluded": ""
         }
     ],
     "plannings-actions": [
