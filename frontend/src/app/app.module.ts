@@ -26,7 +26,7 @@ import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { UserListComponent } from './components/user/user-list/user-list.component';
-import { EstorieListComponent } from './components/estorie/estorie-list/estorie-list.component';
+import { PlanningItemListComponent } from './components/planning/planning-item-list/planning-item-list.component';
 import { PlanningComponent } from './views/planning/planning.component';
 
 @NgModule({
@@ -37,7 +37,7 @@ import { PlanningComponent } from './views/planning/planning.component';
     HomeComponent,
     ItemsCrudComponent,
     UserListComponent,
-    EstorieListComponent,
+    PlanningItemListComponent,
     PlanningComponent,
   ],
   imports: [

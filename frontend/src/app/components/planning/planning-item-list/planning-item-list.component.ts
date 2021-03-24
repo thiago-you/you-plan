@@ -1,17 +1,17 @@
-import { PlanningItem } from '../../planning/planningItem';
+import { PlanningItem } from '../planningItem';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { PlanningService } from '../../planning/plannig.service';
+import { PlanningService } from '../plannig.service';
 import { UserStorage } from '../../user/user.storage';
 import { User } from '../../user/user';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-estorie-list',
-  templateUrl: './estorie-list.component.html',
-  styleUrls: ['./estorie-list.component.scss']
+  selector: 'app-planning-item-list',
+  templateUrl: './planning-item-list.component.html',
+  styleUrls: ['./planning-item-list.component.scss']
 })
-export class EstorieListComponent implements OnInit {
+export class PlanningItemListComponent implements OnInit {
 
   vote: string = ""
   user: User;
