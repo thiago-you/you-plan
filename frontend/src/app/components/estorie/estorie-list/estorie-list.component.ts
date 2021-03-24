@@ -1,17 +1,17 @@
-import { PlanningItem } from './../../planning/planningItem';
+import { PlanningItem } from '../../planning/planningItem';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { PlanningService } from './../../planning/plannig.service';
-import { UserStorage } from './../../user/user.storage';
-import { User } from './../../user/user';
+import { PlanningService } from '../../planning/plannig.service';
+import { UserStorage } from '../../user/user.storage';
+import { User } from '../../user/user';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-story-list',
-  templateUrl: './story-list.component.html',
-  styleUrls: ['./story-list.component.scss']
+  selector: 'app-estorie-list',
+  templateUrl: './estorie-list.component.html',
+  styleUrls: ['./estorie-list.component.scss']
 })
-export class StoryListComponent implements OnInit {
+export class EstorieListComponent implements OnInit {
 
   vote: string = ""
   user: User;
