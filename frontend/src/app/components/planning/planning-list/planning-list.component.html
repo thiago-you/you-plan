@@ -5,6 +5,53 @@
         </p>    
     </div>
     <div class="card-body">
-        
+        <ng-container *ngIf="plannings && plannings.length > 0; else emptyList">
+            <div class="plannings">
+                <ng-container *ngFor="let planning of plannings;">
+                    <div class="planning-item">
+                        <div>
+                            <a href="/planning/{{planning.id}}">
+                                <h4>
+                                    {{planning.name}}
+                                </h4>
+                            </a>
+                            <ng-container *ngIf="planning.concluded == ''; else concluded">
+                                <span class="badge blue-light">
+                                    Pendente
+                                </span>
+                            </ng-container>
+                            <ng-template #concluded>
+                                <span class="badge secondary">
+                                    Concluída
+                                </span>
+                            </ng-template>
+                        </div>
+                        <ng-container *ngIf="user.id > 0">
+                            <div>
+                                <i class="material-icons blue-light" (click)="accessPlanning(planning)">
+                                    visibility
+                                </i>
+                                <i class="material-icons yellow" (click)="editPlanning(planning)">
+                                    edit
+                                </i>
+                                <i class="material-icons red-light" (click)="removePlanning(planning)">
+                                    delete
+                                </i>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+        <ng-template #emptyList>
+            <div class="empty-list">
+                <p>
+                    <i class="material-icons">
+                        warning
+                    </i>
+                    Nenhum item adicionado
+                </p>
+            </div>
+        </ng-template>
     </div>
 </mat-card>
