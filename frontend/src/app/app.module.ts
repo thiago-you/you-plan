@@ -27,6 +27,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { StoryListComponent } from './components/story/story-list/story-list.component';
+import { PlanningComponent } from './views/planning/planning.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { StoryListComponent } from './components/story/story-list/story-list.com
     ItemsCrudComponent,
     UserListComponent,
     StoryListComponent,
+    PlanningComponent,
   ],
   imports: [
     BrowserModule,

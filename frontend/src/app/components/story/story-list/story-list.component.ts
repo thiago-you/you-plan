@@ -35,15 +35,15 @@ export class StoryListComponent implements OnInit {
     private snackBar: MatSnackBar,
   ) {
     this.user = this.userStorage.user;
+  }
 
+  ngOnInit(): void {
     this.userStorage.value.subscribe(user => {
       this.user = user;
       this.vote = user.vote || '';
     });
-  }
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.plannigId = params['id'];
 
       if (this.plannigId && this.plannigId.trim().length > 0) {

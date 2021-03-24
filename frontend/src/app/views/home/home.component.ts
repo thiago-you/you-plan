@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { 
+
+    console.log('home')
+
+    this.route.params.subscribe(params => {
+      console.log(params)
+    });
+
+  }
 
   ngOnInit(): void {
   }
