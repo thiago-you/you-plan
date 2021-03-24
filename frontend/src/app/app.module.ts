@@ -28,6 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { PlanningItemListComponent } from './components/planning/planning-item-list/planning-item-list.component';
 import { PlanningComponent } from './views/planning/planning.component';
+import { PlanningListComponent } from './components/planning/planning-list/planning-list.component';
+import { PlanningCreateComponent } from './components/planning/planning-create/planning-create.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { PlanningComponent } from './views/planning/planning.component';
     UserListComponent,
     PlanningItemListComponent,
     PlanningComponent,
+    PlanningListComponent,
+    PlanningCreateComponent,
   ],
   imports: [
     BrowserModule,
