@@ -1,7 +1,6 @@
 .mat-card {
     padding: 0;
-    height: 300px;
-
+    
     .card-header {
         background-color: #f5f5f5;
         color: #333;
@@ -18,8 +17,36 @@
     }
 
     .card-body {
-        min-height: 50px;
         display: flex;
         flex-direction: column;
+        padding: 1rem;
+        color: #333;
+
+        form {
+            display: flex;
+            flex-direction: column;
+
+            form {
+                .mat-form-field {
+                    margin: 0 2rem;
+                }
+            }
+        }
+
+        div {
+            display: flex;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+
+            button {
+                width: 150px;
+                font-size: 0.9rem;
+                line-height: 30px;
+            }
+            
+            button:first-child {
+                margin-right: 3rem;
+            }
+        }
     }
 }

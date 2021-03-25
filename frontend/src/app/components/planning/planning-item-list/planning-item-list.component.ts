@@ -73,7 +73,7 @@ export class PlanningItemListComponent implements OnInit {
             this.resetItem();
             this.getItems();
 
-            this.showMessage('Estorie alterado com sucesso!');
+            this.showMessage('Estorie alterada com sucesso!');
           });
         } else {
           this.planningService.createItem(this.plannigId, this.estorie).subscribe(() => {

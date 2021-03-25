@@ -5,6 +5,28 @@
         </p>    
     </div>
     <div class="card-body">
-        
+        <form>
+            <mat-form-field>
+                <input matInput placeholder="Nome" name="name" [(ngModel)]="planning.name">
+            </mat-form-field>
+        </form>
+        <div>
+            <ng-container *ngIf="user && user.id > 0; else disabledActions">
+                <button mat-raised-button color="primary" (click)="saveItem()">
+                    Salvar                            
+                </button>
+                <button mat-raised-button color="danger" (click)="resetItem()">
+                    Cancelar
+                </button>
+            </ng-container>
+            <ng-template #disabledActions>
+                <button mat-raised-button color="primary" disabled>
+                    Salvar                            
+                </button>
+                <button mat-raised-button color="danger" disabled>
+                    Cancelar
+                </button>
+            </ng-template>
+        </div>
     </div>
 </mat-card>

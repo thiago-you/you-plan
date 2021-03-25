@@ -1,8 +1,9 @@
+import { Planning } from './../planning';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { UserStorage } from './../../user/user.storage';
 import { PlanningService } from './../plannig.service';
 import { User } from '../../user/user';
-import { Planning } from '../planning';
 
 @Component({
   selector: 'app-planning-list',
@@ -17,6 +18,7 @@ export class PlanningListComponent implements OnInit {
   constructor(
     private userStorage: UserStorage, 
     private planningService: PlanningService,
+    private snackBar: MatSnackBar,
   ) {
     this.user = this.userStorage.user;
     this.plannings = [];
@@ -36,6 +38,14 @@ export class PlanningListComponent implements OnInit {
     this.getPlannings();
   }
 
+  removeItem(item: Planning) {
+    this.plannings = this.plannings.filter((_item: Planning) => _item.id != item.id);
+
+    this.planningService.delete(item.id).subscribe(() => {
+      this.showMessage('Planning deletada com sucesso!');
+    });
+  }
+
   private getPlannings() {
     if (this.user && this.user.id > 0) {
       this.planningService.getFromUser(this.user.id).subscribe(plannings => {
@@ -46,5 +56,20 @@ export class PlanningListComponent implements OnInit {
         }, 10000);
       });
     }
+  }
+
+  private showMessage(msg: string, type: string = 'success'): void {
+    let panelClass = 'blue-snackbar';
+    
+    if (type == 'danger' || type == 'red') {
+      panelClass = 'red-snackbar';
+    }
+
+    this.snackBar.open(msg, '', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: [ panelClass ]
+    });
   }
 }
