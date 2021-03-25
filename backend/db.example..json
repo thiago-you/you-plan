@@ -17,6 +17,7 @@
     "plannings-users": [
         {
             "id": 1,
+            "user_id": 1,
             "planning": "da3ab2",
             "name": "thiago",
             "admin": true,
@@ -24,6 +25,7 @@
         },
         {
             "id": 2,
+            "user_id": 2,
             "planning": "da3ab2",
             "name": "jonathan",
             "admin": true,
@@ -31,6 +33,7 @@
         },
         {
             "id": 3,
+            "user_id": 3,
             "planning": "da3ab2",
             "name": "paulo",
             "admin": false,
@@ -38,6 +41,7 @@
         },
         {
             "id": 4,
+            "user_id": 4,
             "planning": "da3ab2",
             "name": "valoto",
             "admin": false,
