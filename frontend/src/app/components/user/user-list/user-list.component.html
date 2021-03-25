@@ -16,7 +16,7 @@
                                 <span class="admin"></span>
                             </ng-container>
                         </span>
-                        <ng-container *ngIf="user.id > 0 && user.admin && user.id != _user.id">
+                        <ng-container *ngIf="user.id > 0 && user.admin && user.id != _user.user_id">
                             <i class="material-icons red-light" (click)="removeUser(_user)">
                                 delete
                             </i>

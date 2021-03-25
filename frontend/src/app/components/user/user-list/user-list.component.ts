@@ -39,7 +39,7 @@ export class UserListComponent implements OnInit {
     
       if (this.plannigId == this.user.planning && this.users.length > 0) {
         this.users.forEach(user => {
-          if (this.user.id == user.id) {
+          if (this.user.id == user.user_id) {
             user.vote = this.user.vote;
           }
         })
@@ -60,7 +60,7 @@ export class UserListComponent implements OnInit {
     let hasUser = false
 
     if (this.users.length > 0) {
-      hasUser = this.users.filter(user => user.id == this.user.id).length > 0;
+      hasUser = this.users.filter(user => user.user_id == this.user.id).length > 0;
     }
 
     return hasUser;
@@ -77,15 +77,15 @@ export class UserListComponent implements OnInit {
   }
 
   removeUser(user: User) {
-    this.users = this.users.filter(_user => _user.id != user.id);
+    this.users = this.users.filter(_user => _user.user_id != user.id);
     
-    if (user.id == this.user.id) {
+    if (user.user_id == this.user.id) {
       this.user.planning = '';
       this.userStorage.user = this.user;
     }
 
     this.planningService.deleteUser(user.id).subscribe(() => {
-      if (this.user.id == user.id) {
+      if (this.user.id == user.user_id) {
         this.user.admin = false;
       }
     });
@@ -137,7 +137,7 @@ export class UserListComponent implements OnInit {
       this.users.forEach((user: any) => {
         user.vote = '';
 
-        if (user.id == this.user.id) {
+        if (user.user_id == this.user.id) {
           this.user.vote = '';
           this.userStorage.user = this.user;
         }
@@ -156,13 +156,13 @@ export class UserListComponent implements OnInit {
       this.users = users || [];
 
       this.users.forEach(user => {
-        if (this.user.id == user.id) {
+        if (this.user.id == user.user_id) {
           this.user.admin = user.admin;
           this.userStorage.user = this.user;
         }
       });
 
-      if (this.users.filter(user => user.id == this.user.id).length == 0) {
+      if (this.users.filter(user => user.user_id == this.user.id).length == 0) {
         this.user.planning = '';
         this.userStorage.user = this.user;
       }
@@ -287,20 +287,22 @@ export class UserListComponent implements OnInit {
 
   private validateAdmin() {
     if (this.user.id > 0 && this.user.name) {
-      if (this.user.name.toLocaleLowerCase().includes("jonathan")) {
-        this.user.admin = true;
-      } else if (this.user.name.toLocaleLowerCase().includes("cleve")) {
-        this.user.admin = true;
-      } else if (this.user.name.toLocaleLowerCase().includes("dario")) {
-        this.user.admin = true;
-      } else if (this.user.name.toLocaleLowerCase().includes("jhow")) {
-        this.user.admin = true;
-      } else if (this.user.name.toLocaleLowerCase().includes("admin")) {
-        this.user.admin = true;
-      } else if (this.user.name.toLocaleLowerCase().includes("jonas")) {
-        this.user.admin = true;
-      } else if (this.user.name.toLocaleLowerCase().includes("you")) {
-        this.user.admin = true;
+      if (!this.user.admin) {
+        if (this.user.name.toLocaleLowerCase().includes("jonathan")) {
+          this.user.admin = true;
+        } else if (this.user.name.toLocaleLowerCase().includes("cleve")) {
+          this.user.admin = true;
+        } else if (this.user.name.toLocaleLowerCase().includes("dario")) {
+          this.user.admin = true;
+        } else if (this.user.name.toLocaleLowerCase().includes("jhow")) {
+          this.user.admin = true;
+        } else if (this.user.name.toLocaleLowerCase().includes("admin")) {
+          this.user.admin = true;
+        } else if (this.user.name.toLocaleLowerCase().includes("jonas")) {
+          this.user.admin = true;
+        } else if (this.user.name.toLocaleLowerCase().includes("you")) {
+          this.user.admin = true;
+        }
       }
     }
   }

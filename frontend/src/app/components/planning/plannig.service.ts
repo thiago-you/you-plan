@@ -42,10 +42,21 @@ export class PlanningService {
     return this.httpClient.get<User[]>(`${this.baseUrl}-users?planning=${id}`);
   }
 
-  createUser(id: string, user: User): Observable<void> {
-    user.planning = id;
+  findUser(planningId: string, userId: number): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.baseUrl}-users?user_id=${userId}&planning=${planningId}`);
+  }
 
-    return this.httpClient.post<void>(`${this.baseUrl}-users`, user);
+  createUser(id: string, user: User): Observable<void> {
+    const planningUser = {
+      "id": null,
+      "user_id": user.id,
+      "planning": id,
+      "name": user.name,
+      "admin": user.admin,
+      "vote": user.vote,
+    };
+
+    return this.httpClient.post<void>(`${this.baseUrl}-users`, planningUser);
   }
 
   updateUser(user: User): Observable<User> {
@@ -58,6 +69,16 @@ export class PlanningService {
 
   getAction(id: string): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}-actions?planning=${id}`);
+  }
+
+  createAction(id: string): Observable<any> {
+    const action = {
+      "id": null,
+      "planning": id,
+      "value": ""
+    };
+
+    return this.httpClient.post<any>(`${this.baseUrl}-actions`, action);
   }
 
   setAction(action: any): Observable<void> {

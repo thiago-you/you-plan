@@ -1,5 +1,6 @@
 export interface User {
-    id?: Number,
+    id?: number,
+    user_id?: number,
     planning?: string,
     name: string,
     vote?: string,

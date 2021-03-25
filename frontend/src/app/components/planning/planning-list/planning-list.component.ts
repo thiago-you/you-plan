@@ -38,7 +38,7 @@ export class PlanningListComponent implements OnInit {
     this.getPlannings();
   }
 
-  removeItem(item: Planning) {
+  removePlanning(item: Planning) {
     this.plannings = this.plannings.filter((_item: Planning) => _item.id != item.id);
 
     this.planningService.delete(item.id).subscribe(() => {

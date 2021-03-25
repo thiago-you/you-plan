@@ -4,6 +4,7 @@ import { UserStorage } from './../../user/user.storage';
 import { Planning } from './../planning';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../user/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-planning-create',
@@ -23,6 +24,7 @@ export class PlanningCreateComponent implements OnInit {
     private userStorage: UserStorage, 
     private planningService: PlanningService, 
     private snackBar: MatSnackBar,
+    private router: Router,
   ) {
     this.user = this.userStorage.user;
   }
@@ -46,9 +48,19 @@ export class PlanningCreateComponent implements OnInit {
         } else {
           this.planning.created_by = this.user.id as number;
 
-          this.planningService.create(this.planning).subscribe(() => {
+          this.planningService.create(this.planning).subscribe((planning) => {
             this.resetItem();
-            this.showMessage('Planning cadastrada com sucesso!');
+            
+            if (planning.id != null && planning.id.trim().length > 0) {
+              this.showMessage('Planning cadastrada com sucesso!');
+              
+              this.planningService.createAction(planning.id).subscribe(() => {
+                this.user.admin = true;
+                this.planningService.createUser(planning.id, this.user).subscribe();
+
+                this.router.navigate([`/planning/${planning.id}`]);
+              });
+            }
           });
         }
       }
