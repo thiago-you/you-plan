@@ -3,7 +3,8 @@
         {
             "id": "da3ab2",
             "name": "Planning 1",
-            "concluded": ""
+            "concluded": "",
+            "created_by": 1
         }
     ],
     "plannings-actions": [
