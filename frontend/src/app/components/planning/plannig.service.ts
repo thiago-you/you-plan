@@ -22,6 +22,10 @@ export class PlanningService {
     return this.httpClient.get<Planning[]>(this.baseUrl);
   }
 
+  getFromUser(userId: any): Observable<Planning[]> {
+    return this.httpClient.get<Planning[]>(`${this.baseUrl}?created_by=${userId}`);
+  }
+
   get(id: string): Observable<Planning> {
     return this.httpClient.get<Planning>(`${this.baseUrl}/${id}?embed`);
   }

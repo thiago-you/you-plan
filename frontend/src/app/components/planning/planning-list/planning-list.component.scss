@@ -1,7 +1,6 @@
 .mat-card {
     padding: 0;
-    height: 300px;
-
+    
     .card-header {
         background-color: #f5f5f5;
         color: #333;
@@ -20,6 +19,7 @@
     .card-body {
         min-height: 50px;
         display: flex;
+        height: 300px;
         flex-direction: column;
 
         div.plannings {
@@ -110,10 +110,20 @@
             justify-content: center;
             align-items: center;
 
-            i {
-                margin-left: 0.4rem;
-                margin-right: 0.4rem;
+            p {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 1rem;
+
+                i {
+                    font-size: 2rem;
+                    margin-left: 0.4rem;
+                    margin-right: 0.4rem;
+                }
             }
+
         }
     }
 }
