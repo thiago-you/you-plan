@@ -16,6 +16,7 @@ export class UserListComponent implements OnInit {
 
   users = [];
   user: User;
+  planningUser: User;
 
   action: any = {};
   votes: any = [];
@@ -31,19 +32,16 @@ export class UserListComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
     this.user = this.userStorage.user;
+    this.users = [];
+    this.action = {};
+    this.votes = [];
+    this.planningUser = this.newUserInstance();
   }
 
   ngOnInit(): void {
     this.userStorage.value.subscribe(user => {
       this.user = user;  
-    
-      if (this.plannigId == this.user.planning && this.users.length > 0) {
-        this.users.forEach(user => {
-          if (this.user.id == user.user_id) {
-            user.vote = this.user.vote;
-          }
-        })
-      }
+      this.validateUser();
     });
 
     this.route.params.subscribe(params => {
@@ -52,6 +50,7 @@ export class UserListComponent implements OnInit {
       if (this.plannigId && this.plannigId.trim().length > 0) {
         this.getUsers();
         this.getAction();
+        this.validateUser();
       }
     });
   }
@@ -60,7 +59,7 @@ export class UserListComponent implements OnInit {
     let hasUser = false
 
     if (this.users.length > 0) {
-      hasUser = this.users.filter(user => user.user_id == this.user.id).length > 0;
+      hasUser = this.users.filter(user => user.id == this.planningUser.id).length > 0;
     }
 
     return hasUser;
@@ -68,27 +67,25 @@ export class UserListComponent implements OnInit {
 
   insertUser() {
     this.validateAdmin();
+    
+    this.planningService.createUser(this.plannigId, this.user).subscribe(user => {
+      this.planningUser = user;      
+      this.users.push(user);
 
-    this.users.push(this.user);
-  
-    this.planningService.createUser(this.plannigId, this.user).subscribe(() => {
       this.showMessage("Você esta participando da planning!");
     });
   }
 
   removeUser(user: User) {
-    this.users = this.users.filter(_user => _user.user_id != user.id);
-    
-    if (user.user_id == this.user.id) {
-      this.user.planning = '';
-      this.userStorage.user = this.user;
+    if (user && user.id > 0) {
+      this.users = this.users.filter(_user => _user.id != user.id);
+      
+      this.planningService.deleteUser(user.id).subscribe(() => {
+        if (this.planningUser.id == user.id) {
+          this.planningUser = this.newUserInstance();
+        }
+      });
     }
-
-    this.planningService.deleteUser(user.id).subscribe(() => {
-      if (this.user.id == user.user_id) {
-        this.user.admin = false;
-      }
-    });
   }
 
   setAction(value: string) {
@@ -105,13 +102,15 @@ export class UserListComponent implements OnInit {
     this.planningService.getItems(this.plannigId).subscribe((items: PlanningItem[]) => {
       const item: PlanningItem = items.find((item: PlanningItem) => item.score?.length == 0)
 
-      item.score = vote;
-
-      this.planningService.updateItem(item).subscribe(() => {
-        this.showMessage('O estorie foi votado com sucesso!');
-        this.setAction('');
-        this.clearUsersVote();
-      });
+      if (item && item.id > 0) {
+        item.score = vote;
+  
+        this.planningService.updateItem(item).subscribe(() => {
+          this.showMessage('O estorie foi votado com sucesso!');
+          this.setAction('');
+          this.clearUsersVote();
+        });
+      }
     });
   }
 
@@ -121,8 +120,8 @@ export class UserListComponent implements OnInit {
   //     this.users = planning.users || [];
 
   //     this.users.forEach(user => {
-  //       if (this.user.id == user.id) {
-  //         this.user.admin = user.admin;
+  //       if (this.planningUser.id == user.id) {
+  //         this.planningUser.admin = user.admin;
   //       }
   //     });
 
@@ -132,14 +131,25 @@ export class UserListComponent implements OnInit {
   //   });
   // }
 
+  private validateUser() {
+    if (this.user && this.user.id > 0 && this.plannigId && this.plannigId.trim().length > 0) {
+      this.planningService.findUser(this.plannigId, this.user.id).subscribe((users: User[]) => {
+        this.planningUser = users[0] || this.newUserInstance();
+
+        setTimeout(() => {
+          this.validateUser();  
+        }, 5000);
+      });
+    }
+  }
+
   private clearUsersVote() {
     if (this.users && this.users.length > 0) {
       this.users.forEach((user: any) => {
         user.vote = '';
 
-        if (user.user_id == this.user.id) {
-          this.user.vote = '';
-          this.userStorage.user = this.user;
+        if (user.id == this.planningUser.id) {
+          this.planningUser.vote = '';
         }
       });
 
@@ -156,15 +166,13 @@ export class UserListComponent implements OnInit {
       this.users = users || [];
 
       this.users.forEach(user => {
-        if (this.user.id == user.user_id) {
-          this.user.admin = user.admin;
-          this.userStorage.user = this.user;
+        if (this.planningUser.id == user.id) {
+          this.planningUser = user;
         }
       });
 
-      if (this.users.filter(user => user.user_id == this.user.id).length == 0) {
-        this.user.planning = '';
-        this.userStorage.user = this.user;
+      if (this.users.filter(user => user.id == this.planningUser.id).length == 0) {
+        this.planningUser = this.newUserInstance();
       }
 
       this.calculateVotes();
@@ -173,6 +181,10 @@ export class UserListComponent implements OnInit {
         this.getUsers();  
       }, 5000);
     });
+  }
+
+  private newUserInstance(): User {
+    return { id: null, name: "" };
   }
 
   private getAction() {
@@ -286,22 +298,22 @@ export class UserListComponent implements OnInit {
   }
 
   private validateAdmin() {
-    if (this.user.id > 0 && this.user.name) {
-      if (!this.user.admin) {
-        if (this.user.name.toLocaleLowerCase().includes("jonathan")) {
-          this.user.admin = true;
-        } else if (this.user.name.toLocaleLowerCase().includes("cleve")) {
-          this.user.admin = true;
-        } else if (this.user.name.toLocaleLowerCase().includes("dario")) {
-          this.user.admin = true;
-        } else if (this.user.name.toLocaleLowerCase().includes("jhow")) {
-          this.user.admin = true;
-        } else if (this.user.name.toLocaleLowerCase().includes("admin")) {
-          this.user.admin = true;
-        } else if (this.user.name.toLocaleLowerCase().includes("jonas")) {
-          this.user.admin = true;
-        } else if (this.user.name.toLocaleLowerCase().includes("you")) {
-          this.user.admin = true;
+    if (this.planningUser.id > 0 && this.planningUser.name) {
+      if (!this.planningUser.admin) {
+        if (this.planningUser.name.toLocaleLowerCase().includes("jonathan")) {
+          this.planningUser.admin = true;
+        } else if (this.planningUser.name.toLocaleLowerCase().includes("cleve")) {
+          this.planningUser.admin = true;
+        } else if (this.planningUser.name.toLocaleLowerCase().includes("dario")) {
+          this.planningUser.admin = true;
+        } else if (this.planningUser.name.toLocaleLowerCase().includes("jhow")) {
+          this.planningUser.admin = true;
+        } else if (this.planningUser.name.toLocaleLowerCase().includes("admin")) {
+          this.planningUser.admin = true;
+        } else if (this.planningUser.name.toLocaleLowerCase().includes("jonas")) {
+          this.planningUser.admin = true;
+        } else if (this.planningUser.name.toLocaleLowerCase().includes("you")) {
+          this.planningUser.admin = true;
         }
       }
     }

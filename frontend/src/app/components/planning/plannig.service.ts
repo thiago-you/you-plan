@@ -46,17 +46,17 @@ export class PlanningService {
     return this.httpClient.get<User[]>(`${this.baseUrl}-users?user_id=${userId}&planning=${planningId}`);
   }
 
-  createUser(id: string, user: User): Observable<void> {
+  createUser(id: string, user: User): Observable<User> {
     const planningUser = {
       "id": null,
       "user_id": user.id,
       "planning": id,
       "name": user.name,
       "admin": user.admin,
-      "vote": user.vote,
+      "vote": "",
     };
 
-    return this.httpClient.post<void>(`${this.baseUrl}-users`, planningUser);
+    return this.httpClient.post<User>(`${this.baseUrl}-users`, planningUser);
   }
 
   updateUser(user: User): Observable<User> {

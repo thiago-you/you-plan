@@ -46,7 +46,7 @@
                                             {{item.description}}
                                         </p>
                                     </div>
-                                    <ng-container *ngIf="user.id > 0 && user.admin">
+                                    <ng-container *ngIf="planningUser.id > 0 && planningUser.admin">
                                         <div>
                                             <i class="material-icons yellow" (click)="editItem(item)">
                                                 edit
@@ -82,7 +82,7 @@
                                             {{item.description}}
                                         </p>
                                     </div>
-                                    <ng-container *ngIf="user.id > 0 && user.admin">
+                                    <ng-container *ngIf="planningUser.id > 0 && planningUser.admin">
                                         <div>
                                             <i class="material-icons shady-black" (click)="clearItem(item)">
                                                 refresh
@@ -107,7 +107,7 @@
             </div>
         </ng-template>
     </div>
-    <ng-container *ngIf="user.id > 0 && user.admin">
+    <ng-container *ngIf="planningUser.id > 0 && planningUser.admin">
         <div class="card-footer">
             <mat-accordion>
                 <mat-expansion-panel [expanded]="true">

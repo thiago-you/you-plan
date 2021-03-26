@@ -79,10 +79,23 @@
         div.action-button {
             display: flex;
             padding: 1rem;
+            flex-direction: column;
 
             button {
                 flex: 1;
                 min-height: 60px;
+            }
+
+            div.skip-action {
+                margin-top: 1rem;
+
+                span {
+                    cursor: pointer;
+                }
+
+                span:hover {
+                    color: #1a33c2;
+                }
             }
         }
 

@@ -16,7 +16,7 @@
                                 <span class="admin"></span>
                             </ng-container>
                         </span>
-                        <ng-container *ngIf="user.id > 0 && user.admin && user.id != _user.user_id">
+                        <ng-container *ngIf="planningUser.id > 0 && planningUser.admin && planningUser.id != _user.id">
                             <i class="material-icons red-light" (click)="removeUser(_user)">
                                 delete
                             </i>
@@ -41,7 +41,7 @@
                     </button>
                 </ng-container>
                 <ng-template #exit>
-                    <button mat-raised-button color="danger" (click)="removeUser(user)">
+                    <button mat-raised-button color="danger" (click)="removeUser(planningUser)">
                         Sair
                     </button>
                 </ng-template>
@@ -58,11 +58,16 @@
     </div>
     <div class="card-body">
         <ng-container *ngIf="!action.value || action.value == ''; else flipList">
-            <ng-container *ngIf="user.id > 0 && user.admin; else disabledAction">
+            <ng-container *ngIf="planningUser.id > 0 && planningUser.admin; else disabledAction">
                 <div class="action-button">
                     <button mat-raised-button color="primary" (click)="setAction('flip')">
                         FLIP
                     </button>
+                    <div class="skip-action">
+                        <span (click)="selectVote('skip')">
+                            Skip
+                        </span>
+                    </div>
                 </div>
             </ng-container>
             <ng-template #disabledAction>
@@ -79,7 +84,7 @@
                     <ng-container *ngIf="votes && votes.length > 0; else emptyVotes">
                         <ul>
                             <ng-container *ngFor="let item of votes;">
-                                <ng-container *ngIf="user.id > 0 && user.admin; else disabledVotes">
+                                <ng-container *ngIf="planningUser.id > 0 && planningUser.admin; else disabledVotes">
                                     <li class="select-vote" (click)="selectVote(item.vote)">
                                         <span class="label">
                                             {{item.name}}
@@ -116,7 +121,7 @@
                         </div>
                     </ng-template>
                 </div>
-                <ng-container *ngIf="user.id > 0 && user.admin">
+                <ng-container *ngIf="planningUser.id > 0 && planningUser.admin">
                     <div class="action">
                         <span (click)="selectVote('skip')">
                             Skip

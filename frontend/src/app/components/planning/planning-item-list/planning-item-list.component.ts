@@ -13,8 +13,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlanningItemListComponent implements OnInit {
 
-  vote: string = ""
   user: User;
+  vote: string;
+  planningUser: User;
 
   items: any = [];
 
@@ -34,13 +35,18 @@ export class PlanningItemListComponent implements OnInit {
     private route: ActivatedRoute, 
     private snackBar: MatSnackBar,
   ) {
+    this.vote = "";
     this.user = this.userStorage.user;
+    this.planningUser = this.newUserInstance();
   }
 
   ngOnInit(): void {
     this.userStorage.value.subscribe(user => {
       this.user = user;
-      this.vote = user.vote || '';
+
+      if (!this.user || this.user.id <= 0) {
+        this.planningUser = this.newUserInstance();
+      }
     });
 
     this.route.params.subscribe(params => {
@@ -48,18 +54,17 @@ export class PlanningItemListComponent implements OnInit {
 
       if (this.plannigId && this.plannigId.trim().length > 0) {
         this.getItems();
+        this.validateUser();
       }
     });
   }
 
   setVote(vote: string) {
-    if (this.user.planning == this.plannigId) {
+    if (this.planningUser.planning == this.plannigId && this.items && this.items.length > 0) {
       this.vote = this.vote == vote ? '' : vote;
-      this.user.vote = this.vote;
+      this.planningUser.vote = this.vote;
   
-      this.userStorage.user = this.user;
-  
-      this.planningService.updateUser(this.user).subscribe();
+      this.planningService.updateUser(this.planningUser).subscribe();
     }
   }
 
@@ -141,6 +146,21 @@ export class PlanningItemListComponent implements OnInit {
         this.getItems();  
       }, 5000);
     });
+  }
+
+  private validateUser() {
+    this.planningService.findUser(this.plannigId, this.user.id).subscribe((users: User[]) => {
+      this.vote = users[0]?.vote || '';
+      this.planningUser = users[0] || this.newUserInstance();
+
+      setTimeout(() => {
+        this.validateUser();  
+      }, 5000);
+    });
+  }
+
+  private newUserInstance(): User {
+    return { id: null, name: "" };
   }
 
   private showMessage(msg: string, type: string = 'success'): void {
