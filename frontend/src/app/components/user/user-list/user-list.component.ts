@@ -1,10 +1,9 @@
 import { UserStorage } from './../user.storage';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlanningService } from '../../planning/plannig.service';
 import { User } from '../user';
-import { Planning } from '../../planning/planning';
 import { PlanningItem } from '../../planning/planningItem';
 
 @Component({
@@ -16,13 +15,14 @@ export class UserListComponent implements OnInit {
 
   users = [];
   user: User;
-  planningUser: User;
+  
+  @Input() planningUser: User;
+  @Output() planningUserEvent: EventEmitter<User>;
 
   action: any = {};
   votes: any = [];
   votesCount = 0;
 
-  private planning: Planning;
   private plannigId: string;
 
   constructor(
@@ -36,12 +36,12 @@ export class UserListComponent implements OnInit {
     this.action = {};
     this.votes = [];
     this.planningUser = this.newUserInstance();
+    this.planningUserEvent = new EventEmitter<User>()
   }
 
   ngOnInit(): void {
     this.userStorage.value.subscribe(user => {
       this.user = user;  
-      this.validateUser();
     });
 
     this.route.params.subscribe(params => {
@@ -50,7 +50,6 @@ export class UserListComponent implements OnInit {
       if (this.plannigId && this.plannigId.trim().length > 0) {
         this.getUsers();
         this.getAction();
-        this.validateUser();
       }
     });
   }
@@ -71,6 +70,7 @@ export class UserListComponent implements OnInit {
     this.planningService.createUser(this.plannigId, this.user).subscribe(user => {
       this.planningUser = user;      
       this.users.push(user);
+      this.planningUserEvent.emit(user);
 
       this.showMessage("Você esta participando da planning!");
     });
@@ -83,6 +83,7 @@ export class UserListComponent implements OnInit {
       this.planningService.deleteUser(user.id).subscribe(() => {
         if (this.planningUser.id == user.id) {
           this.planningUser = this.newUserInstance();
+          this.planningUserEvent.emit(this.planningUser);
         }
       });
     }
@@ -112,35 +113,6 @@ export class UserListComponent implements OnInit {
         });
       }
     });
-  }
-
-  // private getPlanning() {
-  //   this.planningService.get(this.plannigId).subscribe(planning => {
-  //     this.planning = planning;
-  //     this.users = planning.users || [];
-
-  //     this.users.forEach(user => {
-  //       if (this.planningUser.id == user.id) {
-  //         this.planningUser.admin = user.admin;
-  //       }
-  //     });
-
-  //     setTimeout(() => {
-  //       this.getPlanning();  
-  //     }, 2000);
-  //   });
-  // }
-
-  private validateUser() {
-    if (this.user && this.user.id > 0 && this.plannigId && this.plannigId.trim().length > 0) {
-      this.planningService.findUser(this.plannigId, this.user.id).subscribe((users: User[]) => {
-        this.planningUser = users[0] || this.newUserInstance();
-
-        setTimeout(() => {
-          this.validateUser();  
-        }, 5000);
-      });
-    }
   }
 
   private clearUsersVote() {

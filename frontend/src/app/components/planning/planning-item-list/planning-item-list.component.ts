@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from '../plannig.service';
 import { UserStorage } from '../../user/user.storage';
 import { User } from '../../user/user';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-planning-item-list',
@@ -14,8 +14,8 @@ import { Component, OnInit } from '@angular/core';
 export class PlanningItemListComponent implements OnInit {
 
   user: User;
-  vote: string;
-  planningUser: User;
+
+  @Input() planningUser: User;
 
   items: any = [];
 
@@ -35,7 +35,6 @@ export class PlanningItemListComponent implements OnInit {
     private route: ActivatedRoute, 
     private snackBar: MatSnackBar,
   ) {
-    this.vote = "";
     this.user = this.userStorage.user;
     this.planningUser = this.newUserInstance();
   }
@@ -54,16 +53,13 @@ export class PlanningItemListComponent implements OnInit {
 
       if (this.plannigId && this.plannigId.trim().length > 0) {
         this.getItems();
-        this.validateUser();
       }
     });
   }
 
   setVote(vote: string) {
     if (this.planningUser.planning == this.plannigId && this.items && this.items.length > 0) {
-      this.vote = this.vote == vote ? '' : vote;
-      this.planningUser.vote = this.vote;
-  
+      this.planningUser.vote = this.planningUser.vote == vote ? '' : vote;
       this.planningService.updateUser(this.planningUser).subscribe();
     }
   }
@@ -144,17 +140,6 @@ export class PlanningItemListComponent implements OnInit {
 
       setTimeout(() => {
         this.getItems();  
-      }, 5000);
-    });
-  }
-
-  private validateUser() {
-    this.planningService.findUser(this.plannigId, this.user.id).subscribe((users: User[]) => {
-      this.vote = users[0]?.vote || '';
-      this.planningUser = users[0] || this.newUserInstance();
-
-      setTimeout(() => {
-        this.validateUser();  
       }, 5000);
     });
   }

@@ -12,30 +12,51 @@ import { User } from 'src/app/components/user/user';
 export class PlanningComponent implements OnInit {
 
   user: User;
+  planningId: string;
+
+  planningUser: User;
 
   constructor(
     private userStorage: UserStorage, 
     private planningService: PlanningService,
     private route: ActivatedRoute, 
   ) {
+    this.planningId = '';
     this.user = this.userStorage.user;
+    this.planningUser = this.newUserInstance();
   }
 
   ngOnInit(): void { 
     if (this.user && this.user.id > 0) {
       this.route.params.subscribe(params => {
-        const plannigId = params['id'];
+        this.planningId = params['id'];
         
-        if (plannigId && plannigId.trim().length > 0) {
-          this.planningService.findUser(plannigId, this.user.id).subscribe((users: User[]) => {
-            if (users.length > 0) {
-              this.user.planning = users[0].planning;
-              this.user.vote = users[0].vote;
-              this.userStorage.user = this.user;
-            }
-          });
+        if (this.planningId && this.planningId.trim().length > 0) {
+          this.findPlanningUser();
         }
       });
     }
+  }
+
+  receivePlanningUserEvent($event: User) {
+    this.planningUser = $event;
+  }
+
+  private findPlanningUser() {
+    if (this.user && this.user.id > 0) {
+      this.planningService.findUser(this.planningId, this.user.id).subscribe((users: User[]) => {
+        if (users.length > 0) {
+          this.planningUser = users[0] || this.newUserInstance();
+        }
+
+        setTimeout(() => {
+          this.findPlanningUser();  
+        }, 10000);
+      });
+    }
+  }
+
+  private newUserInstance(): User {
+    return { id: null, name: "" };
   }
 }
