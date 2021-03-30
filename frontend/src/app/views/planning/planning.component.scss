@@ -4,25 +4,42 @@ div.content {
     align-items: center;
     padding: 2rem 3rem;
     margin-bottom: 64px;
+    flex-direction: column;
 
     div.container {
         display: grid;
-        width: 1080px;
-        grid-template-columns: 1fr 300px;
+        width: 1200px;
+        grid-template-columns: auto 340px;
         grid-template-rows: 1fr;
-        grid-template-areas: 'planning users';
+        grid-template-areas: 
+            'actions actions'
+            'planning users'
+        ;
     
         section {
-            margin: 2rem;
-
             &#planning {
+                padding: 1rem 1rem 2rem 0rem;
                 grid-area: planning;
             }
         
             &#users {
+                padding: 1rem 0rem 2rem 1rem;
                 grid-area: users;
             }
-        }
 
+            &#actions {
+                grid-area: actions;
+                display: flex;
+                justify-content: end;
+                
+                button:hover {
+                    cursor: pointer;
+                }
+
+                button:not(:first-child) {
+                    margin-left: 1rem;
+                }
+            }
+        }
     }
 }
