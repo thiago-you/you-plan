@@ -17,9 +17,10 @@ export class UserListComponent implements OnInit {
   user: User;
   
   @Input() planningUser: User;
+  @Input() action: any;
+  
   @Output() planningUserEvent: EventEmitter<User>;
 
-  action: any = {};
   votes: any = [];
   votesCount = 0;
 
@@ -33,9 +34,11 @@ export class UserListComponent implements OnInit {
   ) {
     this.user = this.userStorage.user;
     this.users = [];
-    this.action = {};
     this.votes = [];
+
+    this.action = {};
     this.planningUser = this.newUserInstance();
+
     this.planningUserEvent = new EventEmitter<User>()
   }
 
@@ -49,7 +52,6 @@ export class UserListComponent implements OnInit {
       
       if (this.plannigId && this.plannigId.trim().length > 0) {
         this.getUsers();
-        this.getAction();
       }
     });
   }
@@ -158,17 +160,7 @@ export class UserListComponent implements OnInit {
   private newUserInstance(): User {
     return { id: null, name: "" };
   }
-
-  private getAction() {
-    this.planningService.getAction(this.plannigId).subscribe(action => {
-      this.action = action[0];
-
-      setTimeout(() => {
-        this.getAction();  
-      }, 2000);
-    });
-  }
-
+  
   private calculateVotes() {
     this.votes = [];
 

@@ -14,7 +14,11 @@ export class PlanningComponent implements OnInit {
   user: User;
   planningId: string;
 
+  /**
+   * Child Events
+   */
   planningUser: User;
+  action: User;
 
   constructor(
     private userStorage: UserStorage, 
@@ -33,6 +37,7 @@ export class PlanningComponent implements OnInit {
         
         if (this.planningId && this.planningId.trim().length > 0) {
           this.findPlanningUser();
+          this.getAction();
         }
       });
     }
@@ -58,5 +63,15 @@ export class PlanningComponent implements OnInit {
 
   private newUserInstance(): User {
     return { id: null, name: "" };
+  }
+
+  private getAction() {
+    this.planningService.getAction(this.planningId).subscribe(action => {
+      this.action = action[0];
+
+      setTimeout(() => {
+        this.getAction();  
+      }, 2000);
+    });
   }
 }
