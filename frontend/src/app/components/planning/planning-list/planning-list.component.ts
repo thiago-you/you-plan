@@ -1,6 +1,7 @@
+import { Observable, Subscription } from 'rxjs';
 import { Planning } from './../planning';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { UserStorage } from './../../user/user.storage';
 import { PlanningService } from './../plannig.service';
 import { User } from '../../user/user';
@@ -15,6 +16,11 @@ export class PlanningListComponent implements OnInit {
   user: User;
   plannings: Planning[];
 
+  @Output() editEvent: EventEmitter<Planning>;
+  @Input() events: Observable<void>;
+
+  private reloadEvent: Subscription;
+
   constructor(
     private userStorage: UserStorage, 
     private planningService: PlanningService,
@@ -22,6 +28,7 @@ export class PlanningListComponent implements OnInit {
   ) {
     this.user = this.userStorage.user;
     this.plannings = [];
+    this.editEvent = new EventEmitter<Planning>();
   }
 
   ngOnInit(): void {
@@ -36,6 +43,16 @@ export class PlanningListComponent implements OnInit {
     });
 
     this.getPlannings();
+    
+    this.reloadEvent = this.events.subscribe(() => this.getPlannings());
+  }
+
+  ngOnDestroy(): void {
+    this.reloadEvent.unsubscribe();
+  }
+
+  editPlanning(item: Planning) {
+    this.editEvent.emit(item);
   }
 
   removePlanning(item: Planning) {

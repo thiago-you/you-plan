@@ -2,7 +2,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlanningService } from './../plannig.service';
 import { UserStorage } from './../../user/user.storage';
 import { Planning } from './../planning';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from '../../user/user';
 import { Router } from '@angular/router';
 
@@ -15,10 +15,8 @@ export class PlanningCreateComponent implements OnInit {
 
   user: User;
 
-  planning: Planning = {
-    id: "",
-    name: ""
-  };
+  @Input() planning: Planning;
+  @Output() saveEvent: EventEmitter<void>;
 
   constructor(
     private userStorage: UserStorage, 
@@ -27,6 +25,7 @@ export class PlanningCreateComponent implements OnInit {
     private router: Router,
   ) {
     this.user = this.userStorage.user;
+    this.saveEvent = new EventEmitter<void>();
   }
 
   ngOnInit(): void {
@@ -63,6 +62,8 @@ export class PlanningCreateComponent implements OnInit {
             }
           });
         }
+
+        this.saveEvent.emit();
       }
     }
   }
