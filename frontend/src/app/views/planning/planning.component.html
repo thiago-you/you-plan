@@ -1,20 +1,25 @@
 <div class="content">
     <div class="container">
         <section id="actions">
-            <button mat-raised-button (click)="toggleMode()">
-                <ng-container *ngIf="mode == 'normal'; else simplified">
+            <button mat-raised-button (click)="toggleUiMode()">
+                <ng-container *ngIf="uiMode == 'normal'; else simplified">
                     Simplificar
                 </ng-container>
                 <ng-template #simplified>
                     Normal
                 </ng-template>
             </button>
-            <button mat-raised-button>
-                Dark Mode
+            <button mat-raised-button [class.dark-theme]="darkMode" (click)="toggleDarkMode()">
+                <ng-container *ngIf="!darkMode; else lightMode">
+                    Dark Mode
+                </ng-container>
+                <ng-template #lightMode>
+                    Light Mode
+                </ng-template>
             </button>
         </section>
         <section id="planning">
-            <app-planning-item-list [planningUser]="planningUser" [mode]="mode"></app-planning-item-list>
+            <app-planning-item-list [planningUser]="planningUser" [uiMode]="uiMode"></app-planning-item-list>
         </section>
         <section id="users">
             <app-user-list [planningUser]="planningUser" (planningUserEvent)="receivePlanningUserEvent($event)"></app-user-list>

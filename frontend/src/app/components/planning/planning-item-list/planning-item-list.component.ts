@@ -16,7 +16,7 @@ export class PlanningItemListComponent implements OnInit {
   user: User;
 
   @Input() planningUser: User;
-  @Input() mode: string;
+  @Input() uiMode: string;
 
   items: any = [];
 

@@ -40,6 +40,11 @@ div.content {
                 button:not(:first-child) {
                     margin-left: 2rem;
                 }
+
+                button.dark-theme {
+                    background: #393939;
+                    color: #fff;
+                }
             }
         }
     }

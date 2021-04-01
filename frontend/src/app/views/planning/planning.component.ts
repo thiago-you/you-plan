@@ -13,7 +13,8 @@ export class PlanningComponent implements OnInit {
 
   user: User;
   planningId: string;
-  mode: string;
+  uiMode: string;
+  darkMode: boolean;
 
   /**
    * Child Events
@@ -29,7 +30,8 @@ export class PlanningComponent implements OnInit {
     this.planningId = '';
     this.user = this.userStorage.user;
     this.planningUser = this.newUserInstance();
-    this.mode = 'normal';
+    this.uiMode = 'normal';
+    this.darkMode = false;
   }
 
   ngOnInit(): void { 
@@ -49,8 +51,12 @@ export class PlanningComponent implements OnInit {
     this.planningUser = $event;
   }
 
-  toggleMode() {
-    this.mode = this.mode == 'normal' ? 'simplified' : 'normal';
+  toggleUiMode() {
+    this.uiMode = this.uiMode == 'normal' ? 'simplified' : 'normal';
+  }
+
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
   }
 
   private findPlanningUser() {
