@@ -31,13 +31,14 @@ div.content {
                 grid-area: actions;
                 display: flex;
                 justify-content: end;
+                margin-top: 1rem;
                 
                 button:hover {
                     cursor: pointer;
                 }
 
                 button:not(:first-child) {
-                    margin-left: 1rem;
+                    margin-left: 2rem;
                 }
             }
         }

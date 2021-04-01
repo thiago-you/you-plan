@@ -13,6 +13,7 @@ export class PlanningComponent implements OnInit {
 
   user: User;
   planningId: string;
+  mode: string;
 
   /**
    * Child Events
@@ -28,6 +29,7 @@ export class PlanningComponent implements OnInit {
     this.planningId = '';
     this.user = this.userStorage.user;
     this.planningUser = this.newUserInstance();
+    this.mode = 'normal';
   }
 
   ngOnInit(): void { 
@@ -45,6 +47,10 @@ export class PlanningComponent implements OnInit {
 
   receivePlanningUserEvent($event: User) {
     this.planningUser = $event;
+  }
+
+  toggleMode() {
+    this.mode = this.mode == 'normal' ? 'simplified' : 'normal';
   }
 
   private findPlanningUser() {
