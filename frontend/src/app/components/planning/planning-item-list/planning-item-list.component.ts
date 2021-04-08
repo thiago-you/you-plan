@@ -1,5 +1,6 @@
 import { PlanningItem } from '../planningItem';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from '../plannig.service';
 import { UserStorage } from '../../user/user.storage';
@@ -35,6 +36,7 @@ export class PlanningItemListComponent implements OnInit {
     private planningService: PlanningService, 
     private route: ActivatedRoute, 
     private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) {
     this.user = this.userStorage.user;
     this.planningUser = this.newUserInstance();
@@ -135,6 +137,10 @@ export class PlanningItemListComponent implements OnInit {
     return score;    
   }
 
+  showVotesInfo() {
+    this.dialog.open(VoteInfoDialog)
+  }
+
   private getItems() {
     this.planningService.getItems(this.plannigId).subscribe(items => {
       this.items = items || [];
@@ -163,4 +169,16 @@ export class PlanningItemListComponent implements OnInit {
       panelClass: [ panelClass ]
     });
   }
+}
+@Component({
+  selector: 'vote-info-dialog',
+  templateUrl: 'vote-info-dialog.html',
+})
+export class VoteInfoDialog {
+
+  constructor(private dialogRef: MatDialogRef<VoteInfoDialog>) {}
+
+  close(){
+    this.dialogRef.close(true);
+ }
 }

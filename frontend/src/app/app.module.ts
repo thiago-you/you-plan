@@ -13,6 +13,7 @@ import { HomeComponent } from './views/home/home.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -51,6 +52,7 @@ import { PlanningCreateComponent } from './components/planning/planning-create/p
     MatToolbarModule,
     MatCardModule,
     MatSnackBarModule,
+    MatDialogModule,
     MatButtonModule,
     MatListModule,
     MatFormFieldModule,
