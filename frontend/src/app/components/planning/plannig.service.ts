@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { PlanningItem } from './planningItem';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,9 +11,11 @@ import { Planning } from './planning';
 })
 export class PlanningService {
 
-  private baseUrl: string = 'http://localhost:3001/plannings';
+  private baseUrl: string;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    this.baseUrl = `${environment.url}/plannings`
+  }
 
   create(planning: Planning): Observable<Planning> {
     return this.httpClient.post<Planning>(this.baseUrl, planning);

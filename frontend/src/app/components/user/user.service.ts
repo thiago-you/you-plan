@@ -1,3 +1,4 @@
+import { environment } from "../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8,9 +9,11 @@ import { User } from './user';
 })
 export class UserService {
 
-  private baseUrl: string = 'http://localhost:3001/users';
+  private baseUrl: string;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    this.baseUrl = `${environment.url}/users`
+  }
 
   create(user: User): Observable<User> {
     return this.httpClient.post<User>(this.baseUrl, user);
