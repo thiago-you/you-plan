@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/template/header/header.component';
 
 import { FooterComponent } from './components/template/footer/footer.component';
-import { ItemsCrudComponent } from './components/item/items-crud/items-crud.component';
 import { HomeComponent } from './views/home/home.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -38,7 +37,6 @@ import { PlanningCreateComponent } from './components/planning/planning-create/p
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    ItemsCrudComponent,
     UserListComponent,
     PlanningItemListComponent,
     PlanningComponent,
