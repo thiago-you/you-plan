@@ -15,7 +15,7 @@
                                     {{planning.name}}
                                 </h4>
                             </a>
-                            <ng-container *ngIf="planning.concluded == ''; else concluded">
+                            <ng-container *ngIf="planning.concluded == false; else concluded">
                                 <span class="badge blue-light">
                                     Pendente
                                 </span>

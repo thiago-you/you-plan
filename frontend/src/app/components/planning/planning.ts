@@ -1,6 +1,6 @@
 export interface Planning {
     id?: string,
     name: string,
-    concluded?: string,
+    concluded?: boolean,
     created_by?: number,
 }

@@ -19,10 +19,18 @@
             </button>
         </section>
         <section id="planning">
-            <app-planning-item-list [planningUser]="planningUser" [uiMode]="uiMode"></app-planning-item-list>
+            <app-planning-item-list 
+                [planningUser]="planningUser" 
+                [uiMode]="uiMode"
+                (planningConcludedEvent)="receivePlanningConcludedEvent($event)">
+            </app-planning-item-list>
         </section>
         <section id="users">
-            <app-user-list [planningUser]="planningUser" (planningUserEvent)="receivePlanningUserEvent($event)"></app-user-list>
+            <app-user-list 
+                [planningUser]="planningUser" 
+                (planningUserEvent)="receivePlanningUserEvent($event)" 
+                (planningConcludedEvent)="receivePlanningConcludedEvent($event)">
+            </app-user-list>
         </section>
     </div>
 </div>

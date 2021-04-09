@@ -1,3 +1,4 @@
+import { Planning } from './../../components/planning/planning';
 import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from './../../components/planning/plannig.service';
 import { UserStorage } from './../../components/user/user.storage';
@@ -11,11 +12,14 @@ import { User } from 'src/app/components/user/user';
 })
 export class PlanningComponent implements OnInit {
 
-  user: User;
   planningId: string;
+  planning: Planning;
+
+  user: User;
+
   uiMode: string;
   darkMode: boolean;
-
+  
   /**
    * Child Events
    */
@@ -35,20 +39,29 @@ export class PlanningComponent implements OnInit {
   }
 
   ngOnInit(): void { 
-    if (this.user && this.user.id > 0) {
-      this.route.params.subscribe(params => {
-        this.planningId = params['id'];
-        
-        if (this.planningId && this.planningId.trim().length > 0) {
+    this.route.params.subscribe(params => {
+      this.planningId = params['id'];
+      
+      if (this.planningId && this.planningId.trim().length > 0) {
+        this.getPlanning();
+
+        if (this.user && this.user.id > 0) {
           this.findPlanningUser();
           this.getAction();
         }
-      });
-    }
+      }
+    });
   }
 
   receivePlanningUserEvent($event: User) {
     this.planningUser = $event;
+  }
+
+  receivePlanningConcludedEvent($event: boolean) {
+    if (this.planning.concluded != $event) {
+      this.planning.concluded = $event;
+      this.planningService.update(this.planning).subscribe();
+    }
   }
 
   toggleUiMode() {
@@ -57,6 +70,12 @@ export class PlanningComponent implements OnInit {
 
   toggleDarkMode() {
     this.darkMode = !this.darkMode;
+  }
+
+  private getPlanning() {
+    this.planningService.get(this.planningId).subscribe((planning: Planning) => {
+      this.planning = planning;
+    });
   }
 
   private findPlanningUser() {

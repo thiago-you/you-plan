@@ -81,7 +81,7 @@ export class PlanningCreateComponent implements OnInit {
     this.planning = {
       id: null,
       name: "",
-      concluded: "",
+      concluded: false,
       created_by: null,
     };
   }

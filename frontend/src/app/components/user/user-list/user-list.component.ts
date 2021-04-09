@@ -20,6 +20,7 @@ export class UserListComponent implements OnInit {
   @Input() action: any;
   
   @Output() planningUserEvent: EventEmitter<User>;
+  @Output() planningConcludedEvent: EventEmitter<boolean>;
 
   votes: any = [];
   votesCount = 0;
@@ -30,7 +31,7 @@ export class UserListComponent implements OnInit {
     private userStorage: UserStorage, 
     private planningService: PlanningService, 
     private route: ActivatedRoute, 
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
     this.user = this.userStorage.user;
     this.users = [];
@@ -40,6 +41,7 @@ export class UserListComponent implements OnInit {
     this.planningUser = this.newUserInstance();
 
     this.planningUserEvent = new EventEmitter<User>()
+    this.planningConcludedEvent = new EventEmitter<boolean>()
   }
 
   ngOnInit(): void {
@@ -108,6 +110,12 @@ export class UserListComponent implements OnInit {
       if (item && item.id > 0) {
         item.score = vote;
   
+        const concluded = items.filter((item: PlanningItem) => !item.score || item.score?.length == 0).length == 0;
+
+        if (concluded) {
+          this.planningConcludedEvent.emit(true);
+        }
+
         this.planningService.updateItem(item).subscribe(() => {
           this.showMessage('O estorie foi votado com sucesso!');
           this.setAction('');

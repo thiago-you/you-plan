@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from '../plannig.service';
 import { UserStorage } from '../../user/user.storage';
 import { User } from '../../user/user';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { VoteInfoDialogComponent } from '../../dialog/vote-info-dialog.component';
 
 @Component({
@@ -19,6 +19,8 @@ export class PlanningItemListComponent implements OnInit {
 
   @Input() planningUser: User;
   @Input() uiMode: string;
+
+  @Output() planningConcludedEvent: EventEmitter<boolean>;
 
   items: any = [];
 
@@ -41,6 +43,8 @@ export class PlanningItemListComponent implements OnInit {
   ) {
     this.user = this.userStorage.user;
     this.planningUser = this.newUserInstance();
+
+    this.planningConcludedEvent = new EventEmitter<boolean>()
   }
 
   ngOnInit(): void {
@@ -82,6 +86,8 @@ export class PlanningItemListComponent implements OnInit {
           });
         } else {
           this.planningService.createItem(this.plannigId, this.estorie).subscribe(() => {
+            this.planningConcludedEvent.emit(false);
+
             this.resetItem();
             this.getItems();
 
@@ -104,7 +110,14 @@ export class PlanningItemListComponent implements OnInit {
 
   removeItem(item: PlanningItem) {
     this.items = this.items.filter((_item: PlanningItem) => _item.id != item.id);
+
     this.planningService.deleteItem(item.id).subscribe(() => {
+      const concluded = this.items.filter((item: PlanningItem) => !item.score || item.score?.length == 0).length == 0;
+
+      if (concluded) {
+        this.planningConcludedEvent.emit(true);
+      }
+
       this.showMessage('Estorie deletado com sucesso!');
     });
   }
@@ -113,6 +126,8 @@ export class PlanningItemListComponent implements OnInit {
     item.score = '';
     
     this.planningService.updateItem(item).subscribe(() => {
+      this.planningConcludedEvent.emit(false);
+
       this.getItems();
       this.showMessage('O voto da estorie foi removido com sucesso!');
     });
