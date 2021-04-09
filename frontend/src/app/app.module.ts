@@ -30,6 +30,7 @@ import { PlanningItemListComponent } from './components/planning/planning-item-l
 import { PlanningComponent } from './views/planning/planning.component';
 import { PlanningListComponent } from './components/planning/planning-list/planning-list.component';
 import { PlanningCreateComponent } from './components/planning/planning-create/planning-create.component';
+import { VoteInfoDialogComponent } from './components/dialog/vote-info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { PlanningCreateComponent } from './components/planning/planning-create/p
     PlanningComponent,
     PlanningListComponent,
     PlanningCreateComponent,
+    VoteInfoDialogComponent,
   ],
   imports: [
     BrowserModule,

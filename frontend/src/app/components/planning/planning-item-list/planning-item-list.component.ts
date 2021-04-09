@@ -6,6 +6,7 @@ import { PlanningService } from '../plannig.service';
 import { UserStorage } from '../../user/user.storage';
 import { User } from '../../user/user';
 import { Component, Input, OnInit } from '@angular/core';
+import { VoteInfoDialogComponent } from '../../dialog/vote-info-dialog.component';
 
 @Component({
   selector: 'app-planning-item-list',
@@ -138,7 +139,7 @@ export class PlanningItemListComponent implements OnInit {
   }
 
   showVotesInfo() {
-    this.dialog.open(VoteInfoDialog)
+    this.dialog.open(VoteInfoDialogComponent)
   }
 
   private getItems() {
@@ -169,16 +170,4 @@ export class PlanningItemListComponent implements OnInit {
       panelClass: [ panelClass ]
     });
   }
-}
-@Component({
-  selector: 'vote-info-dialog',
-  templateUrl: 'vote-info-dialog.html',
-})
-export class VoteInfoDialog {
-
-  constructor(private dialogRef: MatDialogRef<VoteInfoDialog>) {}
-
-  close(){
-    this.dialogRef.close(true);
- }
 }
