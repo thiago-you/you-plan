@@ -204,18 +204,8 @@ export class UserListComponent implements OnInit {
           'count': 0,
         },
         {
-          'vote': '21',
-          'name': '21',
-          'count': 0,
-        },
-        {
-          'vote': '40',
-          'name': '40',
-          'count': 0,
-        },
-        {
-          'vote': '100',
-          'name': '100',
+          'vote': '20',
+          'name': '20',
           'count': 0,
         },
         {
