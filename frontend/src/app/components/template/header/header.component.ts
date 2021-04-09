@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit {
     this.snackBar.open(msg, '', {
       duration: 3000,
       horizontalPosition: 'right',
-      verticalPosition: 'top',
+      verticalPosition: 'bottom',
       panelClass: [ panelClass, 'custom-snackbar' ]
     });
   }
