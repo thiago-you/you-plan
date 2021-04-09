@@ -88,6 +88,10 @@ export class PlanningService {
     return this.httpClient.put<void>(`${this.baseUrl}-actions/${action.id}`, action);
   }
 
+  findAction(id: string): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.baseUrl}-actions?planning=${id}`);
+  }
+
   getItems(id: string): Observable<PlanningItem[]> {
     return this.httpClient.get<PlanningItem[]>(`${this.baseUrl}-items?planning=${id}`);
   }

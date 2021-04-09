@@ -24,7 +24,7 @@ export class PlanningComponent implements OnInit {
    * Child Events
    */
   planningUser: User;
-  action: User;
+  action: any;
 
   constructor(
     private userStorage: UserStorage, 
@@ -34,6 +34,7 @@ export class PlanningComponent implements OnInit {
     this.planningId = '';
     this.user = this.userStorage.user;
     this.planningUser = this.newUserInstance();
+    this.action = {};
     this.uiMode = 'normal';
     this.darkMode = false;
   }
@@ -97,9 +98,15 @@ export class PlanningComponent implements OnInit {
   }
 
   private getAction() {
-    this.planningService.getAction(this.planningId).subscribe(action => {
-      this.action = action[0];
-
+    this.planningService.getAction(this.planningId).subscribe(actions => {
+      if (actions && actions.length > 0) {
+        this.action = actions[0];
+      } else {
+        this.planningService.createAction(this.planningId).subscribe((action: any) => {
+          this.action = action;
+        });
+      }
+      
       setTimeout(() => {
         this.getAction();  
       }, 2000);

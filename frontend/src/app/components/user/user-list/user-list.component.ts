@@ -25,7 +25,7 @@ export class UserListComponent implements OnInit {
   votes: any = [];
   votesCount = 0;
 
-  private plannigId: string;
+  private planningId: string;
 
   constructor(
     private userStorage: UserStorage, 
@@ -37,9 +37,6 @@ export class UserListComponent implements OnInit {
     this.users = [];
     this.votes = [];
 
-    this.action = {};
-    this.planningUser = this.newUserInstance();
-
     this.planningUserEvent = new EventEmitter<User>()
     this.planningConcludedEvent = new EventEmitter<boolean>()
   }
@@ -50,9 +47,9 @@ export class UserListComponent implements OnInit {
     });
 
     this.route.params.subscribe(params => {
-      this.plannigId = params['id'];
+      this.planningId = params['id'];
       
-      if (this.plannigId && this.plannigId.trim().length > 0) {
+      if (this.planningId && this.planningId.trim().length > 0) {
         this.getUsers();
       }
     });
@@ -71,7 +68,7 @@ export class UserListComponent implements OnInit {
   insertUser() {
     this.validateAdmin();
     
-    this.planningService.createUser(this.plannigId, this.user).subscribe(user => {
+    this.planningService.createUser(this.planningId, this.user).subscribe(user => {
       this.planningUser = user;      
       this.users.push(user);
       this.planningUserEvent.emit(user);
@@ -95,7 +92,11 @@ export class UserListComponent implements OnInit {
 
   setAction(value: string) {
     this.action.value = value;
-    this.planningService.setAction(this.action).subscribe();
+    
+    if (this.action.id > 0) {
+      this.planningService.setAction(this.action).subscribe();
+    }
+
     this.calculateVotes();
 
     if (value == '') {
@@ -104,7 +105,7 @@ export class UserListComponent implements OnInit {
   }
 
   selectVote(vote: string) {
-    this.planningService.getItems(this.plannigId).subscribe((items: PlanningItem[]) => {
+    this.planningService.getItems(this.planningId).subscribe((items: PlanningItem[]) => {
       const item: PlanningItem = items.find((item: PlanningItem) => item.score?.length == 0)
 
       if (item && item.id > 0) {
@@ -144,7 +145,7 @@ export class UserListComponent implements OnInit {
   }
 
   private getUsers() {
-    this.planningService.getUsers(this.plannigId).subscribe(users => {
+    this.planningService.getUsers(this.planningId).subscribe(users => {
       this.users = users || [];
 
       this.users.forEach(user => {
