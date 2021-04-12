@@ -5,24 +5,28 @@ import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from '../plannig.service';
 import { UserStorage } from '../../user/user.storage';
 import { User } from '../../user/user';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { VoteInfoDialogComponent } from '../../dialog/vote-info-dialog.component';
+import { PlanningResumeDialogComponent } from '../../dialog/planing-resume-dialog.component';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-planning-item-list',
   templateUrl: './planning-item-list.component.html',
   styleUrls: ['./planning-item-list.component.scss']
 })
-export class PlanningItemListComponent implements OnInit {
+export class PlanningItemListComponent implements OnInit, OnDestroy {
 
   user: User;
+  items: any = [];
+
+  private eventsSubscription: Subscription;
 
   @Input() planningUser: User;
   @Input() uiMode: string;
+  @Input() concludedEvent: Observable<void>;
 
   @Output() planningConcludedEvent: EventEmitter<boolean>;
-
-  items: any = [];
 
   estorie: PlanningItem = {
     id: null,
@@ -42,8 +46,6 @@ export class PlanningItemListComponent implements OnInit {
     private dialog: MatDialog,
   ) {
     this.user = this.userStorage.user;
-    this.planningUser = this.newUserInstance();
-
     this.planningConcludedEvent = new EventEmitter<boolean>()
   }
 
@@ -63,6 +65,12 @@ export class PlanningItemListComponent implements OnInit {
         this.getItems();
       }
     });
+
+    this.eventsSubscription = this.concludedEvent.subscribe(() => this.showConcludedDialog());
+  }
+
+  ngOnDestroy(): void {
+    this.eventsSubscription.unsubscribe();
   }
 
   setVote(vote: string) {
@@ -155,6 +163,14 @@ export class PlanningItemListComponent implements OnInit {
 
   showVotesInfo() {
     this.dialog.open(VoteInfoDialogComponent)
+  }
+
+  private showConcludedDialog() {
+    this.dialog.open(PlanningResumeDialogComponent, {
+      data: {
+        items: this.items,
+      }
+    });
   }
 
   private getItems() {

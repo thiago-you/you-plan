@@ -22,6 +22,7 @@
             <app-planning-item-list 
                 [planningUser]="planningUser" 
                 [uiMode]="uiMode"
+                [concludedEvent]="concludedEvent.asObservable()"
                 (planningConcludedEvent)="receivePlanningConcludedEvent($event)">
             </app-planning-item-list>
         </section>

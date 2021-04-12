@@ -4,6 +4,7 @@ import { PlanningService } from './../../components/planning/plannig.service';
 import { UserStorage } from './../../components/user/user.storage';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/components/user/user';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-planning',
@@ -25,6 +26,7 @@ export class PlanningComponent implements OnInit {
    */
   planningUser: User;
   action: any;
+  concludedEvent: Subject<void> = new Subject<void>();
 
   constructor(
     private userStorage: UserStorage, 
@@ -61,7 +63,12 @@ export class PlanningComponent implements OnInit {
   receivePlanningConcludedEvent($event: boolean) {
     if (this.planning.concluded != $event) {
       this.planning.concluded = $event;
-      this.planningService.update(this.planning).subscribe();
+
+      this.planningService.update(this.planning).subscribe(() => {
+        if ($event) {
+          this.concludedEvent.next();
+        }
+      });
     }
   }
 

@@ -31,6 +31,7 @@ import { PlanningComponent } from './views/planning/planning.component';
 import { PlanningListComponent } from './components/planning/planning-list/planning-list.component';
 import { PlanningCreateComponent } from './components/planning/planning-create/planning-create.component';
 import { VoteInfoDialogComponent } from './components/dialog/vote-info-dialog.component';
+import { PlanningResumeDialogComponent } from './components/dialog/planing-resume-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { VoteInfoDialogComponent } from './components/dialog/vote-info-dialog.co
     PlanningListComponent,
     PlanningCreateComponent,
     VoteInfoDialogComponent,
+    PlanningResumeDialogComponent,
   ],
   imports: [
     BrowserModule,
