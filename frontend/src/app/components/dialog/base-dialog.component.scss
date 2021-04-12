@@ -3,18 +3,76 @@
         margin: 2rem 0 3rem 0;
         min-width: 300px;
 
-        ul {
-            list-style: none;
-            padding-left: 0;
-
-            li {
-                margin: 0.5rem;
+        div.info {
+            ul {
+                list-style: none;
+                padding-left: 0;
     
-                span {
-                    display: inline-block;
-                    width: 2.5rem;
-                    text-align: center;
-                    font-weight: bold;
+                li {
+                    margin: 0.5rem;
+        
+                    span {
+                        display: inline-block;
+                        width: 2.5rem;
+                        text-align: center;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+
+        div.estories {
+            ul {
+                list-style-type: none;
+                height: 300px;
+                color: #333;
+                text-indent: 0.5rem;
+                padding-left: 15px;
+                padding-right: 15px;
+                overflow-y: auto;
+
+                li {
+                    display: flex;
+                    padding: 8px 5px;
+
+                    div {
+                        flex: 1;
+                        
+                        p.desc {
+                            font-size: 0.8rem;
+                            color: #666;
+                            padding-right: 10px;
+                            margin-bottom: 0;
+                        }
+                        
+                        span {
+                            &.vote {
+                                display: inline;
+                                margin-left: 0.2rem;
+                                padding: .2em .6em .3em;
+                                font-size: 75%;
+                                font-weight: 700;
+                                line-height: 1;
+                                color: #fff;
+                                text-align: center;
+                                white-space: nowrap;
+                                vertical-align: baseline;
+                                border-radius: .25em;
+                            }
+
+                            &.vote-badge {
+                                background-color: #5bc0de;
+                            }
+                        }
+                    }
+                }
+
+                li::before {
+                    content: "•";
+                    font-weight: bolder;
+                    font-size: 12px;
+                    margin-right: 10px;
+                    line-height: 14px;
                 }
             }
         }
