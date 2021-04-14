@@ -25,6 +25,10 @@ export class PlanningResumeDialogComponent implements OnInit {
         this.dialogRef.close(true);
     }
 
+    export() {
+        alert('Em Breve...');
+    }
+
     getScore(value: string = ''): string {
         let score = value || '';
     

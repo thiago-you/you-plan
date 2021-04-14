@@ -162,7 +162,9 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
   }
 
   showVotesInfo() {
-    this.dialog.open(VoteInfoDialogComponent)
+    this.dialog.open(VoteInfoDialogComponent, {
+      autoFocus: false,
+    });
   }
 
   private showConcludedDialog() {
@@ -171,9 +173,10 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
         this.items = items;
 
         this.dialog.open(PlanningResumeDialogComponent, {
+          autoFocus: false,
           data: {
             items: this.items,
-          }
+          },
         });
       }
     });

@@ -22,6 +22,8 @@
         }
 
         div.estories {
+            min-width: 600px;
+
             ul {
                 list-style-type: none;
                 height: 300px;
@@ -83,6 +85,10 @@
         justify-content: flex-end;
         width: 100%;
 
+        &.justify-between {
+            justify-content: space-between;
+        }
+
         button {
             box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0, 0, 0, 0.12);
             user-select: none;
@@ -92,7 +98,7 @@
             background-color: #fff;
             text-align: center;
             margin: 0;
-            min-width: 64px;
+            min-width: 150px;
             line-height: 36px;
             padding: 0 16px;
             border-radius: 4px;
@@ -100,6 +106,26 @@
             font-family: Roboto, "Helvetica Neue", sans-serif;
             font-size: 14px;
             font-weight: 500;
+        }
+
+        button.primary {
+            background-color: #5bc0de;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    ::ng-deep {
+        width: 100%;
+
+        .dialog-content {
+            overflow-x: hidden;
+
+            div.estories {
+                min-width: 100vw;
+                width: 100vw;
+                overflow-x: hidden;
+            }
         }
     }
 }
