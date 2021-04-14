@@ -1,6 +1,6 @@
 import { UserStorage } from './../user.storage';
 import { ActivatedRoute } from '@angular/router';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlanningService } from '../../planning/plannig.service';
 import { User } from '../user';
@@ -18,10 +18,11 @@ export class UserListComponent implements OnInit {
   
   @Input() planningUser: User;
   @Input() action: any;
+  @Input() planningConcluded: boolean;
   
   @Output() planningUserEvent: EventEmitter<User>;
   @Output() planningConcludedEvent: EventEmitter<boolean>;
-
+  
   votes: any = [];
   votesCount = 0;
 
@@ -36,6 +37,7 @@ export class UserListComponent implements OnInit {
     this.user = this.userStorage.user;
     this.users = [];
     this.votes = [];
+    this.planningConcluded = false;
 
     this.planningUserEvent = new EventEmitter<User>()
     this.planningConcludedEvent = new EventEmitter<boolean>()
@@ -124,6 +126,10 @@ export class UserListComponent implements OnInit {
         });
       }
     });
+  }
+
+  showResume() {
+    this.planningConcludedEvent.emit(true);
   }
 
   private clearUsersVote() {

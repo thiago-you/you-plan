@@ -30,6 +30,7 @@
             <app-user-list 
                 [planningUser]="planningUser" 
                 [action]="action" 
+                [planningConcluded]="planning?.concluded" 
                 (planningUserEvent)="receivePlanningUserEvent($event)" 
                 (planningConcludedEvent)="receivePlanningConcludedEvent($event)">
             </app-user-list>

@@ -58,24 +58,33 @@
     </div>
     <div class="card-body">
         <ng-container *ngIf="!action.value || action.value == ''; else flipList">
-            <ng-container *ngIf="planningUser.id > 0 && planningUser.admin; else disabledAction">
+            <ng-container *ngIf="planningUser.id > 0 && planningConcluded; else actions">
                 <div class="action-button">
-                    <button mat-raised-button color="primary" (click)="setAction('flip')">
-                        FLIP
+                    <button mat-raised-button color="primary" (click)="showResume()">
+                        RESUMO
                     </button>
-                    <div class="skip-action">
-                        <span (click)="selectVote('skip')">
-                            Skip
-                        </span>
-                    </div>
                 </div>
             </ng-container>
-            <ng-template #disabledAction>
-                <div class="action-button">
-                    <button mat-raised-button color="primary" disabled>
-                        VOTOS
-                    </button>
-                </div>
+            <ng-template #actions>
+                <ng-container *ngIf="planningUser.id > 0 && planningUser.admin; else disabledAction">
+                    <div class="action-button">
+                        <button mat-raised-button color="primary" (click)="setAction('flip')">
+                            FLIP
+                        </button>
+                        <div class="skip-action">
+                            <span (click)="selectVote('skip')">
+                                Skip
+                            </span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #disabledAction>
+                    <div class="action-button">
+                        <button mat-raised-button color="primary" disabled>
+                            VOTOS
+                        </button>
+                    </div>
+                </ng-template>
             </ng-template>
         </ng-container>
         <ng-template #flipList>
