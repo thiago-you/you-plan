@@ -167,7 +167,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
     });
   }
 
-  private showConcludedDialog() {
+  showConcludedDialog() {
     this.planningService.getItems(this.plannigId).subscribe(items => {
       if (items && items.length > 0) {
         this.items = items;

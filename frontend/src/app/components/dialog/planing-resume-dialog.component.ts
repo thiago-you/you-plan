@@ -35,7 +35,10 @@ export class PlanningResumeDialogComponent implements OnInit {
         if (value == 'coffee') {
           score = '☕';
         }
-    
+        if (value.trim().length == 0) {
+            score = 'Pendente';
+        }
+
         return score;    
-      }
+    }
 }

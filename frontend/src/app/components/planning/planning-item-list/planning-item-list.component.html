@@ -1,5 +1,5 @@
 <mat-card class="card card-vote mat-elevation-z3">
-    <div class="card-header card-vote-header">
+    <div class="card-header">
         <p>
             Clique para votar
         </p>    
@@ -31,7 +31,12 @@
     <div class="card-header">
         <p>
             Estories
-        </p>    
+        </p>
+        <span title="Informação sobre o peso dos votos">
+            <i class="material-icons shady-black" (click)="showConcludedDialog()">
+                info
+            </i>
+        </span> 
     </div>
     <div class="card-body">
         <ng-container *ngIf="items && items.length > 0; else emptyList">

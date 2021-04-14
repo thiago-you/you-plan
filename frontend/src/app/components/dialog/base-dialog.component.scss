@@ -64,6 +64,10 @@
 
                             &.vote-badge {
                                 background-color: #5bc0de;
+
+                                &.pending {
+                                    background-color: #e6d81f;
+                                }
                             }
                         }
                     }

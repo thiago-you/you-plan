@@ -10,7 +10,12 @@
                         <div>
                             <span class="name">
                                 {{item.name}}
-                                <ng-container *ngIf="item.score != ''">
+                                <ng-container *ngIf="!item.score || item.score == ''; else vote">
+                                    <span class="vote vote-badge pending">
+                                        {{getScore(item.score)}}
+                                    </span>
+                                </ng-container>
+                                <ng-template #vote>
                                     <ng-container *ngIf="item.score != 'coffee'; else coffeeVote">
                                         <span class="vote vote-badge">
                                             {{getScore(item.score)}}
@@ -21,7 +26,7 @@
                                             {{getScore(item.score)}}
                                         </span>
                                     </ng-template>
-                                </ng-container>
+                                </ng-template>
                             </span>
                             <p class="desc">
                                 {{item.description}}
