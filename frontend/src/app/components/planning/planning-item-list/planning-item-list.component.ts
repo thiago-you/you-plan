@@ -36,7 +36,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
     score: "",
   };
 
-  private plannigId: string;
+  private planningId: string;
 
   constructor(
     private userStorage: UserStorage, 
@@ -59,9 +59,9 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
     });
 
     this.route.params.subscribe(params => {
-      this.plannigId = params['id'];
+      this.planningId = params['id'];
 
-      if (this.plannigId && this.plannigId.trim().length > 0) {
+      if (this.planningId && this.planningId.trim().length > 0) {
         this.getItems();
       }
     });
@@ -74,14 +74,14 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
   }
 
   setVote(vote: string) {
-    if (this.planningUser.planning == this.plannigId && this.items && this.items.length > 0) {
+    if (this.planningUser.planning == this.planningId && this.items && this.items.length > 0) {
       this.planningUser.vote = this.planningUser.vote == vote ? '' : vote;
       this.planningService.updateUser(this.planningUser).subscribe();
     }
   }
 
   saveItem() {
-    if (this.plannigId && this.plannigId.trim().length > 0) {
+    if (this.planningId && this.planningId.trim().length > 0) {
       if (this.estorie.name == null || this.estorie.name.trim().length == 0) {
         this.showMessage('O nome do estorie é obrigatório!', 'danger');
       } else {
@@ -93,7 +93,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
             this.showMessage('Estorie alterada com sucesso!');
           });
         } else {
-          this.planningService.createItem(this.plannigId, this.estorie).subscribe(() => {
+          this.planningService.createItem(this.planningId, this.estorie).subscribe(() => {
             this.planningConcludedEvent.emit(false);
 
             this.resetItem();
@@ -168,7 +168,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
   }
 
   showConcludedDialog() {
-    this.planningService.getItems(this.plannigId).subscribe(items => {
+    this.planningService.getItems(this.planningId).subscribe(items => {
       if (items && items.length > 0) {
         this.items = items;
 
@@ -176,6 +176,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
           autoFocus: false,
           data: {
             items: this.items,
+            planningId: this.planningId,
           },
         });
       }
@@ -183,7 +184,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
   }
 
   private getItems() {
-    this.planningService.getItems(this.plannigId).subscribe(items => {
+    this.planningService.getItems(this.planningId).subscribe(items => {
       this.items = items || [];
 
       setTimeout(() => {
