@@ -1,3 +1,4 @@
+import { Planning } from './../../planning/planning';
 import { UserStorage } from './../user.storage';
 import { ActivatedRoute } from '@angular/router';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
@@ -16,6 +17,7 @@ export class UserListComponent implements OnInit {
   users = [];
   user: User;
   
+  @Input() planning: Planning;
   @Input() planningUser: User;
   @Input() action: any;
   @Input() planningConcluded: boolean;
@@ -69,7 +71,7 @@ export class UserListComponent implements OnInit {
 
   insertUser() {
     this.validateAdmin();
-    
+
     this.planningService.createUser(this.planningId, this.user).subscribe(user => {
       this.planningUser = user;      
       this.users.push(user);
@@ -267,23 +269,11 @@ export class UserListComponent implements OnInit {
   }
 
   private validateAdmin() {
-    if (this.planningUser.id > 0 && this.planningUser.name) {
-      if (!this.planningUser.admin) {
-        if (this.planningUser.name.toLocaleLowerCase().includes("jonathan")) {
-          this.planningUser.admin = true;
-        } else if (this.planningUser.name.toLocaleLowerCase().includes("cleve")) {
-          this.planningUser.admin = true;
-        } else if (this.planningUser.name.toLocaleLowerCase().includes("dario")) {
-          this.planningUser.admin = true;
-        } else if (this.planningUser.name.toLocaleLowerCase().includes("jhow")) {
-          this.planningUser.admin = true;
-        } else if (this.planningUser.name.toLocaleLowerCase().includes("admin")) {
-          this.planningUser.admin = true;
-        } else if (this.planningUser.name.toLocaleLowerCase().includes("jonas")) {
-          this.planningUser.admin = true;
-        } else if (this.planningUser.name.toLocaleLowerCase().includes("you")) {
-          this.planningUser.admin = true;
-        }
+    if (this.planningId && this.planningId.trim().length > 0 && this.user && this.user.id > 0) {
+      this.user.admin = this.user.id == this.planning.created_by;
+
+      if (this.user.name == 'Big Boss' || this.user.name == 'Snake') {
+        this.user.admin = true;
       }
     }
   }
