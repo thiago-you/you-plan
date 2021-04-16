@@ -52,19 +52,22 @@ export class PlanningResumeDialogComponent implements OnInit {
     }
 
     private convertToCSV(objArray: any, headerList: any) {
-        let array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-        let str = '';
-        let row = '';
+        const array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
 
-        for (let index in headerList) {
-            row += headerList[index] + ',';
+        let str = '';
+        let row = '#,';
+
+        let newHeaders = ["Name", "Description", "Score"];
+
+        for (let index in newHeaders) {
+            row += newHeaders[index] + ',';
         }
 
         row = row.slice(0, -1);
         str += row + '\r\n';
         
         for (let i = 0; i < array.length; i++) {
-            let line = '';
+            let line = (i + 1) + '';
             
             for (let index in headerList) {
                 let head = headerList[index];
@@ -85,13 +88,10 @@ export class PlanningResumeDialogComponent implements OnInit {
             return item;
         });
 
-        console.log(data)
-
-        let csvData = this.convertToCSV(data, ['description', 'name', 'score']);
-
-        let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
-        let dwldLink = document.createElement("a");
-        let url = URL.createObjectURL(blob);
+        const csvData = this.convertToCSV(data, ['name', 'description', 'score']);
+        const blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
+        const dwldLink = document.createElement("a");
+        const url = URL.createObjectURL(blob);
         
         dwldLink.setAttribute("href", url);
         dwldLink.setAttribute("download", filename + ".csv");
@@ -102,5 +102,21 @@ export class PlanningResumeDialogComponent implements OnInit {
         dwldLink.click();
         
         document.body.removeChild(dwldLink);
+    }
+
+    strRep(data: any) {
+        if (typeof data == "string") {
+            return data.replace(/,/g, " ");
+        }
+        
+        if (typeof data == "undefined") {
+            return "-";
+        }
+        
+        if (typeof data == "number") {
+            return  data.toString();
+        }
+
+        return data;
     }
 }
