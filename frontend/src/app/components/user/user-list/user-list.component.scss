@@ -30,27 +30,36 @@
                 padding-right: 15px;
 
                 li {
-                    display: flex;
-                    justify-content: space-between;
                     padding: 8px 5px;
+                    
+                    div.user {
+                        display: flex;
+                        justify-content: space-between;
 
-                    span.username {
-                        text-transform: capitalize;
-                    }
+                        span.username {
+                            text-transform: capitalize;
+                        }
 
-                    span.username::before {
-                        content: "👤";
-                        font-size: 14px;
-                        padding-right: 0.2rem;
-                    }
-
-                    span.admin::after {
-                        padding-left: 10px;
-                        content: "👑";
-                    }
-
-                    i {
-                        cursor: pointer;
+                        &.admin {
+                            span.username {
+                                cursor: pointer;
+                            }
+                        }
+    
+                        span.username::before {
+                            content: "👤";
+                            font-size: 14px;
+                            padding-right: 0.2rem;
+                        }
+    
+                        span.admin::after {
+                            padding-left: 10px;
+                            content: "👑";
+                        }
+    
+                        i {
+                            cursor: pointer;
+                        }
                     }
                 }
 

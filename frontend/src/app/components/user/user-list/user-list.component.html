@@ -9,18 +9,36 @@
             <div class="list">
                 <ul>
                     <li *ngFor="let _user of users" [className]="_user.vote?.length > 0 ? 'voted' : ''">
-                        <span class="username">
-                            {{_user.name}}
-                            
-                            <ng-container *ngIf="_user.admin">
-                                <span class="admin"></span>
-                            </ng-container>
-                        </span>
-                        <ng-container *ngIf="planningUser.id > 0 && planningUser.admin && planningUser.id != _user.id">
-                            <i class="material-icons red-light" (click)="removeUser(_user)">
-                                delete
-                            </i>
+                        <ng-container *ngIf="planningUser.id > 0 && planningUser.admin; else user;">
+                            <div class="user admin">
+                                <span class="username" [matMenuTriggerFor]="menu">
+                                    {{_user.name}}
+                                    
+                                    <ng-container *ngIf="_user.admin">
+                                        <span class="admin"></span>
+                                    </ng-container>
+                                </span>
+                                <ng-container *ngIf="planningUser.id != _user.id">
+                                    <i class="material-icons red-light" (click)="removeUser(_user)">
+                                        delete
+                                    </i>
+                                </ng-container>
+                            </div>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="setAdmin(_user, true)">Admin</button>
+                                <button mat-menu-item (click)="setAdmin(_user, false)">Participante</button>
+                            </mat-menu>
                         </ng-container>
+                        <ng-template #user>
+                            <div class="user">
+                                <span class="username">
+                                    {{_user.name}}
+                                    <ng-container *ngIf="_user.admin">
+                                        <span class="admin"></span>
+                                    </ng-container>
+                                </span>
+                            </div>
+                        </ng-template>
                     </li>
                 </ul>
             </div>

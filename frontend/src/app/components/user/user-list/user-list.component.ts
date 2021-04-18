@@ -141,6 +141,21 @@ export class UserListComponent implements OnInit {
     this.planningConcludedEvent.emit(true);
   }
 
+  setAdmin(user: User, admin: boolean) {
+    if (user && user.id > 0) {
+      user.admin = admin;
+
+      this.planningService.updateUser(user).subscribe(() => {
+        if (this.planningUser.id == user.id) {
+          this.planningUser = this.newUserInstance();
+          this.planningUserEvent.emit(this.planningUser);
+        } else {
+          this.users.find(_user => _user.id == user.id).admin = user.admin;
+        }
+      });
+    }
+  }
+
   private clearUsersVote() {
     if (this.users && this.users.length > 0) {
       this.users.forEach((user: any) => {

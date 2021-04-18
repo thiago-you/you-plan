@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion'; 
 import { FormsModule } from '@angular/forms';
 
@@ -61,6 +62,7 @@ import { PlanningResumeDialogComponent } from './components/dialog/planing-resum
     MatInputModule,
     MatTabsModule,
     MatExpansionModule,
+    MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
