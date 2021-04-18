@@ -42,6 +42,17 @@ export class PlanningComponent implements OnInit {
   }
 
   ngOnInit(): void { 
+    this.userStorage.value.subscribe(user => {
+      this.user = user;
+
+      if (this.user && this.user.id > 0) {
+        this.findPlanningUser();
+        this.getAction();
+      } else {
+        this.planningUser = this.newUserInstance();
+      }
+    });
+
     this.route.params.subscribe(params => {
       this.planningId = params['id'];
       

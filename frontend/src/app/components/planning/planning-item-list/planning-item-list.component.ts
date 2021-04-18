@@ -1,9 +1,8 @@
 import { PlanningItem } from '../planningItem';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from '../plannig.service';
-import { UserStorage } from '../../user/user.storage';
 import { User } from '../../user/user';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { VoteInfoDialogComponent } from '../../dialog/vote-info-dialog.component';
@@ -17,7 +16,6 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class PlanningItemListComponent implements OnInit, OnDestroy {
 
-  user: User;
   items: any = [];
 
   private eventsSubscription: Subscription;
@@ -39,25 +37,15 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
   private planningId: string;
 
   constructor(
-    private userStorage: UserStorage, 
     private planningService: PlanningService, 
     private route: ActivatedRoute, 
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
   ) {
-    this.user = this.userStorage.user;
     this.planningConcludedEvent = new EventEmitter<boolean>()
   }
 
   ngOnInit(): void {
-    this.userStorage.value.subscribe(user => {
-      this.user = user;
-
-      if (!this.user || this.user.id <= 0) {
-        this.planningUser = this.newUserInstance();
-      }
-    });
-
     this.route.params.subscribe(params => {
       this.planningId = params['id'];
 
@@ -191,10 +179,6 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
         this.getItems();  
       }, 5000);
     });
-  }
-
-  private newUserInstance(): User {
-    return { id: null, name: "" };
   }
 
   private showMessage(msg: string, type: string = 'success'): void {

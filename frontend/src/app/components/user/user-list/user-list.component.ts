@@ -90,6 +90,13 @@ export class UserListComponent implements OnInit {
           this.planningUser = this.newUserInstance();
           this.planningUserEvent.emit(this.planningUser);
         }
+
+        if (this.users.length > 0 && this.users.filter(_user => _user.admin).length == 0) {
+          user = this.users[0];
+          user.admin = true;
+
+          this.planningService.updateUser(user).subscribe();
+        }
       });
     }
   }
@@ -159,6 +166,7 @@ export class UserListComponent implements OnInit {
       this.users.forEach(user => {
         if (this.planningUser.id == user.id) {
           this.planningUser = user;
+          this.planningUserEvent.emit(this.planningUser);
         }
       });
 
@@ -273,6 +281,9 @@ export class UserListComponent implements OnInit {
       this.user.admin = this.user.id == this.planning.created_by;
 
       if (this.user.name == 'Big Boss' || this.user.name == 'Snake') {
+        this.user.admin = true;
+      }
+      if (this.users.length == 0) {
         this.user.admin = true;
       }
     }

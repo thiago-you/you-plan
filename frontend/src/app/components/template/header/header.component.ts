@@ -30,7 +30,9 @@ export class HeaderComponent implements OnInit {
 
   login() {
     if (this.user.name && this.user.name.trim().length > 0) {
-      this.userService.find(this.user.name.toLocaleLowerCase()).subscribe(users => {
+      this.user.name = this.user.name.toLocaleLowerCase();
+
+      this.userService.find(this.user.name).subscribe(users => {
         if (users.length > 0) {
           this.userStorage.user = users[0];
         } else {
