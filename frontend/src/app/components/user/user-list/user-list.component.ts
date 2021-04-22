@@ -197,6 +197,10 @@ export class UserListComponent implements OnInit {
 
       this.calculateVotes();
 
+      this.users.sort((x: any, y: any) => {
+        return (x.admin === y.admin) ? 0 : (x.admin ? -1 : 1);
+      });
+
       setTimeout(() => {
         this.getUsers();  
       }, 5000);
