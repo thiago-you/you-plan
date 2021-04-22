@@ -91,12 +91,7 @@ export class UserListComponent implements OnInit {
           this.planningUserEvent.emit(this.planningUser);
         }
 
-        if (this.users.length > 0 && this.users.filter(_user => _user.admin).length == 0) {
-          user = this.users[0];
-          user.admin = true;
-
-          this.planningService.updateUser(user).subscribe();
-        }
+        this.checkForAdmin();
       });
     }
   }
@@ -147,12 +142,23 @@ export class UserListComponent implements OnInit {
 
       this.planningService.updateUser(user).subscribe(() => {
         if (this.planningUser.id == user.id) {
-          this.planningUser = this.newUserInstance();
+          this.planningUser.admin = admin;
           this.planningUserEvent.emit(this.planningUser);
         } else {
           this.users.find(_user => _user.id == user.id).admin = user.admin;
         }
+
+        this.checkForAdmin();
       });
+    }
+  }
+
+  private checkForAdmin() {
+    if (this.users.length > 0 && this.users.filter(_user => _user.admin).length == 0) {
+      const user = this.users[0];
+      user.admin = true;
+
+      this.planningService.updateUser(user).subscribe();
     }
   }
 
