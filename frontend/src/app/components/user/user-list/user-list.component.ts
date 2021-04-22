@@ -117,16 +117,16 @@ export class UserListComponent implements OnInit {
       if (item && item.id > 0) {
         item.score = vote;
   
-        const concluded = items.filter((item: PlanningItem) => !item.score || item.score?.length == 0).length == 0;
-
-        if (concluded) {
-          this.planningConcludedEvent.emit(true);
-        }
-
         this.planningService.updateItem(item).subscribe(() => {
           this.showMessage('O estorie foi votado com sucesso!');
           this.setAction('');
           this.clearUsersVote();
+
+          const concluded = items.filter((item: PlanningItem) => !item.score || item.score?.length == 0).length == 0;
+
+          if (concluded) {
+            this.planningConcludedEvent.emit(true);
+          }
         });
       }
     });
