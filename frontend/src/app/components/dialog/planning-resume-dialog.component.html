@@ -4,37 +4,45 @@
 <div mat-dialog-content>
     <div class="dialog-content">
         <div class="estories">
-            <ul *ngIf="items && items.length > 0">
-                <ng-container *ngFor="let item of items;">
-                    <li class="estorie-item">
-                        <div>
+            <table cellspacing="0" *ngIf="items && items.length > 0">
+                <thead>
+                    <tr>
+                        <th>Estorie</th>
+                        <th>Voto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of items;">
+                        <td>
                             <span class="name">
                                 {{item.name}}
-                                <ng-container *ngIf="!item.score || item.score == ''; else vote">
-                                    <span class="vote vote-badge pending">
-                                        {{getScore(item.score)}}
-                                    </span>
-                                </ng-container>
-                                <ng-template #vote>
-                                    <ng-container *ngIf="item.score != 'coffee'; else coffeeVote">
-                                        <span class="vote vote-badge">
-                                            {{getScore(item.score)}}
-                                        </span>
-                                    </ng-container>
-                                    <ng-template #coffeeVote>
-                                        <span class="vote">
-                                            {{getScore(item.score)}}
-                                        </span>
-                                    </ng-template>
-                                </ng-template>
                             </span>
                             <p class="desc">
                                 {{item.description}}
                             </p>
-                        </div>
-                    </li>
-                </ng-container>
-            </ul>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="!item.score || item.score == ''; else vote">
+                                <span class="vote vote-badge pending">
+                                    {{getScore(item.score)}}
+                                </span>
+                            </ng-container>
+                            <ng-template #vote>
+                                <ng-container *ngIf="item.score != 'coffee'; else coffeeVote">
+                                    <span class="vote vote-badge">
+                                        {{getScore(item.score)}}
+                                    </span>
+                                </ng-container>
+                                <ng-template #coffeeVote>
+                                    <span class="vote">
+                                        {{getScore(item.score)}}
+                                    </span>
+                                </ng-template>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

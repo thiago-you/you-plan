@@ -24,32 +24,77 @@
         div.estories {
             min-width: 600px;
 
-            ul {
-                list-style-type: none;
+            table {
                 height: 300px;
+                width: 100%;
                 color: #333;
-                text-indent: 0.5rem;
+                overflow-y: auto;
                 padding-left: 15px;
                 padding-right: 15px;
-                overflow-y: auto;
 
-                li {
-                    display: flex;
-                    padding: 8px 5px;
+                thead {
+                    th {
+                        padding: 0 1rem;
+                    }
 
-                    div {
-                        flex: 1;
-                        
+                    th:first-child {
+                        text-align: start;
+                    }
+
+                    th:last-child {
+                        text-align: center;
+                    }
+                }
+
+                tbody {
+                    tr:not(:last-child) {
+                        td:first-child {
+                            border-top: 1px solid #cecece;
+                            border-left: 1px solid #cecece;
+                            border-right: 1px solid #cecece;
+                        }
+
+                        td:last-child {
+                            border-top: 1px solid #cecece;
+                            border-right: 1px solid #cecece;
+                        }
+                    }
+
+                    tr:last-child {
+                        td:first-child {
+                            border-top: 1px solid #cecece;
+                            border-bottom: 1px solid #cecece;
+                            border-left: 1px solid #cecece;
+                            border-right: 1px solid #cecece;
+                        }
+
+                        td:last-child {
+                            border-top: 1px solid #cecece;
+                            border-bottom: 1px solid #cecece;
+                            border-right: 1px solid #cecece;
+                        }
+                    }
+
+                    td {
+                        padding: 8px 1rem;
+                        text-align: start;
+
                         p.desc {
                             font-size: 0.8rem;
                             color: #666;
                             padding-right: 10px;
                             margin-bottom: 0;
                         }
-                        
+                    }
+
+                    td:last-child {
+                        text-align: center;
+
                         span {
+                            min-width: 2rem;
+                            display: inline-block;                            
+
                             &.vote {
-                                display: inline;
                                 margin-left: 0.2rem;
                                 padding: .2em .6em .3em;
                                 font-size: 75%;
@@ -71,14 +116,6 @@
                             }
                         }
                     }
-                }
-
-                li::before {
-                    content: "•";
-                    font-weight: bolder;
-                    font-size: 12px;
-                    margin-right: 0;
-                    line-height: 14px;
                 }
             }
         }
