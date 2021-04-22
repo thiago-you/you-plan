@@ -24,6 +24,7 @@
             <app-planning-item-list 
                 [planningUser]="planningUser" 
                 [uiMode]="uiMode"
+                [planningConcluded]="planning?.concluded" 
                 [concludedEvent]="concludedEvent.asObservable()"
                 (planningConcludedEvent)="receivePlanningConcludedEvent($event)">
             </app-planning-item-list>

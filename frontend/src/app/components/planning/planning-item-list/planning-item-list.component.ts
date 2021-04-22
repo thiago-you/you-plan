@@ -1,6 +1,6 @@
 import { PlanningItem } from '../planningItem';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MatDialogState } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from '../plannig.service';
 import { User } from '../../user/user';
@@ -22,6 +22,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
 
   @Input() planningUser: User;
   @Input() uiMode: string;
+  @Input() planningConcluded: boolean;
   @Input() concludedEvent: Observable<void>;
 
   @Output() planningConcludedEvent: EventEmitter<boolean>;
@@ -35,6 +36,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
   };
 
   private planningId: string;
+  private resumeDialogRef: MatDialogRef<PlanningResumeDialogComponent>;
 
   constructor(
     private planningService: PlanningService, 
@@ -156,24 +158,32 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
   }
 
   showConcludedDialog() {
-    this.planningService.getItems(this.planningId).subscribe(items => {
-      if (items && items.length > 0) {
-        this.items = items;
+    if(!this.resumeDialogRef || this.resumeDialogRef.getState() !== MatDialogState.OPEN) {
+      this.planningService.getItems(this.planningId).subscribe(items => {
+        if (items && items.length > 0) {
+          this.items = items;
 
-        this.dialog.open(PlanningResumeDialogComponent, {
-          autoFocus: false,
-          data: {
-            items: this.items,
-            planningId: this.planningId,
-          },
-        });
-      }
-    });
+          this.resumeDialogRef = this.dialog.open(PlanningResumeDialogComponent, {
+            autoFocus: false,
+            data: {
+              items: this.items,
+              planningId: this.planningId,
+            },
+          });
+        }
+      });
+    }
   }
 
   private getItems() {
     this.planningService.getItems(this.planningId).subscribe(items => {
       this.items = items || [];
+
+      const concluded = items.filter((item: PlanningItem) => !item.score || item.score?.length == 0).length == 0;
+
+      if (concluded != this.planningConcluded) {
+        this.planningConcludedEvent.emit(concluded);
+      }
 
       setTimeout(() => {
         this.getItems();  
