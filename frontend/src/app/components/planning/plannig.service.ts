@@ -18,6 +18,10 @@ export class PlanningService {
   }
 
   create(planning: Planning): Observable<Planning> {
+    planning.id = this.randomHash(10);
+
+    console.log(planning.id);
+
     return this.httpClient.post<Planning>(this.baseUrl, planning);
   }
 
@@ -108,5 +112,17 @@ export class PlanningService {
 
   deleteItem(itemId: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}-items/${itemId}`);
+  }
+
+  private randomHash(length: number) {
+    const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+
+    let result = '';
+
+    for (let i = length; i > 0; --i) {
+      result += chars[Math.floor(Math.random() * chars.length)]
+    }
+
+    return result;
   }
 }
