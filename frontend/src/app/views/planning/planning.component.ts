@@ -72,13 +72,15 @@ export class PlanningComponent implements OnInit {
   }
 
   receivePlanningConcludedEvent($event: boolean) {
-    this.planning.concluded = $event;
-
-    this.planningService.update(this.planning).subscribe(() => {
-      if ($event) {
-        this.concludedEvent.next();
-      }
-    });
+    if (this.planning) {
+      this.planning.concluded = $event;
+  
+      this.planningService.update(this.planning).subscribe(() => {
+        if ($event) {
+          this.concludedEvent.next();
+        }
+      });
+    }
   }
 
   toggleUiMode() {
