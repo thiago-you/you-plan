@@ -17,6 +17,19 @@
                                     <ng-container *ngIf="_user.admin">
                                         <span class="admin"></span>
                                     </ng-container>
+
+                                    <ng-container *ngIf="action?.value && action?.value == 'flip'">
+                                        <ng-container *ngIf="user?.vote != 'coffee'; else coffeeVote">
+                                            <span class="vote vote-badge">
+                                                {{ getScore(user?.vote) }}
+                                            </span>
+                                        </ng-container>
+                                        <ng-template #coffeeVote>
+                                            <span class="vote">
+                                                {{ getScore(user?.vote) }}
+                                            </span>
+                                        </ng-template>
+                                    </ng-container>
                                 </span>
                                 <ng-container *ngIf="planningUser.id != _user.id">
                                     <i class="material-icons red-light" (click)="removeUser(_user)">

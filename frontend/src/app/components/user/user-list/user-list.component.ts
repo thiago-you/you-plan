@@ -153,6 +153,16 @@ export class UserListComponent implements OnInit {
     }
   }
 
+  getScore(value: string = ''): string {
+    let score = value || '';
+
+    if (value == 'coffee') {
+      score = '☕';
+    }
+
+    return score;    
+  }
+
   private checkForAdmin() {
     if (this.users.length > 0 && this.users.filter(_user => _user.admin).length == 0) {
       const user = this.users[0];
@@ -203,7 +213,7 @@ export class UserListComponent implements OnInit {
 
       setTimeout(() => {
         this.getUsers();  
-      }, 30000);
+      }, 5000);
     });
   }
 
