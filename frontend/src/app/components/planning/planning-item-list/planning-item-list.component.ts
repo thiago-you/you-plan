@@ -187,7 +187,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
 
       setTimeout(() => {
         this.getItems();  
-      }, 5000);
+      }, 7000);
     });
   }
 

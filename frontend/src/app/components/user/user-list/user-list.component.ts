@@ -203,7 +203,7 @@ export class UserListComponent implements OnInit {
 
       setTimeout(() => {
         this.getUsers();  
-      }, 5000);
+      }, 30000);
     });
   }
 
