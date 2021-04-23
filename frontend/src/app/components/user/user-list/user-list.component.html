@@ -19,14 +19,14 @@
                                     </ng-container>
 
                                     <ng-container *ngIf="action?.value && action?.value == 'flip'">
-                                        <ng-container *ngIf="user?.vote != 'coffee'; else coffeeVote">
+                                        <ng-container *ngIf="_user?.vote != 'coffee'; else coffeeVote">
                                             <span class="vote vote-badge">
-                                                {{ getScore(user?.vote) }}
+                                                {{ getScore(_user?.vote) }}
                                             </span>
                                         </ng-container>
                                         <ng-template #coffeeVote>
                                             <span class="vote">
-                                                {{ getScore(user?.vote) }}
+                                                {{ getScore(_user?.vote) }}
                                             </span>
                                         </ng-template>
                                     </ng-container>
