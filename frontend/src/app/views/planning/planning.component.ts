@@ -127,7 +127,7 @@ export class PlanningComponent implements OnInit {
       
       setTimeout(() => {
         this.getAction();  
-      }, 5000);
+      }, 3000);
     });
   }
 }

@@ -45,6 +45,26 @@
                                 cursor: pointer;
                             }
                         }
+
+                        span {
+                            &.vote {
+                                display: inline;
+                                margin-left: 0.5rem;
+                                padding: .2em .6em .3em;
+                                font-size: 75%;
+                                font-weight: 700;
+                                line-height: 1;
+                                color: #fff;
+                                text-align: center;
+                                white-space: nowrap;
+                                vertical-align: baseline;
+                                border-radius: .25em;
+                            }
+
+                            &.vote-badge {
+                                background-color: #5bc0de;
+                            }
+                        }
     
                         span.username::before {
                             content: "👤";
