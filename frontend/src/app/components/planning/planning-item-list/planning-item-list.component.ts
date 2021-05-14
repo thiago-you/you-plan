@@ -175,6 +175,19 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
     }
   }
 
+  downloadJson() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.items));
+    
+    const dwldLink = document.createElement('a');
+    dwldLink.setAttribute('href', dataStr);
+    dwldLink.setAttribute('download', 'estories.json');
+    dwldLink.style.visibility = 'hidden';
+    
+    document.body.appendChild(dwldLink);
+    
+    dwldLink.click();
+  }
+
   private getItems() {
     this.planningService.getItems(this.planningId).subscribe(items => {
       this.items = items || [];
