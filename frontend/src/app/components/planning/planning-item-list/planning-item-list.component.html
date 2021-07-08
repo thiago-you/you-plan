@@ -32,11 +32,23 @@
         <p>
             Estories
         </p>
-        <span title="Resumo da Planning">
-            <i class="material-icons shady-black" (click)="showConcludedDialog()">
-                download
-            </i>
-        </span> 
+        <div>
+            <span title="Upload de JSON com Estories">
+                <i class="material-icons shady-black" (click)="showUploadEstoriesDialog()">
+                    upload
+                </i>
+            </span> 
+            <span title="Resumo da Planning">
+                <i class="material-icons shady-black" (click)="showConcludedDialog()">
+                    download
+                </i>
+            </span> 
+            <span title="JSON dos Estories">
+                <i class="material-icons shady-black" (click)="downloadJson()">
+                    code
+                </i>
+            </span> 
+        </div>
     </div>
     <div class="card-body">
         <ng-container *ngIf="items && items.length > 0; else emptyList">

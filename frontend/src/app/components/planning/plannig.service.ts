@@ -19,9 +19,6 @@ export class PlanningService {
 
   create(planning: Planning): Observable<Planning> {
     planning.id = this.randomHash(10);
-
-    console.log(planning.id);
-
     return this.httpClient.post<Planning>(this.baseUrl, planning);
   }
 
@@ -103,6 +100,13 @@ export class PlanningService {
   createItem(id: string, item: PlanningItem): Observable<void> {
     item.planning = id;
 
+    return this.httpClient.post<void>(`${this.baseUrl}-items`, item);
+  }
+
+  uploadItem(id: string, item: PlanningItem): Observable<void> {
+    item.id = null;
+    item.planning = id;
+    
     return this.httpClient.post<void>(`${this.baseUrl}-items`, item);
   }
 

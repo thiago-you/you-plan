@@ -13,6 +13,20 @@
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
 
+        div {
+            display: flex;
+            justify-content: space-between;
+
+            span {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            span:last-child {
+                margin-right: 0.5rem;
+            }
+        }
+
         span {
             cursor: pointer;
             display: flex;

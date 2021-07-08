@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { VoteInfoDialogComponent } from '../../dialog/vote-info-dialog.component';
 import { PlanningResumeDialogComponent } from '../../dialog/planing-resume-dialog.component';
 import { Observable, Subscription } from 'rxjs';
+import { EstoriesUploadDialogComponent } from '../../dialog/estories-upload-dialog.component';
 
 @Component({
   selector: 'app-planning-item-list',
@@ -173,6 +174,28 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  showUploadEstoriesDialog() {
+    this.dialog.open(EstoriesUploadDialogComponent, {
+      autoFocus: false,
+      data: {
+        planningId: this.planningId,
+      },
+    });
+  }
+
+  downloadJson() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.items));
+    
+    const dwldLink = document.createElement('a');
+    dwldLink.setAttribute('href', dataStr);
+    dwldLink.setAttribute('download', 'estories.json');
+    dwldLink.style.visibility = 'hidden';
+    
+    document.body.appendChild(dwldLink);
+    
+    dwldLink.click();
   }
 
   private getItems() {

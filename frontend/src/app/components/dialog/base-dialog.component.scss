@@ -119,6 +119,16 @@
                 }
             }
         }
+
+        div.estorie-import {
+            display: flex;
+            justify-content: space-around;
+            min-width: 500px;
+
+            & > input {
+                display: none;
+            }
+        }
     }
 
     .dialog-actions {
