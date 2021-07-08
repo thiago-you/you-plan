@@ -12,8 +12,10 @@ import { User } from '../../user/user';
 export class HeaderComponent implements OnInit {
 
   user: User;
+  isLoadingUser: boolean;
 
   constructor(private userStorage: UserStorage, private userService: UserService, private snackBar: MatSnackBar) { 
+    this.isLoadingUser = false;
     this.user = this.userStorage.user;
 
     this.userStorage.value.subscribe(user => {
@@ -22,6 +24,22 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // revalidate logged user
+    if (this.user && this.user.id > 0) {
+      this.isLoadingUser = true;
+      
+      this.userService.find(this.user.name).subscribe(users => {
+        if (users.length > 0) {
+          this.userStorage.user = users[0];
+          this.isLoadingUser = false;
+        } else {
+          this.userService.create(this.user).subscribe(user => {
+            this.userStorage.user = user;
+            this.isLoadingUser = false;
+          });
+        }
+      });
+    }
   }
 
   logout() {

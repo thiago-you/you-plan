@@ -6,14 +6,26 @@
     </div>
     <div class="user">
         <ng-container *ngIf="user.id && user.id > 0; else loginForm">
-            <div>
-                <span class="username">
-                    {{user.name}}
-                </span>
-            </div>
-            <div>
-                <button mat-raised-button (click)="logout()">Logout</button>
-            </div>
+            <ng-container *ngIf="!isLoadingUser; else loadingUser">
+                <div>
+                    <span class="username">
+                        {{user.name}}
+                    </span>
+                </div>
+                <div>
+                    <button mat-raised-button (click)="logout()">Logout</button>
+                </div>
+            </ng-container>
+            <ng-template #loadingUser>
+                <div>
+                    <span class="username">
+                        Carregando...
+                    </span>
+                </div>
+                <div>
+                    <button mat-raised-button disabled>Logout</button>
+                </div>
+            </ng-template>
         </ng-container>
         <ng-template #loginForm>
             <div>
