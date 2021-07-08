@@ -48,8 +48,24 @@
                             <div class="user">
                                 <span class="username">
                                     {{_user.name}}
+                                    
                                     <ng-container *ngIf="_user.admin">
                                         <span class="admin"></span>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="_user?.vote && _user?.vote.length > 0">
+                                        <ng-container *ngIf="action?.value && action?.value == 'flip'">
+                                            <ng-container *ngIf="_user?.vote != 'coffee'; else coffeeVote">
+                                                <span class="vote vote-badge">
+                                                    {{ getScore(_user?.vote) }}
+                                                </span>
+                                            </ng-container>
+                                            <ng-template #coffeeVote>
+                                                <span class="vote">
+                                                    {{ getScore(_user?.vote) }}
+                                                </span>
+                                            </ng-template>
+                                        </ng-container>
                                     </ng-container>
                                 </span>
                             </div>
