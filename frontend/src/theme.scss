@@ -2,11 +2,18 @@
 
 @include mat-core();
 
+$custom-background-color: #e9eaed;
+
 $custom-theme-primary: mat-palette($mat-light-blue);
 $custom-theme-accent:mat-palette($mat-light-green);
 $custom-theme-warn: mat-palette($mat-red);
 
 $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+
+$background: map-get($custom-theme, background);
+$background: map_merge($background, (background: $custom-background-color));
+$custom-theme: map_merge($custom-theme, (background: $background));
+
 @include angular-material-theme($custom-theme);
 
 $custom-theme-dark-primary: mat-palette($mat-grey, 900);

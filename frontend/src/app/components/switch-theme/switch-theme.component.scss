@@ -1,0 +1,9 @@
+::ng-deep {
+    span.mat-slide-toggle-content {
+        align-self: baseline;
+
+        & > i.grey {
+            color: #333;
+        }
+    }
+}

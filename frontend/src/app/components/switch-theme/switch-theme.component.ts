@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemeStorage } from './theme.storage';
 
 @Component({
   selector: 'app-switch-theme',
@@ -9,15 +10,13 @@ export class SwitchThemeComponent implements OnInit {
 
   isDarkTheme: boolean
 
-  constructor() { 
-    this.isDarkTheme = false;
+  constructor(private themeStorage: ThemeStorage) { 
+    this.isDarkTheme = this.themeStorage.isDarkTheme();
   }
 
-  ngOnInit(): void {
-    this.isDarkTheme = localStorage.getItem('theme') == 'dark';
-  }
+  ngOnInit(): void { }
 
   storeThemeSelection() {
-    localStorage.setItem('theme', this.isDarkTheme ? 'dark': 'light');
+    this.themeStorage.theme = this.isDarkTheme ? 'dark': 'light';
   }
 }
