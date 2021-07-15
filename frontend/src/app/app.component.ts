@@ -6,5 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
+  
+  title: string;
+  isDarkTheme: boolean
+
+  constructor() { 
+    this.title = 'frontend';
+    this.isDarkTheme = false;
+  }
+
+  ngOnInit(): void {
+    this.isDarkTheme = localStorage.getItem('theme') == 'dark';
+  }
 }

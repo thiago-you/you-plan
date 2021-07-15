@@ -4,11 +4,17 @@ div.content {
     align-items: center;
     padding: 2rem 3rem;
 
+
     div.container {
         width: 1080px;
         display: flex;
         flex-direction: column;
-    
+
+        & > div {
+            align-self: end;
+            margin-right: 2rem;
+        }
+
         section {
             margin: 2rem;
         }

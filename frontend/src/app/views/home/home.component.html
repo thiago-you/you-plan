@@ -1,5 +1,8 @@
 <div class="content">
     <div class="container">
+        <div id="switch-theme">
+            <app-switch-theme></app-switch-theme>
+        </div>
         <section id="create-planning">
             <app-planning-create [planning]="planning" (saveEvent)="receiveSaveEvent()"></app-planning-create>
         </section>

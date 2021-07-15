@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" [ngClass]="{'dark-theme-mode': isDarkTheme}">
     <app-header></app-header>
     <div>
         <router-outlet></router-outlet>

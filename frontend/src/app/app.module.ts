@@ -23,6 +23,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion'; 
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'; 
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -34,6 +35,7 @@ import { PlanningCreateComponent } from './components/planning/planning-create/p
 import { VoteInfoDialogComponent } from './components/dialog/vote-info-dialog.component';
 import { PlanningResumeDialogComponent } from './components/dialog/planing-resume-dialog.component';
 import { EstoriesUploadDialogComponent } from './components/dialog/estories-upload-dialog.component';
+import { SwitchThemeComponent } from './components/switch-theme/switch-theme.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { EstoriesUploadDialogComponent } from './components/dialog/estories-uplo
     VoteInfoDialogComponent,
     PlanningResumeDialogComponent,
     EstoriesUploadDialogComponent,
+    SwitchThemeComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import { EstoriesUploadDialogComponent } from './components/dialog/estories-uplo
     MatInputModule,
     MatTabsModule,
     MatExpansionModule,
+    MatSlideToggleModule,
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
