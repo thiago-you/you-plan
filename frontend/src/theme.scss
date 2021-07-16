@@ -22,6 +22,22 @@ $custom-theme-dark-warn: mat-palette($mat-red);
 
 $custom-theme-dark: mat-dark-theme($custom-theme-dark-primary, $custom-theme-dark-accent, $custom-theme-dark-warn);
 
+.text-primary {
+    color: #333;
+
+    div, a {
+        color: #333;
+    }
+}
+
 .dark-theme-mode {
     @include angular-material-theme($custom-theme-dark);
+    
+    .text-primary {
+        color: #fff;
+        
+        div, a {
+            color: #fff;
+        }
+    }
 }
