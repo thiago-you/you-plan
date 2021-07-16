@@ -19,8 +19,6 @@ export class AppComponent {
   ngOnInit(): void {
     this.themeStorage.value.subscribe(theme => {
       this.isDarkTheme = theme == 'dark';
-
-      console.log('is dark: ' + this.isDarkTheme ? 'true' : 'false')
     });
   }
 }

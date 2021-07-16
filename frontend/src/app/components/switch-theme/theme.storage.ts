@@ -7,7 +7,7 @@ export class ThemeStorage {
 
     public set theme(value: string) {
         this.value.next(value);
-        localStorage.setItem('theme', JSON.stringify(value));
+        localStorage.setItem('theme', value);
     }
 
     public get theme(): string {

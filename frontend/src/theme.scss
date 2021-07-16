@@ -16,7 +16,7 @@ $custom-theme: map_merge($custom-theme, (background: $background));
 
 @include angular-material-theme($custom-theme);
 
-$custom-theme-dark-primary: mat-palette($mat-grey, 900);
+$custom-theme-dark-primary: mat-palette($mat-deep-purple);
 $custom-theme-dark-accent:mat-palette($mat-pink, A200, A100, A400);
 $custom-theme-dark-warn: mat-palette($mat-red);
 
@@ -30,6 +30,14 @@ $custom-theme-dark: mat-dark-theme($custom-theme-dark-primary, $custom-theme-dar
     }
 }
 
+.card-header {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    border-bottom: 1px solid #ddd;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
 .dark-theme-mode {
     @include angular-material-theme($custom-theme-dark);
     
@@ -38,6 +46,24 @@ $custom-theme-dark: mat-dark-theme($custom-theme-dark-primary, $custom-theme-dar
         
         div, a {
             color: #fff;
+        }
+    }
+
+    .card {
+        .card-header {
+            background-color: #212121;
+            border-color: #242424;
+            border-bottom: 1px solid #242424;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+        
+        .card-header {
+            background-color: #393939;
+            border-color: #242424;
+            border-bottom: 1px solid #242424;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
         }
     }
 }
