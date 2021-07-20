@@ -53,7 +53,7 @@
     <div class="card-body">
         <ng-container *ngIf="items && items.length > 0; else emptyList">
             <div class="estories">
-                <mat-tab-group>
+                <mat-tab-group [selectedIndex]="0">
                     <mat-tab label="Pendentes"> 
                         <ul *ngIf="items && items.length > 0">
                             <ng-container *ngFor="let item of items;">

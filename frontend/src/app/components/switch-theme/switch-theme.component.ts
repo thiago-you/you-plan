@@ -14,7 +14,11 @@ export class SwitchThemeComponent implements OnInit {
     this.isDarkTheme = this.themeStorage.isDarkTheme();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.themeStorage.value.subscribe(theme => {
+      this.isDarkTheme = theme == 'dark';
+    });
+   }
 
   storeThemeSelection() {
     this.themeStorage.theme = this.isDarkTheme ? 'dark': 'light';

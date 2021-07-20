@@ -6,12 +6,9 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #f5f5f5;
-        color: #333;
         padding: 10px 15px;
-        border-bottom: 1px solid #ddd;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
 
         div {
             display: flex;
@@ -53,8 +50,6 @@
                     flex: 1;
                     margin: 0.5rem;
                     cursor: pointer;
-                    color: #333;
-                    background-color: #fff;
                     padding: 10px 16px;
                     font-size: 18px;
                     line-height: 1.3333333;
@@ -64,7 +59,6 @@
                 }
     
                 &.btn.active {
-                    color: #fff;
                     background-color: #5bc0de;
                     border-color: #46b8da;
                 }
@@ -82,7 +76,6 @@
             ul {
                 list-style-type: none;
                 height: 300px;
-                color: #333;
                 text-indent: 0.5rem;
                 padding-left: 15px;
                 padding-right: 15px;
@@ -98,7 +91,6 @@
                         
                         p.desc {
                             font-size: 0.8rem;
-                            color: #666;
                             padding-right: 10px;
                             margin-bottom: 0;
                         }
@@ -144,7 +136,7 @@
                     content: "•";
                     font-weight: bold;
                     font-size: 20px;
-                    line-height: 0em;
+                    line-height: 14px;
                     margin-right: 10px;
                 }
             }
@@ -156,21 +148,24 @@
             justify-content: center;
             align-items: center;
 
-            i {
-                margin-left: 0.4rem;
-                margin-right: 0.4rem;
+            p {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: column;
+                
+                i {
+                    margin-bottom: 0.5rem;
+                }
             }
         }
     }
 
     div.card-footer {
         padding: 1rem;
-        background-color: #f5f5f5;
-        color: #333;
         padding: 0;
-        border-top: 1px solid #ddd;
-        border-bottom-left-radius: 3px;
-        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
 
         form {
             display: flex;
@@ -200,7 +195,6 @@
         }
 
         .mat-expansion-panel {
-            background-color: #f5f5f5;
             box-shadow: unset !important;
         }
     }

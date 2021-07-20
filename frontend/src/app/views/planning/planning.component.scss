@@ -36,13 +36,9 @@ div.content {
                     cursor: pointer;
                 }
 
-                button:not(:first-child) {
+                #switch-theme {
                     margin-left: 2rem;
-                }
-
-                button.dark-theme {
-                    background: #393939;
-                    color: #fff;
+                    align-self: flex-end;
                 }
             }
         }

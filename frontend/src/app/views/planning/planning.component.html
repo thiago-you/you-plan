@@ -11,14 +11,9 @@
                     </ng-template>
                 </button>
             </ng-container>
-            <button mat-raised-button [class.dark-theme]="darkMode" (click)="toggleDarkMode()">
-                <ng-container *ngIf="!darkMode; else lightMode">
-                    Dark Mode
-                </ng-container>
-                <ng-template #lightMode>
-                    Light Mode
-                </ng-template>
-            </button>
+            <div id="switch-theme">
+                <app-switch-theme></app-switch-theme>
+            </div>
         </section>
         <section id="planning">
             <app-planning-item-list 
