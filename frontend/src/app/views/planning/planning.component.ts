@@ -19,7 +19,6 @@ export class PlanningComponent implements OnInit {
   user: User;
 
   uiMode: string;
-  darkMode: boolean;
   
   /**
    * Child Events
@@ -38,7 +37,6 @@ export class PlanningComponent implements OnInit {
     this.planningUser = this.newUserInstance();
     this.action = {};
     this.uiMode = 'normal';
-    this.darkMode = false;
   }
 
   ngOnInit(): void { 
@@ -86,11 +84,7 @@ export class PlanningComponent implements OnInit {
   toggleUiMode() {
     this.uiMode = this.uiMode == 'normal' ? 'simplified' : 'normal';
   }
-
-  toggleDarkMode() {
-    this.darkMode = !this.darkMode;
-  }
-
+  
   private getPlanning() {
     this.planningService.get(this.planningId).subscribe((planning: Planning) => {
       this.planning = planning;
