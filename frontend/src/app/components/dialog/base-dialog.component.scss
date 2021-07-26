@@ -158,9 +158,20 @@
             font-size: 14px;
             font-weight: 500;
         }
+    }
 
-        button.primary {
-            background-color: #5bc0de;
+    .app-dark-theme {
+        .mat-dialog-container {
+            color: #fff;
+            background-color: #393939;
+
+            div.estories table {
+                color: #fff;        
+
+                p.desc {
+                    color: #fafafa;
+                }
+            }
         }
     }
 }

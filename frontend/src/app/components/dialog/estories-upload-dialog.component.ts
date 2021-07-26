@@ -1,8 +1,10 @@
+import { ThemeStorage } from './../switch-theme/theme.storage';
 import { PlanningItem } from './../planning/planningItem';
 import { PlanningService } from './../planning/plannig.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'estories-upload-dialog',
@@ -19,6 +21,8 @@ export class EstoriesUploadDialogComponent implements OnInit {
     planningId: string;
 
     constructor(
+        private overlayContainer: OverlayContainer,
+        private themeStorage: ThemeStorage,
         private dialogRef: MatDialogRef<EstoriesUploadDialogComponent>,
         private planningService: PlanningService, 
         private snackBar: MatSnackBar,
@@ -29,6 +33,18 @@ export class EstoriesUploadDialogComponent implements OnInit {
 
     ngOnInit() {
         this.planningId = this.data.planningId || '';
+
+        if (this.themeStorage.isDarkTheme()) {
+            this.overlayContainer.getContainerElement().classList.add('app-dark-theme');
+        }
+
+        this.themeStorage.value.subscribe(theme => {
+            if (theme == 'dark') {
+                this.overlayContainer.getContainerElement().classList.add('app-dark-theme');
+            } else {
+                this.overlayContainer.getContainerElement().classList.remove('app-dark-theme');
+            }
+        });
     }
 
     onFileChanged(event: any) {

@@ -1,5 +1,7 @@
+import { ThemeStorage } from './../switch-theme/theme.storage';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'planning-resume-dialog',
@@ -12,6 +14,8 @@ export class PlanningResumeDialogComponent implements OnInit {
     items: any;
 
     constructor(
+        private overlayContainer: OverlayContainer,
+        private themeStorage: ThemeStorage,
         private dialogRef: MatDialogRef<PlanningResumeDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
@@ -22,6 +26,18 @@ export class PlanningResumeDialogComponent implements OnInit {
     ngOnInit() {
         this.items = this.data.items || [];
         this.planningId = this.data.planningId || '';
+
+        if (this.themeStorage.isDarkTheme()) {
+            this.overlayContainer.getContainerElement().classList.add('app-dark-theme');
+        }
+
+        this.themeStorage.value.subscribe(theme => {
+            if (theme == 'dark') {
+                this.overlayContainer.getContainerElement().classList.add('app-dark-theme');
+            } else {
+                this.overlayContainer.getContainerElement().classList.remove('app-dark-theme');
+            }
+        });
     }
 
     close() {
