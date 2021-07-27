@@ -44,3 +44,19 @@ div.content {
         }
     }
 }
+
+@media (max-width: 800px) {
+    div.content {
+        padding: 1rem 1rem;
+    
+        div.container {
+            width: 100%;
+            grid-template-columns: auto;
+            grid-template-areas: 
+                'actions'
+                'users'
+                'planning'
+            ;
+        }
+    }
+}
