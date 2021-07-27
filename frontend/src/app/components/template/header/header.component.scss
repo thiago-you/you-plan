@@ -74,3 +74,11 @@
         }
     }
 }
+
+@media (max-width: 800px) {
+    .header {
+        justify-content: space-evenly;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

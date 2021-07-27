@@ -57,6 +57,20 @@ div.content {
                 'users'
                 'planning'
             ;
+
+            section {
+                &#planning {
+                    padding: 1rem;
+                }
+            
+                &#users {
+                    padding: 1rem;
+                }
+    
+                &#actions #switch-theme {
+                    margin-left: 1rem;
+                }
+            }
         }
     }
 }
