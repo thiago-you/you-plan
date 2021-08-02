@@ -199,3 +199,20 @@
         }
     }
 }
+
+@media (max-width: 465px) {
+    .mat-card {
+        margin-bottom: 3rem;
+
+        .card-body.votes {
+            .row {
+                input {
+                    &.btn {
+                        padding: 10px;
+                        font-size: 14px;
+                    }
+                }    
+            }
+        }
+    }
+}

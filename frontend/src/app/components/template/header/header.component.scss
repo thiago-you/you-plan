@@ -82,3 +82,23 @@
         padding-right: 0;
     }
 }
+
+@media (max-width: 465px) {
+    .header {
+        justify-content: space-between;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        div.title {
+            font-size: 1.1rem;
+            font-weight: normal;
+        }
+
+        div.user div {
+            span.username {
+                font-size: 14px;
+                margin-right: 1rem;
+            }
+        }
+    }
+}

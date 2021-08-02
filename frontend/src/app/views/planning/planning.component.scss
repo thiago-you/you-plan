@@ -69,6 +69,46 @@ div.content {
     
                 &#actions #switch-theme {
                     margin-left: 1rem;
+                    margin-right: 1rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 465px) {
+    div.content {
+        padding: 0;
+    
+        div.container {
+            width: 100%;
+            grid-template-columns: auto;
+            grid-template-areas: 
+                'actions'
+                'users'
+                'planning'
+            ;
+
+            section {
+                &#planning {
+                    width: calc(100vw - 2rem);
+                    padding: 1rem;
+                }
+            
+                &#users {
+                    width: calc(100vw - 2rem);
+                    padding: 1rem;
+                }
+    
+                &#actions {
+                    width: calc(100vw - 2rem);
+                    justify-content: flex-start;
+                    margin-bottom: 2rem;
+                    margin-top: 2rem;
+
+                    & > button {
+                        margin-left: 1rem;
+                    }
                 }
             }
         }

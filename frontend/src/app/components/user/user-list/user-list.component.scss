@@ -201,3 +201,9 @@
         }
     }
 }
+
+@media (max-width: 465px) {
+    .mat-card:last-child {
+        margin-bottom: 1rem;
+    }
+}

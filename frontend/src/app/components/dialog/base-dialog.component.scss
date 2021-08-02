@@ -191,3 +191,51 @@
         }
     }
 }
+
+@media (max-width: 465px) {
+    ::ng-deep {
+        width: 100%;
+
+        .mat-dialog-container {
+            padding: 24px 0;
+
+            .mat-dialog-title {
+                font-size: 18px;
+                padding: 0 24px;
+            }
+
+            .mat-dialog-actions {
+                padding: 0 24px;
+
+                button {
+                    min-width: 100px;
+                    padding: 0 16px;
+                }
+            }
+
+            .mat-dialog-content {
+                margin: 0;
+                padding: 0;
+            }
+
+            .dialog-content {
+                div.info {
+                    ul {
+                        li {
+                            font-size: 0.8rem;
+                            margin: 0.5rem;
+                
+                            span {
+                                width: 1.5rem;
+                            }
+                        }
+                    }
+                }
+            }
+
+            div.estorie-import {
+                min-width: unset;
+            }
+        }
+    }
+}
