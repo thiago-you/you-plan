@@ -47,37 +47,6 @@ div.content {
 
 @media (max-width: 800px) {
     div.content {
-        padding: 1rem 1rem;
-    
-        div.container {
-            width: 100%;
-            grid-template-columns: auto;
-            grid-template-areas: 
-                'actions'
-                'users'
-                'planning'
-            ;
-
-            section {
-                &#planning {
-                    padding: 1rem;
-                }
-            
-                &#users {
-                    padding: 1rem;
-                }
-    
-                &#actions #switch-theme {
-                    margin-left: 1rem;
-                    margin-right: 1rem;
-                }
-            }
-        }
-    }
-}
-
-@media (max-width: 465px) {
-    div.content {
         padding: 0;
     
         div.container {
@@ -108,6 +77,11 @@ div.content {
 
                     & > button {
                         margin-left: 1rem;
+                    }
+
+                    #switch-theme {
+                        margin-left: 1rem;
+                        margin-right: 1rem;
                     }
                 }
             }

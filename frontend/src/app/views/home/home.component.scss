@@ -23,21 +23,6 @@ div.content {
 
 @media (max-width: 800px) {
     div.content {
-        padding: 1rem 1rem;
-    
-        div.container {
-            width: 100%;
-
-            div#switch-theme {
-                margin-left: 1rem;
-                margin-right: 1rem;
-            }
-        }
-    }
-}
-
-@media (max-width: 465px) {
-    div.content {
         padding: 0;
     
         div.container {

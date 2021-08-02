@@ -77,19 +77,12 @@
 
 @media (max-width: 800px) {
     .header {
-        justify-content: space-evenly;
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-
-@media (max-width: 465px) {
-    .header {
         justify-content: space-between;
         padding-left: 1rem;
         padding-right: 1rem;
 
         div.title {
+            align-self: flex-start;
             font-size: 1.1rem;
             font-weight: normal;
         }
@@ -98,6 +91,41 @@
             span.username {
                 font-size: 14px;
                 margin-right: 1rem;
+            }
+
+            .mat-form-field {
+                font-size: 14px;
+                width: 200px;
+                min-width: unset;
+            }
+        }
+    }
+}
+
+@media (max-width: 465px) {
+    .header {
+        height: 80px;
+        flex-direction: column;
+
+        div.user {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            justify-content: space-between;
+            
+            div .mat-form-field {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 340px) {
+    .header {
+        div.user {
+            div .mat-form-field {
+                width: 120px;
             }
         }
     }

@@ -180,22 +180,6 @@
     ::ng-deep {
         width: 100%;
 
-        .dialog-content {
-            overflow-x: hidden;
-
-            div.estories {
-                min-width: 100vw;
-                width: 100vw;
-                overflow-x: hidden;
-            }
-        }
-    }
-}
-
-@media (max-width: 465px) {
-    ::ng-deep {
-        width: 100%;
-
         .mat-dialog-container {
             padding: 24px 0;
 
@@ -219,6 +203,14 @@
             }
 
             .dialog-content {
+                overflow-x: hidden;
+
+                div.estories {
+                    min-width: 100vw;
+                    width: 100vw;
+                    overflow-x: hidden;
+                }
+
                 div.info {
                     ul {
                         li {
