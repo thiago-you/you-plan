@@ -1,3 +1,4 @@
+import { SocketService } from 'src/app/services/socket.service';
 import { Planning } from './../../components/planning/planning';
 import { ActivatedRoute } from '@angular/router';
 import { PlanningService } from './../../components/planning/plannig.service';
@@ -31,6 +32,7 @@ export class PlanningComponent implements OnInit {
     private userStorage: UserStorage, 
     private planningService: PlanningService,
     private route: ActivatedRoute, 
+    private socketService: SocketService,
   ) {
     this.planningId = '';
     this.user = this.userStorage.user;
@@ -63,6 +65,8 @@ export class PlanningComponent implements OnInit {
         }
       }
     });
+
+    this.setupListeners();
   }
 
   receivePlanningUserEvent($event: User) {
@@ -84,6 +88,12 @@ export class PlanningComponent implements OnInit {
   toggleUiMode() {
     this.uiMode = this.uiMode == 'normal' ? 'simplified' : 'normal';
   }
+
+  private setupListeners() {
+    this.socketService.onFetchActions().subscribe((data: any) => {
+        this.getAction();
+    });
+  }
   
   private getPlanning() {
     this.planningService.get(this.planningId).subscribe((planning: Planning) => {
@@ -98,9 +108,9 @@ export class PlanningComponent implements OnInit {
           this.planningUser = users[0] || this.newUserInstance();
         }
 
-        setTimeout(() => {
-          this.findPlanningUser();  
-        }, 10000);
+        // setTimeout(() => {
+        //   this.findPlanningUser();  
+        // }, 10000);
       });
     }
   }
@@ -118,10 +128,6 @@ export class PlanningComponent implements OnInit {
           this.action = action;
         });
       }
-      
-      setTimeout(() => {
-        this.getAction();  
-      }, 3000);
     });
   }
 }

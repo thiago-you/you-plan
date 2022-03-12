@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlanningService } from '../../planning/plannig.service';
 import { User } from '../user';
 import { PlanningItem } from '../../planning/planningItem';
+import { SocketService } from 'src/app/services/socket.service';  
 
 @Component({
   selector: 'app-user-list',
@@ -35,6 +36,7 @@ export class UserListComponent implements OnInit {
     private planningService: PlanningService, 
     private route: ActivatedRoute, 
     private snackBar: MatSnackBar,
+    private socketService: SocketService,
   ) {
     this.user = this.userStorage.user;
     this.users = [];
@@ -54,9 +56,12 @@ export class UserListComponent implements OnInit {
       this.planningId = params['id'];
       
       if (this.planningId && this.planningId.trim().length > 0) {
+        this.socketService.join(this.planningId);
         this.getUsers();
       }
     });
+
+		this.setupListeners();
   }
 
   hasUser(): Boolean {
@@ -77,6 +82,8 @@ export class UserListComponent implements OnInit {
       this.users.push(user);
       this.planningUserEvent.emit(user);
 
+      this.socketService.fetchUsers();
+
       this.showMessage("Você esta participando da planning!");
     });
   }
@@ -91,6 +98,8 @@ export class UserListComponent implements OnInit {
           this.planningUserEvent.emit(this.planningUser);
         }
 
+        this.socketService.fetchUsers();
+
         this.checkForAdmin();
       });
     }
@@ -100,14 +109,12 @@ export class UserListComponent implements OnInit {
     this.action.value = value;
     
     if (this.action.id > 0) {
-      this.planningService.setAction(this.action).subscribe();
+      this.planningService.setAction(this.action).subscribe(() => {
+        this.socketService.fetchActions();
+      });
     }
 
     this.calculateVotes();
-
-    if (value == '') {
-      this.clearUsersVote();
-    }
   }
 
   selectVote(vote: string) {
@@ -127,6 +134,9 @@ export class UserListComponent implements OnInit {
           if (concluded) {
             this.planningConcludedEvent.emit(true);
           }
+
+          this.socketService.fetchItens();
+          this.clearUsersVote();
         });
       }
     });
@@ -149,6 +159,8 @@ export class UserListComponent implements OnInit {
         }
 
         this.checkForAdmin();
+
+        this.socketService.fetchUsers();
       });
     }
   }
@@ -163,12 +175,22 @@ export class UserListComponent implements OnInit {
     return score;    
   }
 
+  private setupListeners() {
+    this.socketService.onFetchUsers().subscribe((data: any) => {
+      if (this.planningId && this.planningId.trim().length > 0) {
+        this.getUsers();
+      }
+    });
+  }
+
   private checkForAdmin() {
     if (this.users.length > 0 && this.users.filter(_user => _user.admin).length == 0) {
       const user = this.users[0];
       user.admin = true;
 
       this.planningService.updateUser(user).subscribe();
+
+      this.socketService.fetchUsers();
     }
   }
 
@@ -185,7 +207,9 @@ export class UserListComponent implements OnInit {
       const users = JSON.parse(JSON.stringify(this.users))
 
       users.forEach((user: any) => {
-        this.planningService.updateUser(user).subscribe();
+        this.planningService.updateUser(user).subscribe(() => {
+          this.socketService.fetchUsers();
+        });
       });
     }
   }
@@ -210,10 +234,6 @@ export class UserListComponent implements OnInit {
       this.users.sort((x: any, y: any) => {
         return (x.admin === y.admin) ? 0 : (x.admin ? -1 : 1);
       });
-
-      setTimeout(() => {
-        this.getUsers();  
-      }, 5000);
     });
   }
 

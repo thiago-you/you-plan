@@ -37,6 +37,16 @@ import { PlanningResumeDialogComponent } from './components/dialog/planing-resum
 import { EstoriesUploadDialogComponent } from './components/dialog/estories-upload-dialog.component';
 import { SwitchThemeComponent } from './components/switch-theme/switch-theme.component';
 
+import { environment } from 'src/environments/environment';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = {
+  url: environment.socket,
+	options: {
+		transports: ['websocket']
+	}
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +84,7 @@ import { SwitchThemeComponent } from './components/switch-theme/switch-theme.com
     MatSortModule,
     FormsModule,
     HttpClientModule,
+    SocketIoModule.forRoot(config),
   ],
   providers: [],
   bootstrap: [AppComponent]

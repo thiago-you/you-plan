@@ -1,3 +1,4 @@
+import { SocketService } from 'src/app/services/socket.service';
 import { PlanningItem } from '../planningItem';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef, MatDialogState } from '@angular/material/dialog';
@@ -44,6 +45,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute, 
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
+    private socketService: SocketService,
   ) {
     this.planningConcludedEvent = new EventEmitter<boolean>()
   }
@@ -58,6 +60,8 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
     });
 
     this.eventsSubscription = this.concludedEvent.subscribe(() => this.showConcludedDialog());
+
+    this.setupListeners();
   }
 
   ngOnDestroy(): void {
@@ -67,7 +71,10 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
   setVote(vote: string) {
     if (this.planningUser.planning == this.planningId && this.items && this.items.length > 0) {
       this.planningUser.vote = this.planningUser.vote == vote ? '' : vote;
-      this.planningService.updateUser(this.planningUser).subscribe();
+
+      this.planningService.updateUser(this.planningUser).subscribe(() => {
+        this.socketService.fetchUsers();
+      });
     }
   }
 
@@ -82,6 +89,8 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
             this.getItems();
 
             this.showMessage('Estorie alterada com sucesso!');
+
+            this.socketService.fetchItens();
           });
         } else {
           this.planningService.createItem(this.planningId, this.estorie).subscribe(() => {
@@ -91,6 +100,8 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
             this.getItems();
 
             this.showMessage('Estorie cadastrada com sucesso!');
+
+            this.socketService.fetchItens();
           });
         }
       }
@@ -198,6 +209,12 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
     dwldLink.click();
   }
 
+  private setupListeners() {
+    this.socketService.onFetchItens().subscribe((data: any) => {
+      this.getItems();
+    });
+  }
+
   private getItems() {
     this.planningService.getItems(this.planningId).subscribe(items => {
       this.items = items || [];
@@ -207,10 +224,6 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
       if (concluded != this.planningConcluded) {
         this.planningConcludedEvent.emit(concluded);
       }
-
-      setTimeout(() => {
-        this.getItems();  
-      }, 5000);
     });
   }
 
