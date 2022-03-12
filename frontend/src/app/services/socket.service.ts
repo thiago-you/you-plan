@@ -112,4 +112,18 @@ export class SocketService {
 	onFetchClearVotes() {
 		return this.socket.fromEvent('fetchClearVotes');
 	}
+
+	/**
+	 * Emit voted item event
+	 */
+	 fetchVotedItem() {
+		this.socket.emit('fetchVotedItem');
+	} 
+
+	/**
+	 * Listen to voted item event
+	 */
+	onFetchVotedItem() {
+		return this.socket.fromEvent('fetchVotedItem');
+	}
 }

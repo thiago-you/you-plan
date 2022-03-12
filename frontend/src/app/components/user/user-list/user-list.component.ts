@@ -141,6 +141,7 @@ export class UserListComponent implements OnInit {
           }
 
           this.socketService.fetchItens();
+          this.socketService.fetchVotedItem();
         });
       }
     });

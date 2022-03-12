@@ -40,15 +40,15 @@ io.on('connection', (socket) => {
         // });
 
         socket.on('fetchMessages', (msg) => {
-            socket.to(room).emit('fetchMessages', msg);
+            socket.broadcast.to(room).emit('fetchMessages', msg);
         });
 
         socket.on('fetchUsers', () => {
-            socket.to(room).emit('fetchUsers');
+            socket.broadcast.to(room).emit('fetchUsers');
         });
 
         socket.on('fetchItens', () => {
-            socket.to(room).emit('fetchItens');
+            socket.broadcast.to(room).emit('fetchItens');
         });
 
         socket.on('fetchActions', () => {
@@ -61,6 +61,10 @@ io.on('connection', (socket) => {
 
         socket.on('fetchClearVotes', () => {
             io.to(room).emit('fetchClearVotes');
+        });
+
+        socket.on('fetchVotedItem', () => {
+            socket.to(room).emit('fetchVotedItem');
         });
     });
 });

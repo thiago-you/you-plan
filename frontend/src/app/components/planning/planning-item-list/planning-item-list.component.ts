@@ -223,6 +223,10 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
     this.socketService.onFetchItens().subscribe((data: any) => {
       this.getItems();
     });
+
+    this.socketService.onFetchVotedItem().subscribe((data: any) => {
+      this.getItems();
+    });
   }
 
   private getItems() {
