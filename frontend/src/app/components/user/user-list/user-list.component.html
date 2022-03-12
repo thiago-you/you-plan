@@ -22,12 +22,12 @@
                                         <ng-container *ngIf="action?.value && action?.value == 'flip'">
                                             <ng-container *ngIf="_user?.vote != 'coffee'; else coffeeVote">
                                                 <span class="vote vote-badge">
-                                                    {{ getScore(_user?.vote) }}
+                                                    {{ getScore(planningUser?.id == _user.id ? planningUser?.vote : _user?.vote) }}
                                                 </span>
                                             </ng-container>
                                             <ng-template #coffeeVote>
                                                 <span class="vote">
-                                                    {{ getScore(_user?.vote) }}
+                                                    {{ getScore(planningUser?.id == _user.id ? planningUser?.vote : _user?.vote) }}
                                                 </span>
                                             </ng-template>
                                         </ng-container>

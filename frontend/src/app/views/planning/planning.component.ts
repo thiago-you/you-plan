@@ -44,12 +44,18 @@ export class PlanningComponent implements OnInit {
   }
 
   ngOnInit(): void { 
+    if (this.planningUser && this.planningUser.id > 0) {
+      this.socketService.connectUser(this.planningUser.id.toString());
+    }
+
     this.userStorage.value.subscribe(user => {
       this.user = user;
 
       if (this.user && this.user.id > 0) {
-        this.findPlanningUser();
-        this.getAction();
+
+        if (this.planningId && this.planningId.trim().length > 0) {
+          this.findPlanningUser();
+        }
       } else {
         this.planningUser = this.newUserInstance();
       }
@@ -112,6 +118,7 @@ export class PlanningComponent implements OnInit {
       this.planningService.findUser(this.planningId, this.user.id).subscribe((users: User[]) => {
         if (users.length > 0) {
           this.planningUser = users[0] || this.newUserInstance();
+          this.socketService.connectUser(this.planningUser.id.toString());
         }
       });
     }

@@ -13,7 +13,21 @@ export class SocketService {
 	 */
 	join(sprintId: string) {
 		this.socket.emit('room', sprintId);
-	} 
+	}
+
+	/**
+	 * Store user id on room
+	 */
+	connectUser(userId: string) {
+		this.socket.emit('user-join', userId);
+	}
+
+	/**
+	 * Listen for ui messages
+	 */
+	onUserDisconnect() {
+		return this.socket.fromEvent('user-unjoin');
+	}
 
     /**
 	 * Emit ui message
@@ -43,6 +57,20 @@ export class SocketService {
 		return this.socket.fromEvent('fetchUsers');
 	}
 
+	/**	
+	 * Emit planning users changed event
+	 */
+	fetchPlanningUsers() {
+		this.socket.emit('fetchPlanningUsers');
+	} 
+	
+	/**
+	 * Listen for planning users changed event
+	 */
+	onFetchPlanningUsers() {
+		return this.socket.fromEvent('fetchPlanningUsers');
+	}
+	
 	/**
 	 * Emit actions changed event
 	 */
@@ -69,5 +97,19 @@ export class SocketService {
 	 */
 	 onFetchItens() {
 		return this.socket.fromEvent('fetchItens');
+	}
+
+	/**
+	 * Emit clear votes event
+	 */
+	fetchClearVotes() {
+		this.socket.emit('fetchClearVotes');
+	} 
+
+	/**
+	 * Listen to clear votes event
+	 */
+	onFetchClearVotes() {
+		return this.socket.fromEvent('fetchClearVotes');
 	}
 }

@@ -74,6 +74,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
 
       this.planningService.updateUser(this.planningUser).subscribe(() => {
         this.socketService.fetchUsers();
+        this.socketService.fetchPlanningUsers();
       });
     }
   }

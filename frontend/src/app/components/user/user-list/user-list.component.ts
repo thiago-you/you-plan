@@ -49,7 +49,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userStorage.value.subscribe(user => {
-      this.user = user;  
+      this.user = user;
     });
 
     this.route.params.subscribe(params => {
@@ -141,7 +141,6 @@ export class UserListComponent implements OnInit {
           }
 
           this.socketService.fetchItens();
-          this.clearUsersVote();
         });
       }
     });
@@ -181,15 +180,47 @@ export class UserListComponent implements OnInit {
   }
 
   private setupListeners() {
-    this.socketService.onFetchUsers().subscribe((data: any) => {
+    this.socketService.onFetchUsers().subscribe(() => {
       if (this.planningId && this.planningId.trim().length > 0) {
         this.getUsers();
       }
     });
 
-    this.socketService.onFetchActions().subscribe((data: any) => {
+    this.socketService.onFetchPlanningUsers().subscribe(() => {
       this.calculateVotes();
     });
+
+    this.socketService.onFetchActions().subscribe(() => {
+      this.calculateVotes();
+    });
+
+    this.socketService.onUserDisconnect().subscribe((id: string) => {
+      this.disconnectUser(parseInt(id));
+    });
+
+    this.socketService.onFetchClearVotes().subscribe(() => {
+      this.clearUsersVote();
+    });
+  }
+
+  private disconnectUser(userId: number) {
+    const user: User = this.users.find((user: User) => user.id == userId);
+
+    if (user != null && user != undefined) {
+      this.removeUser(user);
+    }
+  }
+
+  private clearVotes() {
+    this.planningUser.vote = '';
+
+      this.users.forEach((user: any) => {
+        user.vote = '';
+      });
+
+      this.planningService.updateUser(this.planningUser).subscribe();
+
+      this.calculateVotes();
   }
 
   private checkForAdmin() {
@@ -213,13 +244,7 @@ export class UserListComponent implements OnInit {
         }
       });
 
-      const users = JSON.parse(JSON.stringify(this.users))
-
-      users.forEach((user: any) => {
-        this.planningService.updateUser(user).subscribe(() => {
-          this.socketService.fetchUsers();
-        });
-      });
+      this.socketService.fetchClearVotes();
     }
   }
 
@@ -307,8 +332,11 @@ export class UserListComponent implements OnInit {
     ];
 
     this.users.forEach(user => {
-      if (user.vote && user.vote != '') {
+      if (user.id == this.planningUser.id) {
+        user.vote = this.planningUser.vote;
+      }
 
+      if (user.vote && user.vote != '') {
         this.votes.forEach((item: any) => {
           if (item.vote == user.vote) {
             item.count += 1;

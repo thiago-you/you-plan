@@ -9,25 +9,58 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+// manage user id
+var sockets = {};
+
 io.on('connection', (socket) => {
+    const id = socket.id;
+
     // sprint room events
-    socket.on('room', function(room) {
+    socket.on('room', function(room) {   
         socket.join(room);
         
+        socket.on('user-join', (userId) => {
+            if (userId != undefined) {
+                sockets[id] = userId;
+            }
+        });
+    
+        // socket.on('disconnect', () => {
+        //     if (sockets[id] != undefined) {
+        //         const userId = sockets[id];
+                
+        //         delete sockets[id];
+                
+        //         setTimeout(() => {
+        //             if (!Object.values(sockets).includes(userId)) {
+        //                 io.emit('user-unjoin', userId);
+        //             }
+        //         }, 5000);
+        //     }
+        // });
+
         socket.on('fetchMessages', (msg) => {
             socket.to(room).emit('fetchMessages', msg);
         });
 
         socket.on('fetchUsers', () => {
-            io.to(room).emit('fetchUsers');
+            socket.to(room).emit('fetchUsers');
+        });
+
+        socket.on('fetchItens', () => {
+            socket.to(room).emit('fetchItens');
         });
 
         socket.on('fetchActions', () => {
             io.to(room).emit('fetchActions');
         });
 
-        socket.on('fetchItens', () => {
-            io.to(room).emit('fetchItens');
+        socket.on('fetchPlanningUsers', () => {
+            io.to(room).emit('fetchPlanningUsers');
+        });
+
+        socket.on('fetchClearVotes', () => {
+            io.to(room).emit('fetchClearVotes');
         });
     });
 });
