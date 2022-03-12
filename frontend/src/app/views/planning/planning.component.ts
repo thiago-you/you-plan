@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SocketService } from 'src/app/services/socket.service';
 import { Planning } from './../../components/planning/planning';
 import { ActivatedRoute } from '@angular/router';
@@ -32,6 +33,7 @@ export class PlanningComponent implements OnInit {
     private userStorage: UserStorage, 
     private planningService: PlanningService,
     private route: ActivatedRoute, 
+    private snackBar: MatSnackBar,
     private socketService: SocketService,
   ) {
     this.planningId = '';
@@ -90,8 +92,12 @@ export class PlanningComponent implements OnInit {
   }
 
   private setupListeners() {
-    this.socketService.onFetchActions().subscribe((data: any) => {
+    this.socketService.onFetchActions().subscribe(() => {
         this.getAction();
+    });
+
+    this.socketService.onFetchMessages().subscribe((message: string) => {
+      this.showMessage(message);
     });
   }
   
@@ -107,10 +113,6 @@ export class PlanningComponent implements OnInit {
         if (users.length > 0) {
           this.planningUser = users[0] || this.newUserInstance();
         }
-
-        // setTimeout(() => {
-        //   this.findPlanningUser();  
-        // }, 10000);
       });
     }
   }
@@ -128,6 +130,21 @@ export class PlanningComponent implements OnInit {
           this.action = action;
         });
       }
+    });
+  }
+
+  private showMessage(msg: string, type: string = 'success'): void {
+    let panelClass = 'blue-snackbar';
+    
+    if (type == 'danger' || type == 'red') {
+      panelClass = 'red-snackbar';
+    }
+
+    this.snackBar.open(msg, '', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      panelClass: [ panelClass ]
     });
   }
 }

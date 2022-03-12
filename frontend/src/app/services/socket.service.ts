@@ -16,6 +16,20 @@ export class SocketService {
 	} 
 
     /**
+	 * Emit ui message
+	 */
+	 fetchMessages(message: string) {
+		this.socket.emit('fetchMessages', message);
+	} 
+
+	/**
+	 * Listen for ui messages
+	 */
+	onFetchMessages() {
+		return this.socket.fromEvent('fetchMessages');
+	}
+
+	/**
 	 * Emit users changed event
 	 */
 	fetchUsers() {

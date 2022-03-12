@@ -89,6 +89,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
             this.getItems();
 
             this.showMessage('Estorie alterada com sucesso!');
+            this.socketService.fetchMessages('Um estorie foi alterado.');
 
             this.socketService.fetchItens();
           });
@@ -100,6 +101,7 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
             this.getItems();
 
             this.showMessage('Estorie cadastrada com sucesso!');
+            this.socketService.fetchMessages('Um novo estorie foi cadastrado.');
 
             this.socketService.fetchItens();
           });
@@ -129,6 +131,9 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
       }
 
       this.showMessage('Estorie deletado com sucesso!');
+      this.socketService.fetchMessages('Um estorie foi deletado.');
+
+      this.socketService.fetchItens();
     });
   }
 
@@ -139,7 +144,11 @@ export class PlanningItemListComponent implements OnInit, OnDestroy {
       this.planningConcludedEvent.emit(false);
 
       this.getItems();
+
       this.showMessage('O voto da estorie foi removido com sucesso!');
+      this.socketService.fetchMessages('O voto de um estorie foi removido.');
+
+      this.socketService.fetchItens();
     });
   }
 

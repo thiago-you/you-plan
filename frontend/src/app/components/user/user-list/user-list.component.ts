@@ -83,8 +83,6 @@ export class UserListComponent implements OnInit {
       this.planningUserEvent.emit(user);
 
       this.socketService.fetchUsers();
-
-      this.showMessage("Você esta participando da planning!");
     });
   }
 
@@ -125,7 +123,14 @@ export class UserListComponent implements OnInit {
         item.score = vote;
   
         this.planningService.updateItem(item).subscribe(() => {
-          this.showMessage('O estorie foi votado com sucesso!');
+          if (vote == 'skip') {
+            this.showMessage('O estorie foi pulado com sucesso!');
+            this.socketService.fetchMessages('O estorie foi pulado.');
+          } else {
+            this.showMessage('O estorie foi votado com sucesso!');
+            this.socketService.fetchMessages('O estorie foi votado.');
+          }
+
           this.setAction('');
           this.clearUsersVote();
 
@@ -180,6 +185,10 @@ export class UserListComponent implements OnInit {
       if (this.planningId && this.planningId.trim().length > 0) {
         this.getUsers();
       }
+    });
+
+    this.socketService.onFetchActions().subscribe((data: any) => {
+      this.calculateVotes();
     });
   }
 
@@ -242,78 +251,74 @@ export class UserListComponent implements OnInit {
   }
   
   private calculateVotes() {
-    this.votes = [];
+    this.votesCount = 0;
 
-    if (this.action.value == 'flip') {
-      this.votesCount = 0;
+    this.votes = [
+      {
+        'vote': '0',
+        'name': '0',
+        'count': 0,
+      },
+      {
+        'vote': '1',
+        'name': '1',
+        'count': 0,
+      },
+      {
+        'vote': '2',
+        'name': '2',
+        'count': 0,
+      },
+      {
+        'vote': '3',
+        'name': '3',
+        'count': 0,
+      },
+      {
+        'vote': '5',
+        'name': '5',
+        'count': 0,
+      },
+      {
+        'vote': '8',
+        'name': '8',
+        'count': 0,
+      },
+      {
+        'vote': '13',
+        'name': '13',
+        'count': 0,
+      },
+      {
+        'vote': '20',
+        'name': '20',
+        'count': 0,
+      },
+      {
+        'vote': '?',
+        'name': '?',
+        'count': 0,
+      },
+      {
+        'vote': 'coffee',
+        'name': '☕',
+        'count': 0,
+      },
+    ];
 
-      this.votes = [
-        {
-          'vote': '0',
-          'name': '0',
-          'count': 0,
-        },
-        {
-          'vote': '1',
-          'name': '1',
-          'count': 0,
-        },
-        {
-          'vote': '2',
-          'name': '2',
-          'count': 0,
-        },
-        {
-          'vote': '3',
-          'name': '3',
-          'count': 0,
-        },
-        {
-          'vote': '5',
-          'name': '5',
-          'count': 0,
-        },
-        {
-          'vote': '8',
-          'name': '8',
-          'count': 0,
-        },
-        {
-          'vote': '13',
-          'name': '13',
-          'count': 0,
-        },
-        {
-          'vote': '20',
-          'name': '20',
-          'count': 0,
-        },
-        {
-          'vote': '?',
-          'name': '?',
-          'count': 0,
-        },
-        {
-          'vote': 'coffee',
-          'name': '☕',
-          'count': 0,
-        },
-      ];
+    this.users.forEach(user => {
+      if (user.vote && user.vote != '') {
 
-      this.users.forEach(user => {
-        if (user.vote && user.vote != '') {
+        this.votes.forEach((item: any) => {
+          if (item.vote == user.vote) {
+            item.count += 1;
+            this.votesCount += 1;
+          }
+        });
+      }
+    });
 
-          this.votes.forEach((item: any) => {
-            if (item.vote == user.vote) {
-              item.count += 1;
-              this.votesCount += 1;
-            }
-          });
-        }
-      });
-
-      this.votes = this.votes.filter((item: any) => item.count > 0);
-    }
+    this.votes = this.votes.filter((item: any) => item.count > 0);
   }
 
   private showMessage(msg: string, type: string = 'success'): void {
