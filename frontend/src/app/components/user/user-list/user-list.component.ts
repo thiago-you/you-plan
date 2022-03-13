@@ -204,11 +204,17 @@ export class UserListComponent implements OnInit {
   }
 
   private disconnectUser(userId: string) {
-    const user: User = this.users.find((user: User) => user.id == userId);
+    const user: User = this.users.find((_user: User) => _user.id == userId);
+    this.users = this.users.filter(_user => _user.id != userId);
 
-    if (user != null && user != undefined) {
-      this.removeUser(user);
-    }
+    // random timeout for salt validation
+    let random = Math.floor(Math.random() * 5) + 1;
+
+    setTimeout(() => {
+      if (user != null && user != undefined) {
+        this.removeUser(user);
+      }
+    }, random * 1000);
   }
 
   private checkForAdmin() {
