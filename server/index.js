@@ -52,19 +52,19 @@ io.on('connection', (socket) => {
         });
 
         socket.on('fetchActions', () => {
-            io.to(room).emit('fetchActions');
+            socket.broadcast.to(room).emit('fetchActions');
+        });
+
+        socket.on('fetchClearVotes', () => {
+            socket.broadcast.to(room).emit('fetchClearVotes');
         });
 
         socket.on('fetchPlanningUsers', () => {
             io.to(room).emit('fetchPlanningUsers');
         });
 
-        socket.on('fetchClearVotes', () => {
-            io.to(room).emit('fetchClearVotes');
-        });
-
         socket.on('fetchVotedItem', () => {
-            socket.to(room).emit('fetchVotedItem');
+            io.to(room).emit('fetchVotedItem');
         });
     });
 });

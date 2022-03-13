@@ -132,7 +132,7 @@ export class UserListComponent implements OnInit {
           }
 
           this.setAction('');
-          this.clearUsersVote();
+          this.clearVotes();
 
           const concluded = items.filter((item: PlanningItem) => !item.score || item.score?.length == 0).length == 0;
 
@@ -140,7 +140,6 @@ export class UserListComponent implements OnInit {
             this.planningConcludedEvent.emit(true);
           }
 
-          this.socketService.fetchItens();
           this.socketService.fetchVotedItem();
         });
       }
@@ -212,18 +211,6 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  private clearVotes() {
-    this.planningUser.vote = '';
-
-      this.users.forEach((user: any) => {
-        user.vote = '';
-      });
-
-      this.planningService.updateUser(this.planningUser).subscribe();
-
-      this.calculateVotes();
-  }
-
   private checkForAdmin() {
     if (this.users.length > 0 && this.users.filter(_user => _user.admin).length == 0) {
       const user = this.users[0];
@@ -244,9 +231,26 @@ export class UserListComponent implements OnInit {
           this.planningUser.vote = '';
         }
       });
-
-      this.socketService.fetchClearVotes();
     }
+  }
+
+  private clearVotes() {
+    this.planningUser.vote = '';
+
+    if (this.users && this.users.length > 0) {
+      this.users.forEach((user: any) => {
+        user.vote = '';
+        
+        if (user.id == this.planningUser.id) {
+          this.planningService.updateUser(this.planningUser).subscribe();
+        } else {
+          this.planningService.updateUser(user).subscribe();
+        }
+      });
+    }
+
+    this.calculateVotes();
+    this.socketService.fetchClearVotes();
   }
 
   private getUsers() {
