@@ -26,7 +26,7 @@
                                 </span>
                             </ng-template>
                         </div>
-                        <ng-container *ngIf="user.id > 0">
+                        <ng-container *ngIf="user.id != null">
                             <div>
                                 <i class="material-icons yellow" (click)="editPlanning(planning)">
                                     edit

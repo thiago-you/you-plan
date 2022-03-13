@@ -5,7 +5,7 @@
         </a>
     </div>
     <div class="user">
-        <ng-container *ngIf="user.id && user.id > 0; else loginForm">
+        <ng-container *ngIf="user.id && user.id != null; else loginForm">
             <ng-container *ngIf="!isLoadingUser; else loadingUser">
                 <div>
                     <span class="username">

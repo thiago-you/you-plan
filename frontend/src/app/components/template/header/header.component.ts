@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     // revalidate logged user
-    if (this.user && this.user.id > 0) {
+    if (this.user && this.user.id != null) {
       this.isLoadingUser = true;
       
       this.userService.find(this.user.name).subscribe(users => {

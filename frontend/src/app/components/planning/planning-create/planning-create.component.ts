@@ -35,7 +35,7 @@ export class PlanningCreateComponent implements OnInit {
   }
 
   saveItem() {
-    if (this.user && this.user.id > 0) {
+    if (this.user && this.user.id != null) {
       if (this.planning.name == null || this.planning.name.trim().length == 0) {
         this.showMessage('O nome da planning é obrigatório!', 'danger');
       } else {
@@ -45,7 +45,7 @@ export class PlanningCreateComponent implements OnInit {
             this.showMessage('Planning alterada com sucesso!');
           });
         } else {
-          this.planning.created_by = this.user.id as number;
+          this.planning.created_by = this.user.id;
 
           this.planningService.create(this.planning).subscribe((planning) => {
             this.resetItem();

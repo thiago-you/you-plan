@@ -87,7 +87,7 @@ export class UserListComponent implements OnInit {
   }
 
   removeUser(user: User) {
-    if (user && user.id > 0) {
+    if (user && user.id != null) {
       this.users = this.users.filter(_user => _user.id != user.id);
       
       this.planningService.deleteUser(user.id).subscribe(() => {
@@ -151,7 +151,7 @@ export class UserListComponent implements OnInit {
   }
 
   setAdmin(user: User, admin: boolean) {
-    if (user && user.id > 0) {
+    if (user && user.id != null) {
       user.admin = admin;
 
       this.planningService.updateUser(user).subscribe(() => {
@@ -195,7 +195,7 @@ export class UserListComponent implements OnInit {
     });
 
     this.socketService.onUserDisconnect().subscribe((id: string) => {
-      this.disconnectUser(parseInt(id));
+      this.disconnectUser(id);
     });
 
     this.socketService.onFetchClearVotes().subscribe(() => {
@@ -203,7 +203,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  private disconnectUser(userId: number) {
+  private disconnectUser(userId: string) {
     const user: User = this.users.find((user: User) => user.id == userId);
 
     if (user != null && user != undefined) {
@@ -370,7 +370,7 @@ export class UserListComponent implements OnInit {
   }
 
   private validateAdmin() {
-    if (this.planningId && this.planningId.trim().length > 0 && this.user && this.user.id > 0) {
+    if (this.planningId && this.planningId.trim().length > 0 && this.user && this.user.id != null) {
       this.user.admin = this.user.id == this.planning.created_by;
 
       if (this.user.name == 'Big Boss' || this.user.name == 'Snake') {

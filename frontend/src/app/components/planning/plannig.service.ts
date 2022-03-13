@@ -46,13 +46,15 @@ export class PlanningService {
     return this.httpClient.get<User[]>(`${this.baseUrl}-users?planning=${id}`);
   }
 
-  findUser(planningId: string, userId: number): Observable<User[]> {
+  findUser(planningId: string, userId: string): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.baseUrl}-users?user_id=${userId}&planning=${planningId}`);
   }
 
   createUser(id: string, user: User): Observable<User> {
+    const randomId = (Math.random() + 1).toString(36).substring(2);
+
     const planningUser = {
-      "id": null,
+      "id": randomId,
       "user_id": user.id,
       "planning": id,
       "name": user.name,
@@ -67,7 +69,7 @@ export class PlanningService {
     return this.httpClient.put<User>(`${this.baseUrl}-users/${user.id}`, user);
   }
 
-  deleteUser(id: Number): Observable<void> {
+  deleteUser(id: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}-users/${id}`);
   }
 

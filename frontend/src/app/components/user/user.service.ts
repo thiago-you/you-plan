@@ -16,6 +16,8 @@ export class UserService {
   }
 
   create(user: User): Observable<User> {
+    user.id = (Math.random() + 1).toString(36).substring(2);
+
     return this.httpClient.post<User>(this.baseUrl, user);
   }
 
@@ -23,7 +25,7 @@ export class UserService {
     return this.httpClient.get<User[]>(this.baseUrl);
   }
 
-  get(id: Number): Observable<User> {
+  get(id: string): Observable<User> {
     return this.httpClient.get<User>(`${this.baseUrl}/${id}`);
   }
   
@@ -31,7 +33,7 @@ export class UserService {
     return this.httpClient.put<User>(`${this.baseUrl}/${user.id}`, user);
   }
   
-  delete(id: Number): Observable<void> {
+  delete(id: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
   }
 

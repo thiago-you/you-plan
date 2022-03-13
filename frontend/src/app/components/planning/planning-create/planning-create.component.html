@@ -11,7 +11,7 @@
             </mat-form-field>
         </form>
         <div>
-            <ng-container *ngIf="user && user.id > 0; else disabledActions">
+            <ng-container *ngIf="user && user.id != null; else disabledActions">
                 <button mat-raised-button color="primary" (click)="saveItem()">
                     Salvar                            
                 </button>

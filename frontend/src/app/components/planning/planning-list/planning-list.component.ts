@@ -35,7 +35,7 @@ export class PlanningListComponent implements OnInit {
     this.userStorage.value.subscribe(user => {
       this.user = user;
 
-      if (this.user && this.user.id > 0) {
+      if (this.user && this.user.id != null) {
         this.getPlannings();
       } else {
         this.plannings = [];
@@ -64,7 +64,7 @@ export class PlanningListComponent implements OnInit {
   }
 
   private getPlannings() {
-    if (this.user && this.user.id > 0) {
+    if (this.user && this.user.id != null) {
       this.planningService.getFromUser(this.user.id).subscribe(plannings => {
         this.plannings = plannings || [];
   

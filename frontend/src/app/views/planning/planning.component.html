@@ -1,7 +1,7 @@
 <div class="content">
     <div class="container">
         <section id="actions">
-            <ng-container *ngIf="planningUser.id > 0 && planningUser.admin">
+            <ng-container *ngIf="planningUser.id != null && planningUser.admin">
                 <button mat-raised-button (click)="toggleUiMode()">
                     <ng-container *ngIf="uiMode == 'normal'; else simplified">
                         Simplificar
