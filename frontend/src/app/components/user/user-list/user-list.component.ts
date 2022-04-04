@@ -188,7 +188,7 @@ export class UserListComponent implements OnInit {
   toggleAdmin() {
     if (this.clickCount > 10) {
       this.clickCount = 0;
-      this.showAdminButtons = true;
+      this.showAdminButtons = !this.showAdminButtons;
     } else {
       if (this.clickCount == 0) {
         setTimeout(() => {
