@@ -23,6 +23,7 @@ export class SocketService {
 			if (this.isConnected == false) {
 				const user = userStorage.user;
 
+				// reconnect user
 				planningService.findUser('', user.id).subscribe((users: User[]) => {
 					if (users.length > 0) {
 					  const planningUser = users[0];
@@ -171,7 +172,7 @@ export class SocketService {
 	}
 
 	/**
-	 * Try to reconnect into socket
+	 * Try to reconnect into socket and update reference
 	 */
 	reConnect() {
 		setTimeout(() => {
