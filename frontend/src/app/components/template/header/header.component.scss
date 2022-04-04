@@ -19,6 +19,16 @@
                 font-style: italic;
                 color: rgb(17, 139, 238);
             }
+
+            small {
+                font-size: 0.7rem;
+                margin-left: 0.1rem;
+                font-weight: normal;
+            }
+
+            span.text-red, small.text-red {
+                color: #f95454;
+            }
         }
 
     }

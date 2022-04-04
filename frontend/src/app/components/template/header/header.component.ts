@@ -13,7 +13,8 @@ export class HeaderComponent implements OnInit {
 
   user: User;
   isLoadingUser: boolean;
-
+  public version = 'v2.1';
+  
   constructor(private userStorage: UserStorage, private userService: UserService, private snackBar: MatSnackBar) { 
     this.isLoadingUser = false;
     this.user = this.userStorage.user;
