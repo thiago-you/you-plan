@@ -31,6 +31,9 @@ export class UserListComponent implements OnInit {
 
   private planningId: string;
 
+  clickCount = 0;
+  showAdminButtons = false;
+
   constructor(
     private userStorage: UserStorage, 
     private planningService: PlanningService, 
@@ -151,6 +154,9 @@ export class UserListComponent implements OnInit {
   }
 
   setAdmin(user: User, admin: boolean) {
+    this.clickCount = 0;
+    this.showAdminButtons = false;
+
     if (user && user.id != null) {
       user.admin = admin;
 
@@ -177,6 +183,21 @@ export class UserListComponent implements OnInit {
     }
 
     return score;    
+  }
+
+  toggleAdmin() {
+    if (this.clickCount > 10) {
+      this.clickCount = 0;
+      this.showAdminButtons = true;
+    } else {
+      if (this.clickCount == 0) {
+        setTimeout(() => {
+          this.clickCount = 0;
+        }, 5000);
+      }
+
+      this.clickCount++;
+    }
   }
 
   private setupListeners() {

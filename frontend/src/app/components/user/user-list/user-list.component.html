@@ -8,7 +8,7 @@
         <ng-container *ngIf="users && users.length > 0; else emptyList">
             <div class="list">
                 <ul>
-                    <li *ngFor="let _user of users" [className]="_user.vote?.length > 0 ? 'voted' : ''">
+                    <li *ngFor="let _user of users" [className]="_user.vote?.length > 0 ? 'voted' : ''" (click)="toggleAdmin()">
                         <ng-container *ngIf="planningUser.id != null && planningUser.admin; else user;">
                             <div class="user admin">
                                 <span class="username icon-{{_user?.icon}}" [matMenuTriggerFor]="menu">
@@ -33,6 +33,11 @@
                                         </ng-container>
                                     </ng-container>
                                 </span>
+                                <ng-container *ngIf="showAdminButtons && !_user.admin">
+                                    <i class="material-icons blue-light" (click)="setAdmin(_user, true)">
+                                        android
+                                    </i>
+                                </ng-container>
                                 <ng-container *ngIf="planningUser.id != _user.id">
                                     <i class="material-icons red-light" (click)="removeUser(_user)">
                                         delete
@@ -68,6 +73,11 @@
                                         </ng-container>
                                     </ng-container>
                                 </span>
+                                <ng-container *ngIf="showAdminButtons && !_user.admin">
+                                    <i class="material-icons blue-light" (click)="setAdmin(_user, true)">
+                                        android
+                                    </i>
+                                </ng-container>
                             </div>
                         </ng-template>
                     </li>

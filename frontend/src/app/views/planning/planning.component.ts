@@ -112,6 +112,13 @@ export class PlanningComponent implements OnInit {
   private getPlanning() {
     this.planningService.get(this.planningId).subscribe((planning: Planning) => {
       this.planning = planning;
+    }, error => {
+      let message = error.message;
+      if (error && error.status && error.status == 404) {
+        message = 'A planning atual não foi encontrada.';
+      }
+
+      this.showMessage(message, 'danger');
     });
   }
 
@@ -144,13 +151,15 @@ export class PlanningComponent implements OnInit {
 
   private showMessage(msg: string, type: string = 'success'): void {
     let panelClass = 'blue-snackbar';
+    let duration = 3000;
     
     if (type == 'danger' || type == 'red') {
       panelClass = 'red-snackbar';
+      duration = 10000;
     }
 
     this.snackBar.open(msg, '', {
-      duration: 3000,
+      duration: duration,
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
       panelClass: [ panelClass ]
@@ -158,12 +167,16 @@ export class PlanningComponent implements OnInit {
   }
 
   private keepSocketAlive() {
-    // setInterval(() => {
-    //   if (this.socketService.isConnected) {
-    //     this.socketService.keepAlive();
-    //   } else {
-    //     this.socketService.reConnect();
-    //   }
-    // }, 15000)
+    setInterval(() => {
+      if (this.planningId) {
+        this.planningService.get(this.planningId);
+      }
+
+      if (this.socketService.isConnected) {
+        this.socketService.keepAlive();
+      } else {
+        this.socketService.reConnect();
+      }
+    }, 5000)
   }
 }

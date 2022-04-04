@@ -60,6 +60,12 @@ export class PlanningListComponent implements OnInit {
 
     this.planningService.delete(item.id).subscribe(() => {
       this.showMessage('Planning deletada com sucesso!');
+
+      this.planningService.getItems(item.id).subscribe(items => {
+        items.forEach((item: any) => {
+          this.planningService.deleteItem(item.id).subscribe();
+        });
+      });
     });
   }
 

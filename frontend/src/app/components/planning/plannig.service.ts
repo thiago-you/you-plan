@@ -31,7 +31,7 @@ export class PlanningService {
   }
 
   get(id: string): Observable<Planning> {
-    return this.httpClient.get<Planning>(`${this.baseUrl}/${id}?embed`);
+    return this.httpClient.get<Planning>(`${this.baseUrl}/${id}`);
   }
   
   update(planning: Planning): Observable<Planning> {
