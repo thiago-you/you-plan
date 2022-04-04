@@ -95,7 +95,7 @@ export class EstoriesUploadDialogComponent implements OnInit {
             if (!this.uploadDone) {
                 this.uploadDone = true;
                 this.showMessage('Importação realizada com sucesso!');
-                this.socketService.fetchItens();
+                this.socketService.fetchVotedItem();
                 this.close();
             }
 
