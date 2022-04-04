@@ -11,7 +11,7 @@
                     <li *ngFor="let _user of users" [className]="_user.vote?.length > 0 ? 'voted' : ''">
                         <ng-container *ngIf="planningUser.id != null && planningUser.admin; else user;">
                             <div class="user admin">
-                                <span class="username" [matMenuTriggerFor]="menu">
+                                <span class="username icon-{{_user?.icon}}" [matMenuTriggerFor]="menu">
                                     {{_user.name}}
                                     
                                     <ng-container *ngIf="_user.admin">
@@ -46,7 +46,7 @@
                         </ng-container>
                         <ng-template #user>
                             <div class="user">
-                                <span class="username">
+                                <span class="username icon-{{_user?.icon}}">
                                     {{_user.name}}
                                     
                                     <ng-container *ngIf="_user.admin">

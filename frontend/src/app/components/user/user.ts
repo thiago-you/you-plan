@@ -4,5 +4,6 @@ export interface User {
     planning?: string,
     name: string,
     vote?: string,
+    icon?: string,
     admin?: Boolean,
 }

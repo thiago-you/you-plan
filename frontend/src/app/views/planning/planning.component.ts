@@ -44,6 +44,8 @@ export class PlanningComponent implements OnInit {
   }
 
   ngOnInit(): void { 
+    this.keepSocketAlive();
+
     if (this.planningUser && this.planningUser.id != null) {
       this.socketService.connectUser(this.planningUser.id.toString());
     }
@@ -153,5 +155,15 @@ export class PlanningComponent implements OnInit {
       verticalPosition: 'bottom',
       panelClass: [ panelClass ]
     });
+  }
+
+  private keepSocketAlive() {
+    // setInterval(() => {
+    //   if (this.socketService.isConnected) {
+    //     this.socketService.keepAlive();
+    //   } else {
+    //     this.socketService.reConnect();
+    //   }
+    // }, 15000)
   }
 }

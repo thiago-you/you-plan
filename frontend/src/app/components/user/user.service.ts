@@ -17,6 +17,13 @@ export class UserService {
 
   create(user: User): Observable<User> {
     user.id = (Math.random() + 1).toString(36).substring(2);
+    user.icon = '';
+
+    if (user.name != null && user.name.toLocaleLowerCase() == 'you') {
+      user.icon = '1';
+    } else {
+      user.icon += Math.floor(Math.random() * (14 - 2 + 1)) + 2;
+    }
 
     return this.httpClient.post<User>(this.baseUrl, user);
   }

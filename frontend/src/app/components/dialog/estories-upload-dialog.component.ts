@@ -1,3 +1,4 @@
+import { SocketService } from 'src/app/services/socket.service';
 import { ThemeStorage } from './../switch-theme/theme.storage';
 import { PlanningItem } from './../planning/planningItem';
 import { PlanningService } from './../planning/plannig.service';
@@ -26,6 +27,7 @@ export class EstoriesUploadDialogComponent implements OnInit {
         private dialogRef: MatDialogRef<EstoriesUploadDialogComponent>,
         private planningService: PlanningService, 
         private snackBar: MatSnackBar,
+        private socketService: SocketService,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.planningId = '';
@@ -93,6 +95,7 @@ export class EstoriesUploadDialogComponent implements OnInit {
             if (!this.uploadDone) {
                 this.uploadDone = true;
                 this.showMessage('Importação realizada com sucesso!');
+                this.socketService.fetchItens();
                 this.close();
             }
 

@@ -264,6 +264,16 @@ export class UserListComponent implements OnInit {
       this.users = users || [];
 
       this.users.forEach(user => {
+        if (this.user.icon == undefined || this.user.icon == '' || this.user.icon == null) {
+          if (user.name != null && user.name.toLocaleLowerCase() == 'you') {
+            user.icon = '1';
+          } else {
+            user.icon += Math.floor(Math.random() * (14 - 2 + 1)) + 2;
+          }
+        } else {
+          user.icon = this.user.icon;
+        }
+
         if (this.planningUser.id == user.id) {
           this.planningUser = user;
           this.planningUserEvent.emit(this.planningUser);

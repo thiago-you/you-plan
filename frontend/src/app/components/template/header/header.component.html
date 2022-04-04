@@ -8,7 +8,7 @@
         <ng-container *ngIf="user.id && user.id != null; else loginForm">
             <ng-container *ngIf="!isLoadingUser; else loadingUser">
                 <div>
-                    <span class="username">
+                    <span class="username icon-{{user?.icon}}">
                         {{user.name}}
                     </span>
                 </div>

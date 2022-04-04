@@ -47,7 +47,11 @@ export class PlanningService {
   }
 
   findUser(planningId: string, userId: string): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.baseUrl}-users?user_id=${userId}&planning=${planningId}`);
+    if (planningId != null && planningId.length > 0 && userId != null && userId.length > 0) {
+      return this.httpClient.get<User[]>(`${this.baseUrl}-users?user_id=${userId}&planning=${planningId}`)
+    }
+
+    return this.httpClient.get<User[]>(`${this.baseUrl}-users?user_id=${userId}`);
   }
 
   createUser(id: string, user: User): Observable<User> {
@@ -60,7 +64,18 @@ export class PlanningService {
       "name": user.name,
       "admin": user.admin,
       "vote": "",
+      "icon": ""
     };
+
+    if (user.icon == undefined || user.icon == '' || user.icon == null) {
+      if (planningUser.name != null && planningUser.name.toLocaleLowerCase() == 'you') {
+        planningUser.icon = '1';
+      } else {
+        planningUser.icon += Math.floor(Math.random() * (14 - 2 + 1)) + 2;
+      }
+    } else {
+      planningUser.icon = user.icon;
+    }
 
     return this.httpClient.post<User>(`${this.baseUrl}-users`, planningUser);
   }

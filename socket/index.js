@@ -66,6 +66,10 @@ io.on('connection', (socket) => {
         socket.on('fetchVotedItem', () => {
             io.to(room).emit('fetchVotedItem');
         });
+
+        socket.on('keepAlive', () => {
+            io.emit('keepAlive');
+        });
     });
 });
 
