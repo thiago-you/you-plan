@@ -58,8 +58,6 @@ export class UserListComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.planningId = params['id'];
 
-      console.log(params);
-      
       if (this.planningId != undefined && this.planningId.trim().length > 0) {
         this.socketService.join(this.planningId);
         this.getUsers();
@@ -419,6 +417,10 @@ export class UserListComponent implements OnInit {
   }
 
   private validateAdmin() {
+    if (this.planning == undefined || this.planning == null) {
+      return;
+    }
+
     if (this.planningId != undefined && this.planningId.trim().length > 0 && this.user && this.user.id != null) {
       this.user.admin = this.user.id == this.planning.created_by;
 
