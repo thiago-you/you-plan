@@ -57,8 +57,10 @@ export class UserListComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.planningId = params['id'];
+
+      console.log(params);
       
-      if (this.planningId && this.planningId.trim().length > 0) {
+      if (this.planningId != undefined && this.planningId.trim().length > 0) {
         this.socketService.join(this.planningId);
         this.getUsers();
       }
@@ -202,7 +204,7 @@ export class UserListComponent implements OnInit {
 
   private setupListeners() {
     this.socketService.onFetchUsers().subscribe(() => {
-      if (this.planningId && this.planningId.trim().length > 0) {
+      if (this.planningId != undefined && this.planningId.trim().length > 0) {
         this.getUsers();
       }
     });
@@ -417,7 +419,7 @@ export class UserListComponent implements OnInit {
   }
 
   private validateAdmin() {
-    if (this.planningId && this.planningId.trim().length > 0 && this.user && this.user.id != null) {
+    if (this.planningId != undefined && this.planningId.trim().length > 0 && this.user && this.user.id != null) {
       this.user.admin = this.user.id == this.planning.created_by;
 
       if (this.user.name == 'Big Boss' || this.user.name == 'Snake') {
